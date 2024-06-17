@@ -1,49 +1,53 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 
-class App extends Component {
+function App() {
+  const [accessToken, setAccessToken] = useState(null);
+  const [data, setData] = useState(null);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      isLoaded: false,
+  // Function to get the access token
+  useEffect(() => {
+    const id = process.env.REACT_APP_TWITCH_CLIENT_ID;
+    const secret = process.env.REACT_APP_TWITCH_CLIENT_SECRET;
+    // POST request using fetch inside useEffect React hook
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+    };
+    fetch(`https://id.twitch.tv/oauth2/token?client_id=${id}&client_secret=${secret}&grant_type=client_credentials`, requestOptions)
+        .then(response => response.json())
+        .then(data => setAccessToken(data.access_token));
+
+// empty dependency array means this effect will only run once (like componentDidMount in classes)
+  }, []);
+
+  useEffect(() => {
+    if (accessToken) {
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Client-ID': process.env.REACT_APP_TWITCH_CLIENT_ID,
+          'Authorization': `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({fields: '*', limit: 20}),
+      };
+      const fetchData = async () => {
+        const response = await fetch('https://api.igdb.com/v4/games', requestOptions);
+        const result = await response.json()
+        setData(result)
+      }
+      fetchData(accessToken)
     }
-  }
+  }, [accessToken]);
 
-  componentDidMount() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          data: json,
-          isLoaded: true,
-        })
-      });
-  }
-
-  render () {
-
-    var { isLoaded, data } = this.state;
-
-    if (!isLoaded) {
-      return <div>Loading...</div>
-    } else {
-      return (
-        <div className="App">
-          <ul>
-            {data.map(datum => (
-              <li key={datum.id}>
-                Name: {datum.name} | Email: {datum.email}
-              </li>
-            ))};
-          </ul>
-        </div>
-      );
-    }
-      
-
-  }
-
+  return (
+    <div className="text-center">
+      <div>Access Token: {accessToken}</div>
+      <div>
+        <pre>{JSON.stringify(data, null, 2)}</pre>
+      </div>
+    </div>
+    );
 }
 
 export default App;
