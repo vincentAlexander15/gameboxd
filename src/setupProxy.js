@@ -9,10 +9,6 @@ module.exports = function(app) {
             pathRewrite: {
                 '^/igdb': '',  // Remove '/igdb' from the path
             },
-            headers: {
-                'Client-ID': process.env.REACT_APP_TWITCH_CLIENT_ID,
-                'Authorization': `Bearer ${process.env.REACT_APP_TWITCH_CLIENT_SECRET}`,
-            },
         })
     );
 };

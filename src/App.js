@@ -22,29 +22,29 @@ function App() {
 
   useEffect(() => {
     if (accessToken) {
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Client-ID': process.env.REACT_APP_TWITCH_CLIENT_ID,
-          'Authorization': `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({fields: '*', limit: 20}),
-      };
-      const fetchData = async () => {
-        const response = await fetch('https://api.igdb.com/v4/games', requestOptions);
-        const result = await response.json()
-        setData(result)
-      }
-      fetchData(accessToken)
+        const requestOptions = {
+          method: 'POST',
+          headers: {
+            'Client-ID': process.env.REACT_APP_TWITCH_CLIENT_ID,
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: "fields name; limit 20;",
+        };
+        const fetchData = async () => {
+          const response = await fetch('/igdb/games', requestOptions);
+          const result = await response.json()
+          console.log('API Result: ', result);
+          setData(result)
+        }
+        fetchData(accessToken)
     }
   }, [accessToken]);
 
   return (
     <div className="text-center">
-      <div>Access Token: {accessToken}</div>
       <div>
-        <pre>{JSON.stringify(data, null, 2)}</pre>
+        <pre>{JSON.stringify(data, null, 5)}</pre>
       </div>
     </div>
     );
