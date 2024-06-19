@@ -8,7 +8,6 @@ function App() {
   useEffect(() => {
     const id = process.env.REACT_APP_TWITCH_CLIENT_ID;
     const secret = process.env.REACT_APP_TWITCH_CLIENT_SECRET;
-    // POST request using fetch inside useEffect React hook
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -16,8 +15,6 @@ function App() {
     fetch(`https://id.twitch.tv/oauth2/token?client_id=${id}&client_secret=${secret}&grant_type=client_credentials`, requestOptions)
         .then(response => response.json())
         .then(data => setAccessToken(data.access_token));
-
-// empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
   useEffect(() => {
@@ -29,7 +26,7 @@ function App() {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: "fields name; limit 20;",
+          body: 'fields *; search "sonic the hedgehog"; limit 100;',
         };
         const fetchData = async () => {
           const response = await fetch('/igdb/games', requestOptions);
@@ -44,10 +41,29 @@ function App() {
   return (
     <div className="text-center">
       <div>
-        <pre>{JSON.stringify(data, null, 5)}</pre>
+        {data && 
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Summary</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.name}</td>
+                  <td>{item.summary}</td>
+                  <td><a href={item.url} target="_blank" rel="noopener noreferrer">Link</a></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        }
       </div>
     </div>
-    );
+  );
 }
 
 export default App;
