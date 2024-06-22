@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Navbar from "../components/Navbar";
 
 
 const DataPage = () => {
@@ -41,6 +42,9 @@ const DataPage = () => {
   
     return (
       <div className="text-center">
+        <div>
+          <Navbar/>
+        </div>
         <div>
           {data && 
             <table>

@@ -1,14 +1,12 @@
-// src/pages/HomePage.js
 import React from 'react';
+import Navbar from "../components/Navbar";
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   return (
     <div>
-      <h1>Welcome to my app!</h1>
-      <Link to="/DataPage">
-        <button>Go to Data</button>
-      </Link>
+      <Navbar/>
+      <Link to="/DataPage">Explore</Link>
     </div>
   );
 }

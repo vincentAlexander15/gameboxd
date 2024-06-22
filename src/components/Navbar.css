@@ -1,0 +1,23 @@
+/* components/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    background-color: #f8f8f8;
+  }
+  
+  .navbar a {
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .search-form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-form input {
+    margin-right: 1em;
+  }
+  
