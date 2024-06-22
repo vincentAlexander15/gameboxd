@@ -28,7 +28,7 @@ const Navbar = () => {
 
 return (
     <nav className="navbar">
-      <Link to="/">Home</Link>
+      <Link to="/">Gameboxd</Link>
       <form onSubmit={handleSubmit} className="search-form">
         <input
           type="text"
@@ -42,21 +42,21 @@ return (
         null
         ) : <Link to="/dashboard">Create an account</Link>}
       <div className="profile-menu">
-        <img 
+        <img
           src={isLoggedIn ? loggedInImage : loggedOutImage} 
           alt="Profile" 
           onClick={handleImageClick} 
         />
         {dropdownOpen && (
           <div className="dropdown-menu">
-            <Link to="/profile">Profile</Link>
+            <Link to="/profile" className="profile-link">Profile</Link>
             <Link to="/settings">Settings</Link>
             {isLoggedIn ? (
               <Link to="/logout">Sign out</Link>
             ) : (
               <Link to="/login">Sign in</Link>
             )}
-            <Link to="/help">About</Link>
+            <Link to="/about">About</Link>
           </div>
         )}
       </div>

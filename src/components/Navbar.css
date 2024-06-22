@@ -1,8 +1,7 @@
   .navbar {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
-    padding: 1em;
+    padding: 0.5em;
     background-color: #f8f8f8;
   }
   
@@ -10,12 +9,13 @@
     margin-right: auto;
   }
   
-
   .navbar a {
+    display: inline-block;
     color: #333;
     text-decoration: none;
-    padding-right: 80px;
-    padding-left: 100px;
+    padding: 10px;
+    margin-right: 100px;
+    margin-left: 100px;
   }
   
   .search-form {
@@ -26,27 +26,38 @@
   .search-form input {
     margin-right: 1em;
   }
-  
+ 
   .dropdown-menu {
     position: absolute;
-    top: 100%;
     right: 0;
     background-color: #f9f9f9;
-    min-width: 100px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     padding: 8px 8px;
     z-index: 1;
+    width: 150px; /* Adjust this value to your preference */
+    display: flex; /* Add this line */
+    flex-direction: column; /* Add this line */
+    align-items: center; /* Add this line */
+    text-align: center;
+  }
+
+  .profile-link {
+    display: flex;
   }
   
   .dropdown-menu a {
     color: black;
     padding: 4px 8px;
-    text-decoration: none;
+    text-decoration: none;  
     display: block;
     text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
   }
   
   /* components/Navbar.css */
-.profile-menu {
-  position: relative;
-}
+  .profile-menu {
+    position: relative;
+  }
