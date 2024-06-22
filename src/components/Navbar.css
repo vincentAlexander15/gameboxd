@@ -1,15 +1,21 @@
-/* components/Navbar.css */
-.navbar {
+  .navbar {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 1em;
     background-color: #f8f8f8;
   }
   
+  .navbar a:first-child {
+    margin-right: auto;
+  }
+  
+
   .navbar a {
     color: #333;
     text-decoration: none;
+    padding-right: 80px;
+    padding-left: 100px;
   }
   
   .search-form {
@@ -21,3 +27,26 @@
     margin-right: 1em;
   }
   
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 8px 8px;
+    z-index: 1;
+  }
+  
+  .dropdown-menu a {
+    color: black;
+    padding: 4px 8px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+  
+  /* components/Navbar.css */
+.profile-menu {
+  position: relative;
+}

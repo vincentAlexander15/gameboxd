@@ -1,9 +1,9 @@
 // components/Navbar.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // Assuming you have a CSS file for styling
-import loggedOutImage from '../images/loggedOut.jpg'; // import your logged out image
-import loggedInImage from '../images/loggedIn.jpg'; // import your logged in image
+import './Navbar.css';
+import loggedOutImage from '../images/loggedOut.png';
+import loggedInImage from '../images/loggedIn.png';
 
 const Navbar = () => {
   const [inputValue, setInputValue] = useState(''); // state for the input field
@@ -23,7 +23,10 @@ const Navbar = () => {
     setDropdownOpen(!dropdownOpen); // toggle the dropdown menu when the image is clicked
   };
 
-  return (
+  // components/Navbar.js
+// ... other code ...
+
+return (
     <nav className="navbar">
       <Link to="/">Home</Link>
       <form onSubmit={handleSubmit} className="search-form">
@@ -35,16 +38,28 @@ const Navbar = () => {
         />
         <button type="submit">Search</button>
       </form>
-      <img 
-        src={isLoggedIn ? loggedInImage : loggedOutImage} 
-        alt="Profile" 
-        onClick={handleImageClick} 
-      />
-      {dropdownOpen && (
-        <div className="dropdown-menu">
-          {/* Add your dropdown menu items here */}
-        </div>
-      )}
+      {isLoggedIn ? (
+        null
+        ) : <Link to="/dashboard">Create an account</Link>}
+      <div className="profile-menu">
+        <img 
+          src={isLoggedIn ? loggedInImage : loggedOutImage} 
+          alt="Profile" 
+          onClick={handleImageClick} 
+        />
+        {dropdownOpen && (
+          <div className="dropdown-menu">
+            <Link to="/profile">Profile</Link>
+            <Link to="/settings">Settings</Link>
+            {isLoggedIn ? (
+              <Link to="/logout">Sign out</Link>
+            ) : (
+              <Link to="/login">Sign in</Link>
+            )}
+            <Link to="/help">About</Link>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };
