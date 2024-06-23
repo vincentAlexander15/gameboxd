@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 
 
 const DataPage = () => {
     const [accessToken, setAccessToken] = useState(null);
     const [data, setData] = useState(null);
+    const location = useLocation();
+    const { searchQuery } = location.state || {};
   
     // Function to get the access token
     useEffect(() => {
@@ -19,8 +22,9 @@ const DataPage = () => {
           .then(data => setAccessToken(data.access_token));
     }, []);
   
+    // Function to fetch data from API
     useEffect(() => {
-      if (accessToken) {
+      if (accessToken && searchQuery) {
           const requestOptions = {
             method: 'POST',
             headers: {
@@ -28,7 +32,7 @@ const DataPage = () => {
               'Authorization': `Bearer ${accessToken}`,
               'Content-Type': 'application/json',
             },
-            body: 'fields *; search "sonic the hedgehog"; limit 100;',
+            body: `fields *; search "${searchQuery}"; limit 100;`,
           };
           const fetchData = async () => {
             const response = await fetch('/igdb/games', requestOptions);
@@ -38,7 +42,7 @@ const DataPage = () => {
           }
           fetchData(accessToken)
       }
-    }, [accessToken]);
+    }, [accessToken, searchQuery]);
   
     return (
       <div className="text-center">

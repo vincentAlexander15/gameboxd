@@ -1,6 +1,6 @@
 // components/Navbar.js
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import loggedOutImage from '../images/loggedOut.png';
 import loggedInImage from '../images/loggedIn.png';
@@ -9,14 +9,15 @@ const Navbar = () => {
   const [inputValue, setInputValue] = useState(''); // state for the input field
   const [isLoggedIn, setIsLoggedIn] = useState(false); // state for the login status
   const [dropdownOpen, setDropdownOpen] = useState(false); // state for the dropdown menu
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value); // update inputValue when the input field changes
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // prevent the form from refreshing the page
-    console.log('Search:', inputValue); // replace this with your search logic
+    event.preventDefault();
+    navigate('/DataPage', {state : { searchQuery: inputValue}});
   };
 
   const handleImageClick = () => {
@@ -28,7 +29,7 @@ const Navbar = () => {
 
 return (
     <nav className="navbar">
-      <Link to="/">Home</Link>
+      <Link to="/">Gameboxd</Link>
       <form onSubmit={handleSubmit} className="search-form">
         <input
           type="text"
