@@ -16,8 +16,10 @@ const Navbar = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate('/DataPage', {state : { searchQuery: inputValue}});
+    if (inputValue != null && inputValue != '') {
+      event.preventDefault();
+      navigate('/DataPage', {state : { searchQuery: inputValue}});
+    }
   };
 
   const handleImageClick = () => {
