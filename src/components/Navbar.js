@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   const handleSubmit = (event) => {
-    if (inputValue != null && inputValue != '') {
+    if (inputValue !== null && inputValue !== '') {
       event.preventDefault();
       navigate('/DataPage', {state : { searchQuery: inputValue}});
     }
@@ -26,8 +26,6 @@ const Navbar = () => {
     setDropdownOpen(!dropdownOpen); // toggle the dropdown menu when the image is clicked
   };
 
-  // components/Navbar.js
-// ... other code ...
 
 return (
     <nav className="navbar">
