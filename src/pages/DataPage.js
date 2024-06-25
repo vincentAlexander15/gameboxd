@@ -59,8 +59,8 @@ const DataPage = () => {
               setIsFound(false)
             } else {
               setIsFound(true)
-              setFirstSearch(false)
             }
+            setFirstSearch(false)
           }
           fetchData(accessToken)
       }
