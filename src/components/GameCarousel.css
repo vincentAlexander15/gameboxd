@@ -1,0 +1,30 @@
+* {
+    margin: 0px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.slider {
+    overflow: hidden;
+    padding: 60px 0;
+    white-space: nowrap;
+}
+
+.slide-track {
+    display: inline-block;
+    animation: 10s slide infinite linear;
+}
+
+.slide-track img {
+    height: 50px;
+    margin: 0 100px;
+}

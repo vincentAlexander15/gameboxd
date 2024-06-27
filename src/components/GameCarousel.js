@@ -1,4 +1,4 @@
-import Carousel from 'react-grid-carousel';
+import './GameCarousel.css';
 import React, { useState, useEffect } from 'react';
 
 const GameCarousel = () => {
@@ -27,7 +27,7 @@ const GameCarousel = () => {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: "fields *; sort rating desc; limit 10;"
+          body: "fields name, cover.*; where rating_count > 2500 ; sort rating desc; limit 10;"
         };
         const fetchData = async () => {
           const response = await fetch('/igdb/games', requestOptions);
@@ -40,39 +40,35 @@ const GameCarousel = () => {
   }, [accessToken]);
 
     return (
-      <div style={{ width: '100vw', margin: '0 auto' }}>
-        <Carousel cols={5} rows={1} autoplay={3000} gap={90} loop hideArrow>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src="https://via.placeholder.com/292x350" alt="Game 1"/>
-        </Carousel.Item>
-      </Carousel>
+      <div>
+        {data && (
+          <div class="slider">
+            <div class="slide-track">
+                <img src={data[0]["cover"].url}/>
+                <img src={data[1]["cover"].url}/>
+                <img src={data[2]["cover"].url}/>
+                <img src={data[3]["cover"].url}/>
+                <img src={data[4]["cover"].url}/>
+                <img src={data[5]["cover"].url}/>
+                <img src={data[6]["cover"].url}/>
+                <img src={data[7]["cover"].url}/>
+                <img src={data[8]["cover"].url}/>
+                <img src={data[9]["cover"].url}/>
+            </div>
+            <div class="slide-track">
+                <img src={data[0]["cover"].url}/>
+                <img src={data[1]["cover"].url}/>
+                <img src={data[2]["cover"].url}/>
+                <img src={data[3]["cover"].url}/>
+                <img src={data[4]["cover"].url}/>
+                <img src={data[5]["cover"].url}/>
+                <img src={data[6]["cover"].url}/>
+                <img src={data[7]["cover"].url}/>
+                <img src={data[8]["cover"].url}/>
+                <img src={data[9]["cover"].url}/>
+            </div>
+          </div>
+        )}
       </div>
     )
 }
