@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <div>
       <Navbar/>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '54vh' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <GameCarousel/>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
