@@ -27,7 +27,7 @@ const GameCarousel = () => {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: "fields name, cover.*; where rating_count > 800 ; sort rating desc; limit 150;"
+          body: "fields name, cover.*; where rating_count > 750 ; sort rating desc; limit 153;"
         };
         const fetchData = async () => {
           const response = await fetch('/igdb/games', requestOptions);
@@ -42,36 +42,53 @@ const GameCarousel = () => {
   return (
     <div>
       {data && (
-        <div className="slider">
-          <div className="slide-track">
-            {data.slice(0, 50).map((item, index) => (
-              <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-            ))}
+        <div className="parent">
+          <div>
+            <div className="slider">
+              <div className="slide-track">
+                {data.slice(0, 50).map((item, index) => (
+                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
+                ))}
+              </div>
+              <div className="slide-track">
+                {data.slice(0, 50).map((item, index) => (
+                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      )}
-      {data && (
-        <div className="slider">
-          <div className="slide-track">
-            {data.slice(50, 100).map((item, index) => (
-              <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-            ))}
+          <div>
+            <div className="slider">
+              <div className="slide-track">
+                {data.slice(50, 101).map((item, index) => (
+                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
+                ))}
+              </div>
+              <div className="slide-track">
+                {data.slice(50, 101).map((item, index) => (
+                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      )}
-      {data && (
-        <div className="slider">
-          <div className="slide-track">
-            {data.slice(100, 150).map((item, index) => (
-              <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-            ))}
+          <div>
+            <div className="slider">
+              <div className="slide-track">
+                {data.slice(101, 153).map((item, index) => (
+                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
+                ))}
+              </div>
+              <div className="slide-track">
+                {data.slice(101, 153).map((item, index) => (
+                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
     </div>
   );
-  
-  
 }
 
 export default GameCarousel;
