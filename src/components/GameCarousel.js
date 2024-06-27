@@ -27,7 +27,7 @@ const GameCarousel = () => {
             'Authorization': `Bearer ${accessToken}`,
             'Content-Type': 'application/json',
           },
-          body: "fields name, cover.*; where rating_count > 750 ; sort rating desc; limit 153;"
+          body: "fields name, cover.*; where rating_count > 750 ; sort rating desc; limit 165;"
         };
         const fetchData = async () => {
           const response = await fetch('/igdb/games', requestOptions);
@@ -60,12 +60,12 @@ const GameCarousel = () => {
           <div>
             <div className="slider">
               <div className="slide-track">
-                {data.slice(50, 101).map((item, index) => (
+                {data.slice(50, 105).map((item, index) => (
                   <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
                 ))}
               </div>
               <div className="slide-track">
-                {data.slice(50, 101).map((item, index) => (
+                {data.slice(50, 105).map((item, index) => (
                   <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
                 ))}
               </div>
@@ -74,12 +74,12 @@ const GameCarousel = () => {
           <div>
             <div className="slider">
               <div className="slide-track">
-                {data.slice(101, 153).map((item, index) => (
+                {data.slice(105, 165).map((item, index) => (
                   <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
                 ))}
               </div>
               <div className="slide-track">
-                {data.slice(101, 153).map((item, index) => (
+                {data.slice(105, 165).map((item, index) => (
                   <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
                 ))}
               </div>

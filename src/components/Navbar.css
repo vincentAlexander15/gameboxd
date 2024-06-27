@@ -7,15 +7,17 @@
   
   .navbar a:first-child {
     margin-right: auto;
+    margin-top: 4px;
+    font-size: 25px;
   }
   
   .navbar a {
     display: inline-block;
     color: #ffffff;
     text-decoration: none;
-    padding: 10px;
     margin-right: 100px;
     margin-left: 100px;
+    margin-top: 10px;
   }
   
   .search-form {
@@ -60,4 +62,6 @@
   /* components/Navbar.css */
   .profile-menu {
     position: relative;
+    margin-right: 30px;
+    margin-top: 4px;
   }
