@@ -1,0 +1,15 @@
+.explore {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.explore-link {
+    text-decoration: none;
+    color: white;
+    font-size: 2em;
+    background-color: #333333;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: #070707 0.3s;
+}

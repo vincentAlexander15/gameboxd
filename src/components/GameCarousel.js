@@ -42,7 +42,7 @@ const GameCarousel = () => {
   return (
     <div>
       {data && (
-        <div className="parent">
+        <div className="parent" >
           <div>
             <div className="slider">
               <div className="slide-track">
