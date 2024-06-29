@@ -1,0 +1,21 @@
+body {
+    background-color: #111113;
+}
+
+/* Style for the form container */
+.main-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+  }
+  
+  /* Style for the input field */
+  #main-search-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px; 
+    outline: none;
+  }

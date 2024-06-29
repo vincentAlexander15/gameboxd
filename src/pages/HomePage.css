@@ -1,3 +1,7 @@
+body {
+    background-color: #111113;
+}
+
 .explore {
     position: absolute;
     top: 50%;
@@ -8,8 +12,8 @@
     text-decoration: none;
     color: white;
     font-size: 2em;
-    background-color: #333333;
+    background-color: #3ab1b1;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: #070707 0.3s;
 }

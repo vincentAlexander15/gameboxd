@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
-
+import './DataPage.css'
 
 const DataPage = () => {
     const [accessToken, setAccessToken] = useState(null);
@@ -71,14 +71,14 @@ const DataPage = () => {
         <div>
           <Navbar/>
         </div>
-        <form onSubmit={handleSubmit} className="search-form">
+        <form onSubmit={handleSubmit} className="main-search-form">
           <input
+            id='main-search-input'
             type="text"
             value={inputValue}
             onChange={handleInputChange}
-            placeholder="Search for a game..."
+            placeholder="Search..."
           />
-          <button type="submit">Search</button>
         </form>
         { firstSearch ? (
           <h1>Search for a Game...</h1>
