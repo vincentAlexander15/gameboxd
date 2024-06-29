@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import Navbar from "../components/Navbar";
 import { Link } from 'react-router-dom';
 import GameCarousel from '../components/GameCarousel';
-import './HomePage.css';
+import '../styles/HomePage.css';
 
 const HomePage = () => {
   const[adjective, setAdjective] = useState('new');

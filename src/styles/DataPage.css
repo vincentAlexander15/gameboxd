@@ -1,0 +1,50 @@
+body {
+    background-color: #111113;
+}
+
+.main-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+  }
+  
+#main-search-input {
+  width: 80%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px; 
+  outline: none;
+}
+
+table {
+  width: 100%;
+  border-spacing: 30px; /* Adjust spacing between cells */
+  border-collapse: separate; /* Ensures border-spacing works */
+  padding: 50px;
+}
+
+.cover {
+  text-align: center; /* Align text horizontally center */
+  vertical-align: middle; /* Align content vertically center */
+  padding: 10px; /* Add padding for better spacing */
+  width: 15%;
+  border-width: 10px;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.description {
+  vertical-align: top;
+  padding: 10px;
+}
+
+/* Optionally, you can style images within the table */
+img {
+  max-width: 100%; /* Ensure images do not exceed their container */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove any extra spacing */
+  margin: 0px; /* Center images horizontally */
+  border-radius: 10px;
+}

@@ -1,4 +1,4 @@
-import './GameCarousel.css';
+import '../styles/GameCarousel.css';
 import React, { useState, useEffect } from 'react';
 
 const GameCarousel = () => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
-import './DataPage.css'
+import '../styles/DataPage.css'
 
 const DataPage = () => {
     const [accessToken, setAccessToken] = useState(null);
@@ -47,7 +47,7 @@ const DataPage = () => {
               'Authorization': `Bearer ${accessToken}`,
               'Content-Type': 'application/json',
             },
-            body: `fields *; search "${searchQuery}"; limit 10;`,
+            body: `fields *, cover.*; search "${searchQuery}"; limit 10;`,
           };
           const fetchData = async () => {
             const response = await fetch('/igdb/games', requestOptions);
@@ -81,7 +81,7 @@ const DataPage = () => {
           />
         </form>
         { firstSearch ? (
-          <h1>Search for a Game...</h1>
+          <h1>ZELDA</h1>
         ) : (
           isFound ? (
             <div>
@@ -89,16 +89,27 @@ const DataPage = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Summary</th>
-                      <th>URL</th>
+                      <th style={{color: 'white'}}>Cover</th>
+                      <th style={{color: 'white'}}>Summary</th>
+                      <th style={{color: 'white'}}>URL</th>
                     </tr>
                   </thead>
                   <tbody>
                     {data.map((item, index) => (
                       <tr key={index}>
-                        <td>{item.name}</td>
-                        <td>{item.summary}</td>
+                        <td className="cover">
+                          {item["cover"] && item["cover"].url ? (
+                            <img src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
+                          ) : (
+                            <span>No image available</span>
+                          )}
+                        </td>
+                        <td className="description">
+                          <div style={{ display: 'block', textAlign: 'left'}}>
+                            <h1 style={{color: 'white'}}>{item.name}</h1>
+                            <p style={{color: 'white'}}>{item.summary}</p>
+                          </div>
+                        </td>
                         <td><a href={item.url} target="_blank" rel="noopener noreferrer">Link</a></td>
                       </tr>
                     ))}
