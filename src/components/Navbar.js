@@ -13,7 +13,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value); // update inputValue when the input field changes
+    setInputValue(event.target.value); 
   };
 
   const handleSubmit = (event) => {
@@ -24,7 +24,7 @@ const Navbar = () => {
   };
 
   const handleImageClick = () => {
-    setDropdownOpen(!dropdownOpen); // toggle the dropdown menu when the image is clicked
+    setDropdownOpen(!dropdownOpen);
   };
 
 

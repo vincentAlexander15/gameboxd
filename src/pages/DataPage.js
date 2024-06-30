@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import '../styles/DataPage.css'
 
@@ -21,7 +22,7 @@ const DataPage = () => {
     };
 
     const handleInputChange = (event) => {
-      setInputValue(event.target.value); // update inputValue when the input field changes
+      setInputValue(event.target.value);
     };
   
     // Function to get the access token
@@ -54,7 +55,6 @@ const DataPage = () => {
             const result = await response.json()
             console.log('API Result: ', result);
             setData(result)
-            // check if result json is empty:
             if (result.length === 0) {
               setIsFound(false)
             } else {
@@ -65,6 +65,10 @@ const DataPage = () => {
           fetchData(accessToken)
       }
     }, [accessToken, searchQuery]);
+
+    const handleClick = (item) => {
+      navigate('/GamePage', {state : { gameData : item}});
+    }
   
     return (
       <div className="text-center">
@@ -81,34 +85,27 @@ const DataPage = () => {
           />
         </form>
         { firstSearch ? (
-          <h1>ZELDA</h1>
+          <h1>ZELDA GIF</h1>
         ) : (
           isFound ? (
             <div>
               {data && (
                 <table>
-                  <thead>
-                    <tr>
-                      <th style={{color: 'white'}}>Cover</th>
-                      <th style={{color: 'white'}}>Summary</th>
-                      <th style={{color: 'white'}}>URL</th>
-                    </tr>
-                  </thead>
                   <tbody>
                     {data.map((item, index) => (
                       <tr key={index}>
                         <td className="cover">
                           {item["cover"] && item["cover"].url ? (
-                            <img src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
+                            <img className="game-covers" src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
                           ) : (
                             <span>No image available</span>
                           )}
                         </td>
                         <td className="description">
-                          <div style={{ display: 'block', textAlign: 'left'}}>
-                            <h1 style={{color: 'white'}}>{item.name}</h1>
-                            <p style={{color: 'white'}}>{item.summary}</p>
+                          <div style={{ display: 'block', textAlign: 'left'}} onClick={() => handleClick(item)}>
+                            <h1 className="game-title">{item.name}</h1>
                           </div>
+                          <p style={{color: 'white'}}>{item.summary}</p>
                         </td>
                         <td><a href={item.url} target="_blank" rel="noopener noreferrer">Link</a></td>
                       </tr>

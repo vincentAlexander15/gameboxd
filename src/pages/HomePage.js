@@ -5,7 +5,7 @@ import GameCarousel from '../components/GameCarousel';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
-  const[adjective, setAdjective] = useState('new');
+  const[adjective, setAdjective] = useState('. . .');
 
   const updateWord = () => {
     const adjectives = [
@@ -45,7 +45,7 @@ const HomePage = () => {
         <GameCarousel/>
       </div>
       <div className='explore' onMouseEnter={handleMouseEnter}>
-          <Link to="/DataPage" className='explore-link'>Find Something . . . {adjective}</Link>
+          <Link to="/DataPage" className='explore-link'>Find Something {adjective}</Link>
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px;
+    margin: 30px 0px -60px 0px;
   }
   
 #main-search-input {
@@ -20,19 +20,17 @@ body {
 
 table {
   width: 100%;
-  border-spacing: 30px; /* Adjust spacing between cells */
-  border-collapse: separate; /* Ensures border-spacing works */
+  border-spacing: 30px;
+  border-collapse: separate;
   padding: 50px;
 }
 
 .cover {
-  text-align: center; /* Align text horizontally center */
-  vertical-align: middle; /* Align content vertically center */
-  padding: 10px; /* Add padding for better spacing */
-  width: 15%;
+  text-align: center;
+  vertical-align: middle; 
+  padding: 10px; 
+  width: 11em;
   border-width: 10px;
-  border-radius: 10px;
-  background-color: white;
 }
 
 .description {
@@ -40,11 +38,20 @@ table {
   padding: 10px;
 }
 
-/* Optionally, you can style images within the table */
-img {
-  max-width: 100%; /* Ensure images do not exceed their container */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Remove any extra spacing */
-  margin: 0px; /* Center images horizontally */
+.game-covers {
+  max-width: 100%;
+  height: auto; 
+  display: block; 
+  margin: 0px; 
   border-radius: 10px;
+  border: 10px solid #282828; 
+  box-sizing: border-box;
+}
+
+.game-title {
+  color: white;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: #541A8C;
+  text-decoration-thickness: 4px;
 }
