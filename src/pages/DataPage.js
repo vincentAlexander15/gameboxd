@@ -85,7 +85,8 @@ const DataPage = () => {
           />
         </form>
         { firstSearch ? (
-          <h1>ZELDA GIF</h1>
+          // Placeholder gif:
+          <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Loading..." />
         ) : (
           isFound ? (
             <div>

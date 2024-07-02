@@ -1,43 +1,12 @@
 import '../styles/GameCarousel.css';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import useFetch from './useFetch';
 
 const GameCarousel = () => {
-  const [accessToken, setAccessToken] = useState(null);
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const id = process.env.REACT_APP_TWITCH_CLIENT_ID;
-    const secret = process.env.REACT_APP_TWITCH_CLIENT_SECRET;
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-    };
-    fetch(`https://id.twitch.tv/oauth2/token?client_id=${id}&client_secret=${secret}&grant_type=client_credentials`, requestOptions)
-        .then(response => response.json())
-        .then(data => setAccessToken(data.access_token));
-  }, []);
-
-  // Function to fetch data from API
-  useEffect(() => {
-    if (accessToken) {
-        const requestOptions = {
-          method: 'POST',
-          headers: {
-            'Client-ID': process.env.REACT_APP_TWITCH_CLIENT_ID,
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: "fields name, cover.*; where rating_count > 750 ; sort rating desc; limit 165;"
-        };
-        const fetchData = async () => {
-          const response = await fetch('/igdb/games', requestOptions);
-          const result = await response.json()
-          console.log('API Result: ', result);
-          setData(result)
-        }
-        fetchData(accessToken)
-    }
-  }, [accessToken]);
+  const url = '/igdb/games';
+  const method = 'POST';
+  const body = "fields name, cover.*; where rating_count > 750 ; sort rating desc; limit 165;";
+  const data = useFetch(url, method, body);
 
   return (
     <div>
