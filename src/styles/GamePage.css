@@ -1,0 +1,23 @@
+.game_scs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.game_scs img {
+    max-width: 70%;
+    height: auto;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    margin-bottom: 1em;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
