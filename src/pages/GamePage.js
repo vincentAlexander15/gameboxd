@@ -19,26 +19,36 @@ const GamePage = () => {
     // //Cycles game screenshots for each page
     const ScreenshotCarousel = ({scs}) => {
         const [currentIdx, setCurrentIdx] = useState(0);
-
-        useEffect(() =>{
+        const [fade, setFade] = useState(false);
+    
+        useEffect(() => {
             const updateIndex = () => {
-                setCurrentIdx(prevIndex => (prevIndex + 1) % scs.length);
-              };
-            const validIdx = setInterval(updateIndex, 3000);
+                setFade(true);
+                setTimeout(() => {
+                    setCurrentIdx(prevIndex => (prevIndex + 1) % scs.length);
+                    setFade(false);
+                }, 500); // adjust as needed
+            };
+            const validIdx = setInterval(updateIndex, 4000); // adjust as needed
             return () => clearInterval(validIdx);
         }, [scs]);
-
+    
         if (scs.length === 0) {
             return (
                 <div>No Images Found</div>
             )
         }
-
+    
         return (
             <div className="game_scs">
-                <img src={scs[currentIdx].url.replace('t_thumb', 't_1080p')}/>
+                <img 
+                    src={scs[currentIdx].url.replace('t_thumb', 't_1080p')}
+                    style={{opacity: fade ? 0 : 1, transition: 'opacity 0.5s'}}
+                    alt={gameData.name + " Screenshot"}
+                />
             </div>
         );
+        
     };
 
     return (
