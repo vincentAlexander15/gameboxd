@@ -41,13 +41,17 @@ const GamePage = () => {
     
         return (
             <div className="game_scs">
-                <img 
-                    src={scs[currentIdx].url.replace('t_thumb', 't_1080p')}
-                    style={{opacity: fade ? 0 : 1, transition: 'opacity 0.5s'}}
-                    alt={gameData.name + " Screenshot"}
+                <div 
+                    className="background-image"
+                    style={{
+                        backgroundImage: `url(${scs[currentIdx].url.replace('t_thumb', 't_1080p')})`,
+                        opacity: fade ? 0 : 1, 
+                        transition: 'opacity 0.5s'
+                    }}
                 />
             </div>
         );
+        
         
     };
 

@@ -2,10 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
-.game_scs img {
+.game_scs .background-image {
     width: 50%;
-    aspect-ratio: 16 / 9; /* 16:9 */
-    
+    border-radius: 100px;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 25px 25px 50px 0 #111113 inset, -25px -25px 50px 0 #111113 inset; 
 }
