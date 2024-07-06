@@ -3,10 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import '../styles/DataPage.css'
+import useFetch from '../components/useFetch'; // import useFetch
 
 const DataPage = () => {
-    const [accessToken, setAccessToken] = useState(null);
-    const [data, setData] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
     const { searchQuery } = location.state || {};
@@ -24,47 +23,21 @@ const DataPage = () => {
     const handleInputChange = (event) => {
       setInputValue(event.target.value);
     };
-  
-    // Function to get the access token
+
+    // Use useFetch to get the data
+    const data = useFetch('/igdb/games', 'POST', searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 10;` : null);
+
+
     useEffect(() => {
-      const id = process.env.REACT_APP_TWITCH_CLIENT_ID;
-      const secret = process.env.REACT_APP_TWITCH_CLIENT_SECRET;
-      const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-      };
-      fetch(`https://id.twitch.tv/oauth2/token?client_id=${id}&client_secret=${secret}&grant_type=client_credentials`, requestOptions)
-          .then(response => response.json())
-          .then(data => setAccessToken(data.access_token));
-    }, []);
-  
-    // Function to fetch data from API
-    useEffect(() => {
-      if (accessToken && searchQuery) {
-          const requestOptions = {
-            method: 'POST',
-            headers: {
-              'Client-ID': process.env.REACT_APP_TWITCH_CLIENT_ID,
-              'Authorization': `Bearer ${accessToken}`,
-              'Content-Type': 'application/json',
-            },
-            body: `fields *, cover.*; search "${searchQuery}"; limit 10;`,
-          };
-          const fetchData = async () => {
-            const response = await fetch('/igdb/games', requestOptions);
-            const result = await response.json()
-            console.log('API Result: ', result);
-            setData(result)
-            if (result.length === 0) {
-              setIsFound(false)
-            } else {
-              setIsFound(true)
-            }
-            setFirstSearch(false)
-          }
-          fetchData(accessToken)
+      if (data) {
+        if (data.length === 0) {
+          setIsFound(false)
+        } else {
+          setIsFound(true)
+        }
+        setFirstSearch(false)
       }
-    }, [accessToken, searchQuery]);
+    }, [data]);
 
     const handleClick = (item) => {
       navigate('/GamePage', {state : { gameData : item}});

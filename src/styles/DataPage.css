@@ -5,12 +5,11 @@ body {
 .main-search-form {
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 30px 0px -60px 0px;
+    margin: 40px 0px -100px 0px;
   }
   
 #main-search-input {
-  width: 80%;
+  width: 50%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -19,19 +18,20 @@ body {
 }
 
 table {
-  width: 100%;
+  width: 80%;
   border-spacing: 30px;
   border-collapse: separate;
   padding: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
 
 .cover {
   text-align: center;
-  vertical-align: middle; 
-  padding: 10px; 
-  width: 11em;
-  border-width: 10px;
+  vertical-align: middle;
 }
+
 
 .description {
   vertical-align: top;
@@ -39,13 +39,12 @@ table {
 }
 
 .game-covers {
-  max-width: 100%;
-  height: auto; 
+  width: 80%;
   display: block; 
-  margin: 0px; 
   border-radius: 10px;
   border: 10px solid #282828; 
   box-sizing: border-box;
+  margin: auto;
 }
 
 .game-title {

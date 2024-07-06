@@ -12,9 +12,9 @@ const GamePage = () => {
     //Make API calls using useFetch
     const url = '/igdb/release_dates';
     const method = 'POST';
-    const body = `fields game, date, human; where game = ${gameData.id}; sort date asc; limit 1;`;
     const scs = useFetch('/igdb/screenshots', method, `fields *; where game = ${gameData.id}; limit 10;`);
-    const releaseDates = useFetch(url, method, body);
+    const releaseDates = useFetch(url, method, `fields game, date, human; where game = ${gameData.id}; sort date asc; limit 1;`);
+    const cover = useFetch('/igdb/games', 'POST', `fields cover.*; where id = ${gameData.id};`);
 
     // //Cycles game screenshots for each page
     const ScreenshotCarousel = ({scs}) => {
@@ -60,13 +60,23 @@ const GamePage = () => {
             <Navbar/>
             {scs ? <ScreenshotCarousel scs={scs} /> : <div>Loading screenshots...</div>}
             <div class="container">
-                <h1>{gameData ? gameData.name : "Loading..."}</h1>
-                <h1>
-                    {releaseDates && releaseDates[0].human}
-                </h1>
+                <div class="content">
+                    <img class="cover" src={cover ? cover[0].cover.url.replace('t_thumb', 't_1080p') : "Loading..."} alt="cover" />
+                    <div class="info">
+                        <h1>{gameData ? gameData.name : "Loading..."}</h1>
+                        <h2>
+                            {releaseDates && releaseDates[0] && releaseDates[0].date ? (
+                                <span>{releaseDates[0].human}</span>
+                            ) : (
+                                <span>Not Available</span>
+                            )}
+                        </h2>
+                    </div>
+                </div>
             </div>
         </div>
     );
+    
 }
 
 export default GamePage;

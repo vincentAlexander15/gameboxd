@@ -7,7 +7,7 @@
 }
 
 .game_scs .background-image {
-    width: 50%;
+    width: 45%;
     aspect-ratio: 16 / 9;
     background-size: cover;
     background-position: center;
@@ -27,4 +27,35 @@
         linear-gradient(to left, transparent 80%, #111113 100%),
         linear-gradient(to top, transparent 80%, #111113 100%);
     z-index: 2;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 3; /* added to bring the container in front of the carousel */
+    margin-top: -50px;
+    margin-left: 240px;
+}
+
+.content {
+    display: flex;
+    align-items: flex-start; /* changed from center to flex-start */
+}
+
+.cover {
+    margin-top: -50px; /* adjust as needed */
+    width: 20%;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 25px;
+}
+
+.info {
+    margin-top: -30px;
+    margin-left: 20px;
+    h1, h2 {
+        color: white;
+    }
 }
