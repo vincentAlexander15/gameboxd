@@ -2,6 +2,23 @@ body {
     background-color: #111113;
 }
 
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeIn 1s ease-in forwards; /* Add this line */
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+
+.parent {
+    margin-top: 13px;
+}
+
 .explore {
     position: absolute;
     top: 50%;

@@ -41,7 +41,7 @@ const HomePage = () => {
   return (
     <div>
       <Navbar/>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div className='carousel-container'>
         <GameCarousel/>
       </div>
       <div className='explore' onMouseEnter={handleMouseEnter}>

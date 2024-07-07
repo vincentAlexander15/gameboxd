@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import '../styles/DataPage.css'
-import useFetch from '../components/useFetch'; // import useFetch
+import useFetch from '../components/useFetch';
+import bonfire from '../images/bonfire.gif';
 
 const DataPage = () => {
     const location = useLocation();
@@ -58,8 +59,7 @@ const DataPage = () => {
           />
         </form>
         { firstSearch ? (
-          // Placeholder gif:
-          <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="Loading..." />
+          <img className='before-search' src={bonfire} alt="Loading..." />
         ) : (
           isFound ? (
             <div>
@@ -89,7 +89,7 @@ const DataPage = () => {
               )}
             </div>
           ) : (
-            <h1>No Results Found</h1>
+            <h1 className='no-res'>No Results Found</h1>
           )
         )}
       </div>

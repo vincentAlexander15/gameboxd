@@ -63,14 +63,17 @@ const GamePage = () => {
                 <div class="content">
                     <img class="cover" src={cover ? cover[0].cover.url.replace('t_thumb', 't_1080p') : "Loading..."} alt="cover" />
                     <div class="info">
-                        <h1>{gameData ? gameData.name : "Loading..."}</h1>
-                        <h2>
+                        <h1 className='title'>{gameData ? gameData.name : "Loading..."}</h1>
+                        <h2 className='release'>
                             {releaseDates && releaseDates[0] && releaseDates[0].date ? (
                                 <span>{releaseDates[0].human}</span>
                             ) : (
                                 <span>Not Available</span>
                             )}
                         </h2>
+                        <p className='summary'>
+                            {gameData ? gameData.summary : "Loading..."}
+                        </p>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import '../styles/GameCarousel.css';
 import React from 'react';
 import useFetch from './useFetch';
+import Slider from './Slider'; // Import the Slider component
 
 const GameCarousel = () => {
   const url = '/igdb/games';
@@ -12,48 +13,9 @@ const GameCarousel = () => {
     <div>
       {data && (
         <div className="parent" >
-          <div>
-            <div className="slider">
-              <div className="slide-track">
-                {data.slice(0, 50).map((item, index) => (
-                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-                ))}
-              </div>
-              <div className="slide-track">
-                {data.slice(0, 50).map((item, index) => (
-                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-                ))}
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slider">
-              <div className="slide-track">
-                {data.slice(50, 105).map((item, index) => (
-                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-                ))}
-              </div>
-              <div className="slide-track">
-                {data.slice(50, 105).map((item, index) => (
-                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-                ))}
-              </div>
-            </div>
-          </div>
-          <div>
-            <div className="slider">
-              <div className="slide-track">
-                {data.slice(105, 165).map((item, index) => (
-                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-                ))}
-              </div>
-              <div className="slide-track">
-                {data.slice(105, 165).map((item, index) => (
-                  <img key={index} src={item["cover"].url.replace('t_thumb', 't_1080p')} />
-                ))}
-              </div>
-            </div>
-          </div>
+          <Slider data={data.slice(0, 50)} />
+          <Slider data={data.slice(50, 105)} />
+          <Slider data={data.slice(105, 165)} />
         </div>
       )}
     </div>

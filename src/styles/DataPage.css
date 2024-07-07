@@ -54,3 +54,22 @@ table {
   text-decoration-color: #541A8C;
   text-decoration-thickness: 4px;
 }
+
+.before-search {
+  display: block;
+  /* center vertically: */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 3%;
+}
+
+.no-res {
+  color: white;
+  text-align: center;
+  font-size: 2em;
+  /* lower it: */
+  margin-top: 200px;
+
+}
