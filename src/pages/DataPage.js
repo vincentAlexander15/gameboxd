@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import '../styles/DataPage.css'
 import useFetch from '../components/useFetch';
@@ -25,9 +24,7 @@ const DataPage = () => {
       setInputValue(event.target.value);
     };
 
-    // Use useFetch to get the data
     const data = useFetch('/igdb/games', 'POST', searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 10;` : null);
-
 
     useEffect(() => {
       if (data) {

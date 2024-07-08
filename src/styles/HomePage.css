@@ -21,10 +21,24 @@ body {
 
 .explore {
     position: absolute;
-    top: 50%;
+    top: 570px;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: auto;
 }
+
+.website-intro {
+    position: absolute;
+    top: 510px;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    font-size: large;
+    background-color: #111113;
+    height: 280px;
+}
+
 .explore-link {
     text-decoration: none;
     color: white;

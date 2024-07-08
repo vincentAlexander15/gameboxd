@@ -44,8 +44,13 @@ const HomePage = () => {
       <div className='carousel-container'>
         <GameCarousel/>
       </div>
+      <div className='website-intro'>
+        <h2>A new way to keep track of all your favorite games in one place. This is some extra text for the 
+          same of the box. This is extra text for the sake of the box.
+        </h2>
+      </div>
       <div className='explore' onMouseEnter={handleMouseEnter}>
-          <Link to="/DataPage" className='explore-link'>Find Something {adjective}</Link>
+        <Link to="/DataPage" className='explore-link'>Find Something {adjective}</Link>
       </div>
     </div>
   );
