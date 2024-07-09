@@ -8,8 +8,8 @@ import loggedInImage from '../images/loggedIn.png';
 const Navbar = () => {
   const [inputValue, setInputValue] = useState(''); // state for the input field
   const [isLoggedIn, setIsLoggedIn] = useState(false); // state for the login status
-  const [dropdownOpen, setDropdownOpen] = useState(false); // state for the dropdown menu
-  const [clicked, setClicked] = useState()
+  const [profileOpen, setProfileOpen] = useState(false); // state for the dropdown menu
+  const [signInOpen, setSignInOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -23,8 +23,12 @@ const Navbar = () => {
     }
   };
 
-  const handleImageClick = () => {
-    setDropdownOpen(!dropdownOpen);
+  const handleProfileClick = (num) => () => {
+    if (num) {
+      setProfileOpen(!profileOpen);
+    } else {
+      setSignInOpen(!signInOpen);
+    }
   };
 
 
@@ -47,14 +51,16 @@ return (
       </form>
       {isLoggedIn ? (
         null
-        ) : <Link to="/dashboard">Create an account</Link>}
+        ) : <Link to="./Signup">Create an account</Link>}
       <div className="profile-menu">
-        <img
-          src={isLoggedIn ? loggedInImage : loggedOutImage} 
+        {isLoggedIn ? (
+          <img
+          src={loggedInImage} 
           alt="Profile" 
-          onClick={handleImageClick} 
-        />
-        {dropdownOpen && (
+          onClick={handleProfileClick(1)} 
+          />
+        ) : <a className="signinbutton" onClick={handleProfileClick(0)}>Sign In</a>}
+        {profileOpen && (
           <div className="dropdown-menu">
             <Link to="/profile" className="profile-link">Profile</Link>
             <Link to="/settings">Settings</Link>
@@ -64,6 +70,11 @@ return (
               <Link to="/login">Sign in</Link>
             )}
             <Link to="/about">About</Link>
+          </div>
+        )}
+        {signInOpen && (
+          <div className="dropdown-menu">
+            TEST
           </div>
         )}
       </div>
