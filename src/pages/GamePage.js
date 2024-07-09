@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import useFetch from '../components/useFetch';
 import '../styles/GamePage.css';
+import '../fonts/fonts.css';
 
 const GamePage = () => {
     //Retrieve data from DataPage

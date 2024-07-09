@@ -35,9 +35,9 @@
     align-items: center;
     position: relative;
     z-index: 3; /* added to bring the container in front of the carousel */
-    margin-top: -50px;
+    margin-top: -70px;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: auto; 
     width: 50%;
 }
 
@@ -47,7 +47,7 @@
 }
 
 .cover {
-    width: 25%;
+    width: 30%;
     object-fit: contain;
     object-position: center;
     border-radius: 25px;

@@ -65,11 +65,11 @@ const DataPage = () => {
                   <tbody>
                     {data.map((item, index) => (
                       <tr key={index}>
-                        <td className="cover">
+                        <td className="cover-container">
                           {item["cover"] && item["cover"].url ? (
-                            <img className="game-covers" src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
+                            <img className="game-cover" src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
                           ) : (
-                            <span>No image available</span>
+                            <span style={{color: 'white'}}>No image available</span>
                           )}
                         </td>
                         <td className="description">

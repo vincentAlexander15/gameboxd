@@ -37,17 +37,15 @@ body {
     font-size: large;
     background-color: #282828;
     height: 280px;
-    border-radius: 10px;
-    border:3px solid white;
+    border:2px solid white;
     font-family: 'Lucida console';
 }
 
 .explore-link {
     text-decoration: none;
+    font: 1.2em 'silkscreen4', sans-serif;
     color: white;
     font-size: 2em;
     background-color: #541A8C;
     padding: 10px 20px;
-    border-radius: 10px;
-    transition: #070707 0.3s;
 }

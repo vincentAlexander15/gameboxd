@@ -1,13 +1,13 @@
-.container {
+.sign-up-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 300px;
-    margin-top: 10%;;
+    margin-top: 10%;
 }
 
-.container input {
+.sign-up-container input {
     margin: 10px 0;
     width: 100%;
 }

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
-import loggedOutImage from '../images/loggedOut.png';
+import '../fonts/fonts.css';
 import loggedInImage from '../images/loggedIn.png';
 
 const Navbar = () => {
@@ -34,8 +34,8 @@ const Navbar = () => {
 
 return (
     <nav className="navbar">
-      <Link to="/">Gameboxd</Link>
-      <form onSubmit={handleSubmit} className="search-form">
+      <Link className='title' to="/">Gameboxd</Link>
+      <form className="search-form" onSubmit={handleSubmit}>
         <input
           id='search-input'
           type="text"
@@ -52,32 +52,30 @@ return (
       {isLoggedIn ? (
         null
         ) : <Link to="./Signup">Create an account</Link>}
-      <div className="profile-menu">
-        {isLoggedIn ? (
-          <img
-          src={loggedInImage} 
-          alt="Profile" 
-          onClick={handleProfileClick(1)} 
-          />
-        ) : <a className="signinbutton" onClick={handleProfileClick(0)}>Sign In</a>}
-        {profileOpen && (
-          <div className="dropdown-menu">
-            <Link to="/profile" className="profile-link">Profile</Link>
-            <Link to="/settings">Settings</Link>
-            {isLoggedIn ? (
-              <Link to="/logout">Sign out</Link>
-            ) : (
-              <Link to="/login">Sign in</Link>
-            )}
-            <Link to="/about">About</Link>
-          </div>
-        )}
-        {signInOpen && (
-          <div className="dropdown-menu">
-            TEST
-          </div>
-        )}
-      </div>
+      {isLoggedIn ? (
+        <img
+        src={loggedInImage} 
+        alt="Profile" 
+        onClick={handleProfileClick(1)} 
+        />
+      ) : <a style={{cursor: 'pointer'}} onClick={handleProfileClick(0)}>Sign In</a>}
+      {profileOpen && (
+        <div className="dropdown-menu">
+          <Link to="/profile" className="profile-link">Profile</Link>
+          <Link to="/settings">Settings</Link>
+          {isLoggedIn ? (
+            <Link to="/logout">Sign out</Link>
+          ) : (
+            <Link to="/login">Sign in</Link>
+          )}
+          <Link to="/about">About</Link>
+        </div>
+      )}
+      {signInOpen && (
+        <div className="dropdown-menu">
+          TEST
+        </div>
+      )}
     </nav>
   );
 };

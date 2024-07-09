@@ -17,38 +17,39 @@ body {
   outline: none;
 }
 
+.cover-container {
+  text-align: center;
+  vertical-align: middle;
+  width: 200px;
+}
+
+
 table {
   width: 80%;
-  border-spacing: 30px;
+  border-spacing: 50px;
   border-collapse: separate;
   padding: 50px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
+  margin-top: 70px;
 }
-
-.cover {
-  text-align: center;
-  vertical-align: middle;
-}
-
 
 .description {
-  vertical-align: top;
-  padding: 10px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.game-covers {
-  width: 80%;
+.game-cover {
+  width: 100%;
   display: block; 
-  border-radius: 10px;
-  border: 10px solid #282828; 
+  border: 3px solid white; 
   box-sizing: border-box;
   margin: auto;
 }
 
 .game-title {
   color: white;
+  font: 1.5em 'silkscreen2', sans-serif;
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: #541A8C;
@@ -57,7 +58,6 @@ table {
 
 .before-search {
   display: block;
-  /* center vertically: */
   position: absolute;
   top: 50%;
   left: 50%;
@@ -69,7 +69,6 @@ table {
   color: white;
   text-align: center;
   font-size: 2em;
-  /* lower it: */
   margin-top: 200px;
 
 }
