@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import useFetch from '../components/useFetch';
 import '../styles/GamePage.css';
 import '../fonts/fonts.css';
+import noImg from '../images/noImg.jpg'
 
 const GamePage = () => {
     //Retrieve data from DataPage
@@ -28,15 +29,15 @@ const GamePage = () => {
                 setTimeout(() => {
                     setCurrentIdx(prevIndex => (prevIndex + 1) % scs.length);
                     setFade(false);
-                }, 500); // adjust as needed
+                }, 500);
             };
-            const validIdx = setInterval(updateIndex, 4000); // adjust as needed
+            const validIdx = setInterval(updateIndex, 4000);
             return () => clearInterval(validIdx);
         }, [scs]);
     
         if (scs.length === 0) {
             return (
-                <div>No Images Found</div>
+                <div className="noImages"></div>
             )
         }
     
@@ -62,7 +63,11 @@ const GamePage = () => {
             {scs ? <ScreenshotCarousel scs={scs} /> : <div>Loading screenshots...</div>}
             <div class="container">
                 <div class="content">
-                    <img class="cover" src={cover ? cover[0].cover.url.replace('t_thumb', 't_1080p') : "Loading..."} alt="cover" />
+                    {cover && cover[0] && cover[0].cover && cover[0].cover.url ? (
+                        <img className="cover" src={cover[0].cover.url.replace('t_thumb', 't_1080p')} alt="cover"/>
+                        ) : (
+                        <img className="cover" src={noImg} alt="cover"/>
+                    )}
                     <div class="info">
                         <h1 className='title'>{gameData ? gameData.name : "Loading..."}</h1>
                         <h2 className='release'>

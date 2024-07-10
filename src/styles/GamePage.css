@@ -68,3 +68,14 @@
 .summary {
     color: white;
 }
+
+.noImages {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin: auto;
+    margin-top: 200px;
+    color: white;
+}
