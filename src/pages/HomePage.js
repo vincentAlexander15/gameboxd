@@ -6,39 +6,7 @@ import '../styles/HomePage.css';
 import '../fonts/fonts.css';
 
 const HomePage = () => {
-  const[adjective, setAdjective] = useState('. . .');
-
-  const updateWord = () => {
-    const adjectives = [
-      "Adventurous",
-      "Thrilling",
-      "Challenging",
-      "Epic",
-      "Mysterious",
-      "Immersive",
-      "Fun",
-      "Exciting",
-      "Intense",
-      "Scary",
-      "Intriguing",
-      "Captivating",
-      "Addictive",
-      "Fast-paced",
-      "Engaging",
-      "Innovative",
-      "Unforgettable",
-      "Mesmerizing",
-      "Heart-pounding",
-      "Mind-blowing"
-    ];
-    const randomAdjective = adjectives[Math.floor(Math.random() * adjectives.length)];
-    setAdjective(randomAdjective)
-  }
   
-  const handleMouseEnter = () => {
-    updateWord();
-  }
-
   return (
     <div>
       <Navbar/>
@@ -50,8 +18,8 @@ const HomePage = () => {
           same of the box. This is extra text for the sake of the box.
         </h2>
       </div>
-      <div className='explore' onMouseEnter={handleMouseEnter}>
-        <Link to="/DataPage" className='explore-link'>Find Something {adjective}</Link>
+      <div className='explore'>
+        <Link to="/DataPage" className='explore-link'>GET STARTED</Link>
       </div>
     </div>
   );

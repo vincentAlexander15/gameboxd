@@ -31,7 +31,6 @@ const Navbar = () => {
     }
   };
 
-
 return (
     <nav className="navbar">
       <Link className='title' to="/">Gameboxd</Link>
@@ -51,7 +50,7 @@ return (
       </form>
       {isLoggedIn ? (
         null
-        ) : <Link to="./Signup">Create an account</Link>}
+        ) : <Link to="/Signup">Create an account</Link>}
       {isLoggedIn ? (
         <img
         src={loggedInImage} 
