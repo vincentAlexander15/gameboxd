@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import '../styles/DataPage.css'
 import useFetch from '../components/useFetch';
-import bonfire from '../images/bonfire.gif';
+import tv from '../images/tv.png';
 
 const DataPage = () => {
     const location = useLocation();
@@ -56,7 +56,7 @@ const DataPage = () => {
           />
         </form>
         { firstSearch ? (
-          <img className='before-search' src={bonfire} alt="Loading..." />
+          <img className='before-search' src={tv} alt="Loading..." />
         ) : (
           isFound ? (
             <div>

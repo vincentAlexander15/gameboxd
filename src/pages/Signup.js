@@ -9,9 +9,10 @@ const Signup = () => {
     <div>
         <Navbar/>
         <div class="sign-up-container">
+          <div className="prompt">Create Account</div>
           <input className="user" type="text" placeholder="Username" name="uname" required/>
           <input className="pwd" type="password" placeholder="Password" name="psw" required/>           
-          <button type="submit">Sign Up</button>
+          <button className="signupSubmit" type="submit">Sign Up</button>
         </div>
     </div>
   );

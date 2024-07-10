@@ -10,5 +10,33 @@
 
 .sign-up-container input {
     margin: 10px 0;
-    width: 100%;
+    width: 300px;
+}
+
+.user,.pwd {
+    height: 3.0rem;
+    background-color: #111113;
+    color: white; 
+    outline: none;
+    border: 2px solid white; 
+    border-radius: 0px;
+    font-size: 1rem;
+}
+
+.user::placeholder, .pwd::placeholder {
+    color: white;
+    font: 1.2rem 'silkscreen1', sans-serif;
+    padding: 0 3.0rem 0 1rem;
+}
+
+.signupSubmit {
+    color: white;
+    font: 1.5rem 'silkscreen1', sans-serif;
+    background-color: #111113;
+}
+
+.prompt {
+    color: white;
+    font: 2.0rem 'silkscreen1', sans-serif;
+    text-align: center;
 }
