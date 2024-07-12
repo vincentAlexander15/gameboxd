@@ -8,11 +8,6 @@
     margin-top: 200px;
 }
 
-.sign-up-container input {
-    margin: 10px 0;
-    width: 300px;
-}
-
 .user,.pwd {
     height: 3.0rem;
     background-color: #111113;
@@ -21,12 +16,14 @@
     border: 2px solid white; 
     border-radius: 0px;
     font-size: 1rem;
+    margin: 10px 0;
+    width: 300px;
+    padding: 0 3.0rem 0 1rem;
 }
 
 .user::placeholder, .pwd::placeholder {
     color: white;
     font: 1.2rem 'silkscreen1', sans-serif;
-    padding: 0 3.0rem 0 1rem;
 }
 
 .signupSubmit {
@@ -39,4 +36,23 @@
     color: white;
     font: 2.0rem 'silkscreen1', sans-serif;
     text-align: center;
+}
+
+.buttonDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.notif {
+    color: green;
+    text-align: center;
+    margin-top: 20px;
+    font: 1.5rem 'silkscreen1', sans-serif;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+    font: 1.5rem 'silkscreen1', sans-serif;
 }

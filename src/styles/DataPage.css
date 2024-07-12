@@ -9,12 +9,6 @@ body {
   }
   
 #main-search-input {
-  /* width: 50%;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 10px; 
-  outline: none; */
   height: 3.0rem;
   background-color: #111113;
   color: white; 
@@ -23,13 +17,13 @@ body {
   border-radius: 0px;
   font-size: 1rem;
   width: 50%;
+  padding: 0 3.0rem 0 1rem;
 }
 
 #main-search-input::placeholder {
   color: white;
   font: 1.5rem 'silkscreen1', sans-serif;
 }
-
 
 .cover-container {
   text-align: center;
