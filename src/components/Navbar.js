@@ -10,6 +10,8 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // state for the login status
   const [profileOpen, setProfileOpen] = useState(false); // state for the dropdown menu
   const [signInOpen, setSignInOpen] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
@@ -31,7 +33,7 @@ const Navbar = () => {
     }
   };
 
-return (
+  return (
     <nav className="navbar">
       <Link className='title' to="/">Gameboxd</Link>
       <form className="search-form" onSubmit={handleSubmit}>
@@ -49,34 +51,46 @@ return (
         </button>
       </form>
       {isLoggedIn ? (
-        null
-        ) : <Link to="/Signup">Create an account</Link>}
-      {isLoggedIn ? (
         <img
         src={loggedInImage} 
         alt="Profile" 
-        onClick={handleProfileClick(1)} 
+        onClick={handleProfileClick(1)}
         />
-      ) : <a style={{cursor: 'pointer'}} onClick={handleProfileClick(0)}>Sign In</a>}
-      {profileOpen && (
-        <div className="dropdown-menu">
-          <Link to="/profile" className="profile-link">Profile</Link>
-          <Link to="/settings">Settings</Link>
-          {isLoggedIn ? (
-            <Link to="/logout">Sign out</Link>
-          ) : (
-            <Link to="/login">Sign in</Link>
-          )}
-          <Link to="/about">About</Link>
+      ) : null}
+      {signInOpen ? (
+        <div className="sign-in-form">
+          <form onSubmit={handleSubmit}>
+            <button id='close-sign-in' onClick={handleProfileClick(0)}>X</button>
+            <input
+              className='sign-in-input'
+              type="text"
+              placeholder="Username"
+              name="uname"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+            <input
+              className='sign-in-input'
+              type="password"
+              placeholder="Password"
+              name="psw"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button className="sign-in-submit" type="submit">Sign In</button>
+          </form>
         </div>
-      )}
-      {signInOpen && (
-        <div className="dropdown-menu">
-          TEST
-        </div>
+      ) : (
+        <>
+          <Link to="/Signup" id="sign-up-btn">Create an account</Link>
+          <button className='sign-in-btn' onClick={handleProfileClick(0)}>Sign In</button>
+        </>
       )}
     </nav>
   );
+
 };
 
 export default Navbar;

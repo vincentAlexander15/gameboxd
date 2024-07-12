@@ -80,31 +80,15 @@
     transition: background-color 0.1s ease;
     outline: none; 
   }
-
-  .dropdown-menu {
-    position: absolute;
-    right: 0;
-    background-color: #f9f9f9;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    padding: 8px 8px;
-    z-index: 1;
-    width: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
   
-  .dropdown-menu a {
-    color: rgb(255, 0, 0);
-    padding: 4px 8px;
-    text-decoration: none;  
+  .sign-in-btn {
     display: block;
     text-align: center;
-    margin-right: auto;
-    margin-left: auto;
-    border-bottom: 1px solid #ccc;
-    box-sizing: border-box;
+    border: none;
+    color: white;
+    background: transparent;
+    font: 1.5rem 'silkscreen1', sans-serif;
+    cursor: pointer;
   }
 
   .title {
@@ -118,8 +102,50 @@
     100% { color: rgb(123, 252, 209); }
   }
 
-  .navbar a:hover {
+  .navbar a:hover, .sign-in-btn:hover {
     animation: highlight 0.08s linear 2;
     color: rgb(225, 150, 255);
   }
+
+  @keyframes blink {
+    0%, 50%, 100% {opacity: 0;}
+    25%, 75% {opacity: 0.7;}
+  }
+
+  .sign-in-form {
+    color: #ffffff;
+    text-decoration: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    animation: blink 0.15s step-start 1.2;
+  }
+
+  .sign-in-form input {
+    height: 1.2rem;
+    background-color: #111113;
+    outline: none;
+    color: white;
+    border: 2px solid white; 
+    border-radius: 0px;
+    font-size: 1rem;
+    margin: 10px 5px; 
+  }
   
+  .sign-in-input::placeholder {
+    color: white;
+    font: 1.2rem 'silkscreen1', sans-serif;
+  }
+
+  #close-sign-in {
+    background-color: #000;
+    color: red;
+    font: 1rem 'silkscreen1', sans-serif;
+    margin-right: 5px;
+  }
+
+  .sign-in-submit {
+    color: white;
+    font: 1rem 'silkscreen1', sans-serif;
+    background-color: #111113;
+    margin-top: 10px;
+  }
