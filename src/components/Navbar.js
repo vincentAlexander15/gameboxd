@@ -100,6 +100,7 @@ const Navbar = () => {
               name="uname"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              onFocus={() => setError(false)}
               required
             />
             <input
@@ -109,6 +110,7 @@ const Navbar = () => {
               name="psw"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setError(false)}
               required
             />
             <button className="sign-in-submit" type="submit">Sign In</button>
