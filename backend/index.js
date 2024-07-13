@@ -24,6 +24,7 @@ const dbName = 'gameboxd';
 // Create a new MongoClient
 const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
+//User sign up
 app.post('/signup', async (req, res) => {
   
   const { username, password } = req.body;
@@ -59,6 +60,45 @@ app.post('/signup', async (req, res) => {
 
   client.close();
 });
+
+//User sign in
+app.post('/signin', async (req, res) => {
+  
+  const { username, password } = req.body;
+
+  // Basic validation
+  if (!username || !password) {
+    return res.status(400).json({ message: 'Username and password are required' });
+  }
+
+  try {
+    await client.connect();
+    console.log("Connected correctly to server");
+    const db = client.db(dbName);
+    const users = db.collection('users');
+
+    // Check if user exists
+    const userExists = await users.findOne({ username });
+    if (userExists) {
+      // Compare password
+      const validPassword = await bcrypt.compare(password, userExists.password);
+      if (!validPassword) {
+        return res.status(400).json({ message: 'Invalid password' });
+      }
+      // User is authenticated
+      res.json({ message: 'User authenticated successfully' });
+    } else {
+      res.status(400).json({ message: 'User does not exist' });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+    
+  client.close();
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

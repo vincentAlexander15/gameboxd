@@ -6,13 +6,42 @@ import '../fonts/fonts.css';
 import loggedInImage from '../images/loggedIn.png';
 
 const Navbar = () => {
-  const [inputValue, setInputValue] = useState(''); // state for the input field
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // state for the login status
-  const [profileOpen, setProfileOpen] = useState(false); // state for the dropdown menu
+  const [inputValue, setInputValue] = useState(''); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    const user = {
+      username,
+      password
+    };
+    try {
+      const response = await fetch('http://localhost:5000/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(user)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('User signed in successfully');
+        setError(false);
+      } else {
+        setError(true);
+      }
+    } catch (error) {
+      setError(true);
+    }
+  };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value); 
@@ -30,6 +59,9 @@ const Navbar = () => {
       setProfileOpen(!profileOpen);
     } else {
       setSignInOpen(!signInOpen);
+      setError(false);
+      setUsername('');
+      setPassword('');
     }
   };
 
@@ -59,10 +91,10 @@ const Navbar = () => {
       ) : null}
       {signInOpen ? (
         <div className="sign-in-form">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSignIn}>
             <button id='close-sign-in' onClick={handleProfileClick(0)}>X</button>
             <input
-              className='sign-in-input'
+              className={error ? 'sign-in-error' : 'sign-in-input'} 
               type="text"
               placeholder="Username"
               name="uname"
@@ -71,7 +103,7 @@ const Navbar = () => {
               required
             />
             <input
-              className='sign-in-input'
+              className={error ? 'sign-in-error' : 'sign-in-input'} 
               type="password"
               placeholder="Password"
               name="psw"
@@ -90,7 +122,6 @@ const Navbar = () => {
       )}
     </nav>
   );
-
 };
 
 export default Navbar;

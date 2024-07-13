@@ -122,12 +122,23 @@
     z-index: 2;
   }
 
-  .sign-in-form input {
+  .sign-in-input {
     height: 1.2rem;
     background-color: #111113;
     outline: none;
     color: white;
     border: 2px solid white; 
+    border-radius: 0px;
+    font-size: 1rem;
+    margin: 10px 5px; 
+  }
+
+  .sign-in-error {
+    height: 1.2rem;
+    background-color: #111113;
+    outline: none;
+    color: white;
+    border: 2px solid red; 
     border-radius: 0px;
     font-size: 1rem;
     margin: 10px 5px; 
@@ -152,4 +163,8 @@
     background-color: #111113;
     margin-top: 10px;
     z-index: 2;
+  }
+
+  #sign-in-error {
+    z-index: 10;
   }
