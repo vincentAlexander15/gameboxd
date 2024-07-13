@@ -6,7 +6,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: fadeIn 1s ease-in forwards; /* Add this line */
+    animation: fadeIn 1s ease-in forwards;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 @keyframes fadeIn {
@@ -18,7 +20,7 @@ body {
 .parent {
     margin-top: 13px;
 }
-
+/* 
 .explore {
     position: absolute;
     top: 585px;
@@ -26,21 +28,32 @@ body {
     transform: translate(-50%, -50%);
     width: auto;
     font-size: larger;
+} */
+
+@keyframes blink {
+    0%, 50%, 100% {opacity: 0;}
+    25%, 75% {opacity: 0.7;}
 }
 
 .website-intro {
     padding: 20px;
     position: absolute;
-    top: 540px;
+    top: 500px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -42%);
     color: white;
     text-align: center;
-    font-size: large;
     background-color: #282828;
-    height: 250px;
+    height: 200px;
+    width: 500px;
     border: 3px solid white;
-    font-family: 'Lucida console';
+    animation: blink 0.15s step-start 1;
+}
+
+#intro-text {
+    font: 1.4em 'silkscreen1', sans-serif;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @keyframes breathe {
@@ -53,9 +66,7 @@ body {
 
 .explore-link {
     text-decoration: none;
-    font: 1.2em 'silkscreen4', sans-serif;
+    font: 2em 'silkscreen4', sans-serif;
     color: white;
-    font-size: 2em;
-    padding: 10px 20px;
     animation: breathe 2s linear infinite;
 }

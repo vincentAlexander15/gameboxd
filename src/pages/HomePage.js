@@ -14,11 +14,7 @@ const HomePage = () => {
         <GameCarousel/>
       </div>
       <div className='website-intro'>
-        <h2 style={{font: '1.4em silkscreen1', marginLeft: 'auto', marginRight: 'auto'}}>A new way to keep track of all your favorite games in one place. This is some extra text for the 
-          same of the box. This is extra text for the sake of the box.
-        </h2>
-      </div>
-      <div className='explore'>
+          <h2 id="intro-text">Explore the world of gaming with GameBoxd. Connect, discover, and enjoy. Sign up to start your journey.</h2>
         <Link to="/DataPage" className='explore-link'>GET STARTED</Link>
       </div>
     </div>

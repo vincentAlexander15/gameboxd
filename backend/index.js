@@ -3,21 +3,26 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
+const dotenv = require('dotenv');
+dotenv.config({ path: '../.env' });
 
 const app = express();
 const port = 5000;
+
+const uname = process.env.ATLAS_USERNAME;
+const pwd = process.env.ATLAS_PASSWORD;
 
 app.use(bodyParser.json());
 app.use(cors());
 
 // Connection URL
-const url = 'mongodb://0.0.0.0:27017';
+const url = `mongodb+srv://${uname}:${pwd}@gameboxd.rpwjyu7.mongodb.net/?retryWrites=true&w=majority&appName=gameboxd`;
 
 // Database Name
-const dbName = 'gameboxd-creds';
+const dbName = 'gameboxd';
 
 // Create a new MongoClient
-const client = new MongoClient(url);
+const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.post('/signup', async (req, res) => {
   
