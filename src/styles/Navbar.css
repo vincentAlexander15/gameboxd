@@ -92,6 +92,17 @@
     margin-left: 50px;
   }
 
+  .sign-out-btn {
+    display: block;
+    text-align: center;
+    border: none;
+    color: white;
+    background: transparent;
+    font: 1.5rem 'silkscreen1', sans-serif;
+    cursor: pointer;
+    margin-left: 50px;
+  }
+
   .title {
     font: 2rem 'silkscreen2', sans-serif;
     font-size: 46px;
@@ -103,7 +114,7 @@
     100% { color: rgb(123, 252, 209); }
   }
 
-  .navbar a:hover, .sign-in-btn:hover {
+  .navbar a:hover, .sign-in-btn:hover, .sign-out-btn:hover {
     animation: highlight 0.08s linear 2;
     color: rgb(225, 150, 255);
   }

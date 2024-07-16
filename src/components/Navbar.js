@@ -1,13 +1,14 @@
 // components/Navbar.js
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Navbar.css';
 import '../fonts/fonts.css';
 import loggedInImage from '../images/loggedIn.png';
+import { AuthContext } from './AuthContext';
 
 const Navbar = () => {
   const [inputValue, setInputValue] = useState(''); 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
   const [profileOpen, setProfileOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
   const [username, setUsername] = useState('');
@@ -27,13 +28,11 @@ const Navbar = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
+        credentials: 'include' // Include cookies in the request
       });
-
-      const data = await response.json();
-
       if (response.ok) {
-        console.log('User signed in successfully');
+        setIsLoggedIn(true);
         setError(false);
       } else {
         setError(true);
@@ -42,6 +41,7 @@ const Navbar = () => {
       setError(true);
     }
   };
+  
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value); 
@@ -65,6 +65,39 @@ const Navbar = () => {
     }
   };
 
+  const handleSignOutClick = async () => {
+    // Make a request to the /signout route
+    const response = await fetch('http://localhost:5000/signout', {
+      method: 'POST',
+      credentials: 'include',
+    });
+  
+    if (response.ok) {
+      // Set isLoggedIn state to false
+      setIsLoggedIn(false);
+    } else {
+      console.error('Sign out failed');
+    }
+  };
+  
+  
+
+  // useEffect(() => {
+  //   try {
+  //     const checkLoggedIn = async () => {
+  //       const response = await fetch('http://localhost:5000/checkLoggedIn', {
+  //         credentials: 'include',
+  //       });
+  //       setIsLoggedIn(response.ok);
+  //     };
+  //     checkLoggedIn();
+  //   } catch (error) {
+  //     console.error('Error checking if user is logged in');
+  //   }
+  // }, []);
+  
+  
+
   return (
     <nav className="navbar">
       <Link className='title' to="/">Gameboxd</Link>
@@ -83,43 +116,49 @@ const Navbar = () => {
         </button>
       </form>
       {isLoggedIn ? (
-        <img
-        src={loggedInImage} 
-        alt="Profile" 
-        onClick={handleProfileClick(1)}
-        />
-      ) : null}
-      {signInOpen ? (
-        <div className="sign-in-form">
-          <form onSubmit={handleSignIn}>
-            <button id='close-sign-in' onClick={handleProfileClick(0)}>X</button>
-            <input
-              className={error ? 'sign-in-error' : 'sign-in-input'} 
-              type="text"
-              placeholder="Username"
-              name="uname"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              onFocus={() => setError(false)}
-              required
-            />
-            <input
-              className={error ? 'sign-in-error' : 'sign-in-input'} 
-              type="password"
-              placeholder="Password"
-              name="psw"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setError(false)}
-              required
-            />
-            <button className="sign-in-submit" type="submit">Sign In</button>
-          </form>
-        </div>
+        <>
+          <img
+            src={loggedInImage} 
+            alt="Profile" 
+            onClick={handleProfileClick(1)}
+          />
+          <button className='sign-out-btn' onClick={handleSignOutClick}>Sign Out</button>
+        </>
       ) : (
         <>
-          <Link to="/Signup" id="sign-up-btn">Create an account</Link>
-          <button className='sign-in-btn' onClick={handleProfileClick(0)}>Sign In</button>
+          {signInOpen ? (
+            <div className="sign-in-form">
+              <form onSubmit={handleSignIn}>
+                <button id='close-sign-in' onClick={handleProfileClick(0)}>X</button>
+                <input
+                  className={error ? 'sign-in-error' : 'sign-in-input'} 
+                  type="text"
+                  placeholder="Username"
+                  name="uname"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  onFocus={() => setError(false)}
+                  required
+                />
+                <input
+                  className={error ? 'sign-in-error' : 'sign-in-input'} 
+                  type="password"
+                  placeholder="Password"
+                  name="psw"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onFocus={() => setError(false)}
+                  required
+                />
+                <button className="sign-in-submit" type="submit">Sign In</button>
+              </form>
+            </div>
+          ) : (
+            <>
+              <Link to="/Signup" id="sign-up-btn">Create an account</Link>
+              <button className='sign-in-btn' onClick={handleProfileClick(0)}>Sign In</button>
+            </>
+          )}
         </>
       )}
     </nav>

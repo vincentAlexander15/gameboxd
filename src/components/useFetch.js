@@ -34,7 +34,6 @@ const useFetch = (url, method, body) => {
           const fetchData = async () => {
               const response = await fetch(url, requestOptions);
               const result = await response.json();
-              console.log('API Result: ', result);
               setData(result);
               if (result.length === 0) {
                   setIsFound(false)
