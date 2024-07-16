@@ -79,24 +79,6 @@ const Navbar = () => {
       console.error('Sign out failed');
     }
   };
-  
-  
-
-  // useEffect(() => {
-  //   try {
-  //     const checkLoggedIn = async () => {
-  //       const response = await fetch('http://localhost:5000/checkLoggedIn', {
-  //         credentials: 'include',
-  //       });
-  //       setIsLoggedIn(response.ok);
-  //     };
-  //     checkLoggedIn();
-  //   } catch (error) {
-  //     console.error('Error checking if user is logged in');
-  //   }
-  // }, []);
-  
-  
 
   return (
     <nav className="navbar">
