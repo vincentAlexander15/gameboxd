@@ -34,6 +34,7 @@ const Navbar = () => {
       if (response.ok) {
         setIsLoggedIn(true);
         setError(false);
+        navigate('/');
       } else {
         setError(true);
       }
@@ -41,7 +42,6 @@ const Navbar = () => {
       setError(true);
     }
   };
-  
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value); 

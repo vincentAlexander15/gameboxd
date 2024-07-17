@@ -19,7 +19,7 @@ const HomePage = () => {
         {isLoggedIn ? (
           <><h2 id="intro-text">Welcome back to the world of gaming with GameBoxd. Enjoy your journey.</h2><Link to="/DataPage" className='explore-link'>GET STARTED</Link></>
         ) : (
-          <><h2 id="intro-text">Explore the world of gaming with GameBoxd. Connect, discover, and enjoy. Sign up to start your journey.</h2><Link to="/Signup" className='explore-link'>GET STARTED</Link></>
+          <><h2 id="intro-text">Explore the world of gaming with GameBoxd. Connect, discover, and enjoy. Sign up to start your journey.</h2><Link to="/Signup" className='explore-link'>EXPLORE</Link></>
         )}
       </div>
     </div>
