@@ -5,6 +5,7 @@ import '../styles/DataPage.css'
 import useFetch from '../components/useFetch';
 import tv from '../images/tv.png';
 import PageNav from '../components/PageNav';
+import SearchSuggestions from '../components/SearchSuggestions';
 
 const DataPage = () => {
     const location = useLocation();
@@ -25,6 +26,7 @@ const DataPage = () => {
       setInputValue(event.target.value);
     };
 
+    // Fetch data for the main search
     const data = useFetch('/igdb/games', 'POST', searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null);
 
     useEffect(() => {
@@ -37,7 +39,7 @@ const DataPage = () => {
         setFirstSearch(false)
       }
     }, [data]);
-  
+
     return (
       <div className="text-center">
         <div>
@@ -51,6 +53,7 @@ const DataPage = () => {
             onChange={handleInputChange}
             placeholder="Search..."
           />
+          <SearchSuggestions className={'explore'} inputValue={inputValue} setInputValue={setInputValue} />
         </form>
         { firstSearch ? (
           <img className='before-search' src={tv} alt="Loading..." />

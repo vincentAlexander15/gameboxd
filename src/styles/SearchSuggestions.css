@@ -1,0 +1,43 @@
+.suggestion-explore {
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 49.4%;
+    width: 30%;
+    background-color: #111113;
+    transform: translate(-50%, -50%);
+    .suggestion:hover {
+        background-color: #541A8C;
+    }
+
+    .suggestion {
+        color: white;
+        text-align: center;
+        z-index: 1;
+        width: 100%;
+        background-color: #111113;
+        border: 2px solid white;
+    }
+}
+
+.suggestion-navbar {
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 432%;
+    width: 24%;
+    background-color: #111113;
+    transform: translate(-50%, -50%);
+    font: 0.8rem 'Roboto', sans-serif;
+    .suggestion:hover {
+        background-color: #541A8C;
+    }
+    .suggestion {
+        color: white;
+        text-align: center;
+        z-index: 1;
+        width: 100%;
+        background-color: #111113;
+        border: 2px solid white;
+    }
+}

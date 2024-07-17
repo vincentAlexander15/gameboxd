@@ -3,7 +3,6 @@ import '../styles/DataPage.css'
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const GameTable = ({currentPage, data}) => {
-    console.log(currentPage);
     const navigate = useNavigate();
     const gamesPerPage = 10;
 
