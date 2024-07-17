@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import GameTable from "./GameTable";
-
-const ResultsPerPage = 10;
+import '../styles/PageNav.css';
 
 const PageNav = ({ data }) => {
     const totalResults = data.length;
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageNumbers, setPageNumbers] = useState([]);
-    const totalPages = Math.ceil(totalResults / ResultsPerPage);
+    const totalPages = Math.ceil(totalResults / 10);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -15,61 +13,48 @@ const PageNav = ({ data }) => {
     
     const goLeft = () => {
         if (currentPage > 1) {
-            const newCurrentPage = currentPage - 1;
-            setCurrentPage(newCurrentPage);
-            updatePageNumbers(newCurrentPage);
+            setCurrentPage(currentPage - 1);
         }
     };
 
     const goRight = () => {
         if (currentPage < totalPages) {
-            const newCurrentPage = currentPage + 1;
-            setCurrentPage(newCurrentPage);
-            updatePageNumbers(newCurrentPage);
+            setCurrentPage(currentPage + 1);
         }
     };
+
+    const goLeftMost = () => {
+        setCurrentPage(1);
+    }
+
+    const goRightMost = () => {
+        setCurrentPage(totalPages);
+    }
     
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
-        updatePageNumbers(pageNumber);
     };
 
-    const updatePageNumbers = (newCurrentPage) => {
-        if (newCurrentPage === pageNumbers[pageNumbers.length - 1] && newCurrentPage >= 5 && totalPages > 5) {
-            const minPage = newCurrentPage - 2;
-            const maxPage = Math.min(totalPages, newCurrentPage + 2);
-            const idxs = [];
-            for (let i = minPage; i <= maxPage; i++) {
-                idxs.push(i);
-            }
-            setPageNumbers(idxs);
-        } else if (newCurrentPage === pageNumbers[0] && newCurrentPage > 1 && totalPages > 5) {
-            const minPage = newCurrentPage - 2;
-            const maxPage = Math.min(totalPages, newCurrentPage + 2);
-            const idxs = [];
-            for (let i = minPage; i <= maxPage; i++) {
-                idxs.push(i);
-            }
-            setPageNumbers(idxs);
-        }
-    };
-
-    useEffect(() => {
-        const idxs = [];
-        for (let i = 1; i <= Math.min(totalPages, 5); i++) {
-            idxs.push(i);
-        }
-        setPageNumbers(idxs);
-    }, [totalPages]);
+    // Calculate the page numbers based on the current page
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+    const pageNumbers = [];
+    for (let i = startPage; i <= endPage; i++) {
+        pageNumbers.push(i);
+    }
 
     return (
-        <div className="pageNav">
+        <div>
             <GameTable data={data} currentPage={currentPage} />
-            <button className="pageLeft" onClick={goLeft}>{"<"}</button>
-            {pageNumbers.map((number) => (
-                <button key={number} onClick={() => goToPage(number)}>{number}</button>
-            ))}
-            <button className="pageRight" onClick={goRight}>{">"}</button>
+            <div className="pageNav">
+                <button className="pageFirst" onClick={goLeftMost}>{"<<"}</button>
+                <button className="pageLeft" onClick={goLeft}>{"<"}</button>
+                {pageNumbers.map((number) => (
+                    <button className={`pageNumbers ${currentPage === number ? 'active' : ''}`} key={number} onClick={() => goToPage(number)}>{number}</button>
+                ))}
+                <button className="pageRight" onClick={goRight}>{">"}</button>
+                <button className="pageLast" onClick={goRightMost}>{">>"}</button>
+            </div>
         </div>
     );
 };

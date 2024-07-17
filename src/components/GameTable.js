@@ -26,17 +26,17 @@ const GameTable = ({currentPage, data}) => {
                 {currentGames.map((item, index) => (
                     <tr key={index}>
                     <td className="cover-container">
-                        {item["cover"] && item["cover"].url ? (
+                    {item["cover"] && item["cover"].url ? (
                         <img className="game-cover" src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
-                        ) : (
-                        <span style={{color: 'white'}}>No image available</span>
-                        )}
+                    ) : (
+                        <span style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '256.66px', border: '3px solid white'}}>No image available</span>
+                    )}
                     </td>
                     <td className="description">
                         <div style={{ display: 'block', textAlign: 'left'}} onClick={() => handleClick(item)}>
                         <h1 className="game-title">{item.name}</h1>
                         </div>
-                        <p style={{color: 'white'}}>{item.summary}</p>
+                        <p className='game-desc'>{item.summary}</p>
                     </td>
                     <td><a href={item.url} target="_blank" rel="noopener noreferrer">Link</a></td>
                     </tr>

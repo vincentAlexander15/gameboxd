@@ -1,0 +1,18 @@
+.pageNav {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.pageNumbers, .pageLeft, .pageRight, .pageFirst, .pageLast {
+    background-color: #000;
+    color: white;
+    font: 1rem 'silkscreen1', sans-serif;
+    padding: 6px 12px;
+    margin: 0 5px;
+}
+
+.active {
+    background-color: white;
+    color: black;
+}

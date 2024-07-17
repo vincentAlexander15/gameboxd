@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const useFetch = (url, method, body) => {
     const [data, setData] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
     const [isFound, setIsFound] = useState(false); 
     const [firstSearch, setFirstSearch] = useState(true);
-  
+
     // Fetch access token
     useEffect(() => {
       const id = process.env.REACT_APP_TWITCH_CLIENT_ID;
@@ -18,7 +18,7 @@ const useFetch = (url, method, body) => {
           .then(response => response.json())
           .then(data => setAccessToken(data.access_token));
     }, []);
-  
+
     // Fetch data
       useEffect(() => {
           if (accessToken && body) { // check if body is defined before fetching
@@ -47,7 +47,5 @@ const useFetch = (url, method, body) => {
       }, [accessToken, url, method, body]);
       return data;
   }
-  
-
 
 export default useFetch;
