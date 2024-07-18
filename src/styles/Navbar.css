@@ -12,6 +12,12 @@
     font: 1.5rem 'silkscreen1', sans-serif;
   }
 
+  .elements {
+    display: grid;
+    grid-gap: 10px;
+    margin-right: 40px;
+  }
+
   .navbar::after {
     content: '';
     position: absolute;
@@ -28,16 +34,11 @@
     display: inline-block;
     color: #ffffff;
     text-decoration: none;
-    margin-left: 50px;
-    margin-top: auto;
-    margin-bottom: auto;
   }
   
   .search-form {
     display: flex;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto + 20px;
   }
   
   .search-form input {
@@ -81,6 +82,11 @@
     outline: none; 
   }
   
+  #sign-up-button {
+    display: block;
+    margin-top: 50px;
+  }
+
   .sign-in-btn {
     display: block;
     text-align: center;
@@ -89,7 +95,6 @@
     background: transparent;
     font: 1.5rem 'silkscreen1', sans-serif;
     cursor: pointer;
-    margin-left: 50px;
   }
 
   .sign-out-btn {
@@ -100,12 +105,12 @@
     background: transparent;
     font: 1.5rem 'silkscreen1', sans-serif;
     cursor: pointer;
-    margin-left: 50px;
   }
 
   .title {
     font: 2rem 'silkscreen2', sans-serif;
     font-size: 46px;
+    margin-left: 40px;
   }
 
   @keyframes highlight {
@@ -181,3 +186,39 @@
     margin-top: 10px;
     z-index: 2;
   }
+
+  .profile-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .profile-icon {
+    display: block;
+    margin-top: 3px;
+    width: 40px;
+  }
+  
+  .profile-menu {
+    text-align: center;
+    width: 100px;
+    position: absolute;
+    /* background-color: #111113; */
+    top: 100%;  /* Position at the bottom of the image */
+    left: 50%;  /* Position at the center of the container */
+    transform: translateX(-50%);  /* Shift the div back by half of its width */
+    font: 1.5rem 'silkscreen1', sans-serif;
+    z-index: 1;
+    animation: blink 0.15s step-start 1.2;
+  }
+  
+  .profile-link {
+    width: 100px;
+    background-color: #000;
+    color: white;
+    font: 1rem 'silkscreen1', sans-serif;
+    transition: transform 0.3s ease;
+  }
+
+  .profile-link:hover {
+    transform: translateX(-20px);
+}

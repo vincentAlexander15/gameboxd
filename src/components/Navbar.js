@@ -48,6 +48,10 @@ const Navbar = () => {
     setInputValue(event.target.value); 
   };
 
+  const handleSignUp = () => {
+    navigate('/SignUp');
+  };
+
   const handleSubmit = (event) => {
     if (inputValue !== null && inputValue !== '') {
       event.preventDefault();
@@ -55,15 +59,15 @@ const Navbar = () => {
     }
   };
 
-  const handleProfileClick = (num) => () => {
-    if (num) {
-      setProfileOpen(!profileOpen);
-    } else {
-      setSignInOpen(!signInOpen);
-      setError(false);
-      setUsername('');
-      setPassword('');
-    }
+  const handleSignInClick = () => {
+    setSignInOpen(!signInOpen);
+    setError(false);
+    setUsername('');
+    setPassword('');
+  };
+
+  const handleProfileClick = () => () => {
+    setProfileOpen(!profileOpen);
   };
 
   const handleSignOutClick = async () => {
@@ -84,67 +88,76 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <Link className='title' to="/">Gameboxd</Link>
-      <form className="search-form" onSubmit={handleSubmit}>
-        <input
-          id='search-input'
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Search..."
-        />
-        <SearchSuggestions className={'navbar'} inputValue={inputValue} setInputValue={setInputValue} />
-        <button id="search-icon" type="submit">
-          <svg style={{ width: '24px', height: '24px'}} viewBox= '0 0 24 24'>
-            <path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
-          </svg>
-        </button>
-      </form>
-      {isLoggedIn ? (
-        <>
-          <img
-            src={loggedInImage} 
-            alt="Profile" 
-            onClick={handleProfileClick(1)}
+      <div className="elements" style={{display:"flex", marginLeft:"auto"}}>
+        <form className="search-form" onSubmit={handleSubmit}>
+          <input
+            id='search-input'
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="Search..."
           />
-          <button className='sign-out-btn' onClick={handleSignOutClick}>Sign Out</button>
-        </>
-      ) : (
-        <>
-          {signInOpen ? (
-            <div className="sign-in-form">
-              <form onSubmit={handleSignIn}>
-                <button id='close-sign-in' onClick={handleProfileClick(0)}>X</button>
-                <input
-                  className={error ? 'sign-in-error' : 'sign-in-input'} 
-                  type="text"
-                  placeholder="Username"
-                  name="uname"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  onFocus={() => setError(false)}
-                  required
-                />
-                <input
-                  className={error ? 'sign-in-error' : 'sign-in-input'} 
-                  type="password"
-                  placeholder="Password"
-                  name="psw"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onFocus={() => setError(false)}
-                  required
-                />
-                <button className="sign-in-submit" type="submit">Sign In</button>
-              </form>
-            </div>
-          ) : (
-            <>
-              <Link to="/Signup" id="sign-up-btn">Create an account</Link>
-              <button className='sign-in-btn' onClick={handleProfileClick(0)}>Sign In</button>
-            </>
-          )}
-        </>
-      )}
+          <SearchSuggestions className={'navbar'} inputValue={inputValue} setInputValue={setInputValue} />
+          <button id="search-icon" type="submit">
+            <svg style={{ width: '24px', height: '24px'}} viewBox= '0 0 24 24'>
+              <path fill="#666666" d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+            </svg>
+          </button>
+        </form>
+        {isLoggedIn ? (
+          <div className='profile-container'>
+            <img
+              src={loggedInImage} 
+              alt="Profile" 
+              className="profile-icon"
+              onClick={handleProfileClick()}
+            />
+            {profileOpen && (
+              <div className="profile-menu" onMouseLeave={handleProfileClick()}>
+                <button className="profile-link" onClick={() => navigate('/Profile')}>Profile</button>
+                <button className="profile-link" onClick={{}}>Settings</button>
+                <button className="profile-link" onClick={handleSignOutClick}>Sign Out</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            {signInOpen ? (
+              <div className="sign-in-form">
+                <form onSubmit={handleSignIn}>
+                  <button id='close-sign-in' onClick={handleSignInClick}>X</button>
+                  <input
+                    className={error ? 'sign-in-error' : 'sign-in-input'} 
+                    type="text"
+                    placeholder="Username"
+                    name="uname"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    onFocus={() => setError(false)}
+                    required
+                  />
+                  <input
+                    className={error ? 'sign-in-error' : 'sign-in-input'} 
+                    type="password"
+                    placeholder="Password"
+                    name="psw"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onFocus={() => setError(false)}
+                    required
+                  />
+                  <button className="sign-in-submit" type="submit">Sign In</button>
+                </form>
+              </div>
+            ) : (
+              <>
+                <button className='sign-in-btn' onClick={handleSignUp}>Create an account</button>
+                <button className='sign-in-btn' onClick={handleSignInClick}>Sign In</button>
+              </>
+            )}
+          </>
+        )}
+      </div>
     </nav>
   );
 };
