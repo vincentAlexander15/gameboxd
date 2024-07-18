@@ -80,6 +80,7 @@ const Navbar = () => {
     if (response.ok) {
       // Set isLoggedIn state to false
       setIsLoggedIn(false);
+      navigate('/');
     } else {
       console.error('Sign out failed');
     }
@@ -115,6 +116,7 @@ const Navbar = () => {
             {profileOpen && (
               <div className="profile-menu" onMouseLeave={handleProfileClick()}>
                 <button className="profile-link" onClick={() => navigate('/Profile')}>Profile</button>
+                <button className="profile-link" onClick={{}}>Library</button>
                 <button className="profile-link" onClick={{}}>Settings</button>
                 <button className="profile-link" onClick={handleSignOutClick}>Sign Out</button>
               </div>

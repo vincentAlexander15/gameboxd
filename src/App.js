@@ -4,6 +4,7 @@ import Home from "./pages/HomePage";
 import Data from "./pages/DataPage";
 import Game from "./pages/GamePage";
 import Signup from "./pages/Signup";
+import Profile from "./pages/ProfilePage";
 import { AuthProvider } from './components/AuthContext';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/DataPage" element={<Data/>}/>
           <Route path="/GamePage" element={<Game/>}/>
           <Route path="/signup" element={<Signup/>}/>
+          <Route path="/Profile" element={<Profile/>}/>
         </Routes>
       </Router>
     </AuthProvider>
