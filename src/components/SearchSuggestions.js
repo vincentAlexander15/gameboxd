@@ -46,6 +46,7 @@ const SearchSuggestions = ({ className, inputValue, setInputValue }) => {
     }, []);
 
     const handleClick = (item) => {
+        setSuggestions([]);
         navigate('/GamePage', {state : { gameData : item}});
     };
 

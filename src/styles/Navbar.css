@@ -35,9 +35,15 @@
     color: #ffffff;
     text-decoration: none;
   }
+
+  .search-menu {
+    display: flex;
+    align-items: center;
+  }
   
   .search-form {
     display: flex;
+    position: relative;
     align-items: center;
   }
   
@@ -61,7 +67,7 @@
     outline: none;
   }
 
-  #search-icon{
+  #search-icon {
     width: 3.5rem;
     height: 2.8rem;
     margin-left: -2.5rem;
@@ -191,11 +197,12 @@
     position: relative;
     display: inline-block;
   }
-  
+
   .profile-icon {
-    display: block;
-    margin-top: 3px;
-    width: 40px;
+    margin-top: 6px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
   }
   
   .profile-menu {

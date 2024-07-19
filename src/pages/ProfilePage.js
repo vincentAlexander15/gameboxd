@@ -1,6 +1,6 @@
 import Navbar from "../components/Navbar";
 
-const GamePage = () => {
+const ProfilePage = () => {
 
     return (
         <div>
@@ -11,4 +11,4 @@ const GamePage = () => {
     
 }
 
-export default GamePage;
+export default ProfilePage;

@@ -41,20 +41,20 @@ const DataPage = () => {
     }, [data]);
 
     return (
-      <div className="text-center">
-        <div>
-          <Navbar/>
+      <div>
+        <Navbar/>
+        <div className="main-search">
+          <form onSubmit={handleSubmit} className="main-search-form">
+            <input
+              id='main-search-input'
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              placeholder="Search..."
+            />
+            <SearchSuggestions className={'explore'} inputValue={inputValue} setInputValue={setInputValue} />
+          </form>
         </div>
-        <form onSubmit={handleSubmit} className="main-search-form">
-          <input
-            id='main-search-input'
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            placeholder="Search..."
-          />
-          <SearchSuggestions className={'explore'} inputValue={inputValue} setInputValue={setInputValue} />
-        </form>
         { firstSearch ? (
           <img className='before-search' src={tv} alt="Loading..." />
         ) : (
