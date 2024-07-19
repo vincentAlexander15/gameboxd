@@ -1,7 +1,7 @@
 import Navbar from "../components/Navbar";
 import SecondNavbar from "../components/SecondNavbar";
 
-const ProfilePage = () => {
+const LibraryPage = () => {
 
     return (
         <div>
@@ -12,4 +12,4 @@ const ProfilePage = () => {
     
 }
 
-export default ProfilePage;
+export default LibraryPage;

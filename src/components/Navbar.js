@@ -112,6 +112,10 @@ const Navbar = () => {
     }
   };
 
+  const handleClick = (buttonName) => {
+    navigate(`/${buttonName}`, {state : { currentButton: buttonName}});
+  };
+
   return (
     <nav className="navbar">
       <Link className='title' to="/">Gameboxd</Link>
@@ -145,9 +149,9 @@ const Navbar = () => {
             </div>
             {profileOpen && (
               <div className="profile-menu" ref={profileRef}>
-                <button className="profile-link" onClick={() => navigate('/Profile')}>Profile</button>
-                <button className="profile-link" onClick={() => navigate('/Library')}>Library</button>
-                <button className="profile-link" onClick={() => navigate('/Settings')}>Settings</button>
+                <button className="profile-link" onClick={() => handleClick("Profile")}>Profile</button>
+                <button className="profile-link" onClick={() => handleClick("Library")}>Library</button>
+                <button className="profile-link" onClick={() => handleClick("Settings")}>Settings</button>
                 <button className="profile-link" onClick={handleSignOutClick}>Sign Out</button>
               </div>
             )}
