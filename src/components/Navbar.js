@@ -79,11 +79,11 @@ const Navbar = () => {
   };
 
   const handleSubmit = (event) => {
-    if (inputValue !== null && inputValue !== '') {
-      event.preventDefault();
+    event.preventDefault();
+    if (inputValue.trim() !== '') {
       navigate('/DataPage', {state : { searchQuery: inputValue}});
     }
-  };
+  };  
 
   const handleSignInClick = () => {
     setSignInOpen(!signInOpen);
