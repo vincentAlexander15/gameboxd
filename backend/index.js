@@ -46,6 +46,8 @@ app.post('/signup', async (req, res) => {
     console.log("Connected correctly to server");
     const db = client.db(dbName);
     const users = db.collection('users');
+    const favorites = db.collection('favorites');
+    const friends = db.collection('friends')
 
     // Check if user already exists
     const userExists = await users.findOne({ username });
@@ -57,7 +59,9 @@ app.post('/signup', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Add new user
-    await users.insertOne({ username, password: hashedPassword });
+    const newUser = await users.insertOne({ username, password: hashedPassword });
+    await favorites.insertOne({ username: username, games: [] });
+    await friends.insertOne({ username: username, userFriends: [] });
     res.status(201).json({ message: 'User created successfully' });
 
   } catch (err) {
@@ -128,6 +132,65 @@ app.get('/checkLoggedIn', (req, res) => {
     res.sendStatus(200);
   } catch (err) {
     res.sendStatus(401);
+  }
+});
+
+app.post('/getCurrentUser', (req, res) => {
+  const token = req.cookies['cookie-gameboxd'];
+  if (!token) {
+      return res.status(401).json({ message: 'Not authenticated' });
+  }
+  jwt.verify(token, jwtscrt, (err, decoded) => {
+      if (err) {
+          return res.status(401).json({ message: 'Failed to authenticate token' });
+      }
+      const username = decoded.username;
+      res.json({ username });
+  });
+});
+
+// Add game to user's favorites
+app.post('/addFavorite', async (req, res) => {
+  const { currentUser, gameID } = req.body;
+  const db = client.db(dbName);
+  const favorites = db.collection('favorites');
+
+  const userDocument = await favorites.findOne({ currentUser });
+
+  if (userDocument && userDocument.games.includes(gameID)) {
+    res.json({ message: 'Game already in favorites' });
+  } else {
+    await favorites.updateOne({ currentUser }, { $push: { games: gameID } });
+    res.json({ message: 'Game added to favorites' });
+  }
+});
+
+// Remove game from user's favorites
+app.post('/removeFavorite', async (req, res) => {
+  const { currentUser, gameID } = req.body;
+  const db = client.db(dbName);
+  const favorites = db.collection('favorites');
+
+  const userDocument = await favorites.findOne({ currentUser });
+
+  if (userDocument && userDocument.games.includes(gameID)) {
+    await favorites.updateOne({ currentUser }, { $pull: { games: gameID } });
+    res.json({ message: 'Game removed from favorites' });
+  } else {
+    res.json({ message: 'Game not in favorites' });
+  }
+});
+
+app.post('/getUserFavorites', async (req, res) => {
+  const { currentUser, gameID } = req.body;
+  const db = client.db(dbName);
+  const favorites = db.collection('favorites');
+  const userDocument = await favorites.findOne({ currentUser });
+
+  if (userDocument && userDocument.games.includes(gameID)) {
+    res.json({ isFavorite: true });
+  } else {
+    res.json({ isFavorite: false });
   }
 });
 

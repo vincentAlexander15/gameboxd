@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/DataPage.css'
 import { useLocation, useNavigate } from 'react-router-dom';
+import FavButton from './favButton';
 
 const GameTable = ({currentPage, data}) => {
     const navigate = useNavigate();
@@ -37,7 +38,9 @@ const GameTable = ({currentPage, data}) => {
                         </div>
                         <p className='game-desc'>{item.summary}</p>
                     </td>
-                    <td><a href={item.url} target="_blank" rel="noopener noreferrer">Link</a></td>
+                    <td>
+                        <FavButton gameID={item.id}/>
+                    </td>
                     </tr>
                 ))}
                 </tbody>

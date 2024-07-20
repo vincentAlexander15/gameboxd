@@ -28,7 +28,7 @@ const DataPage = () => {
 
     // Fetch data for the main search
     const data = useFetch('/igdb/games', 'POST', searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null);
-
+    console.log(data);
     useEffect(() => {
       if (data) {
         if (data.length === 0) {
