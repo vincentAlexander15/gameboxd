@@ -38,7 +38,7 @@ const GameTable = ({currentPage, data}) => {
                         </div>
                         <p className='game-desc'>{item.summary}</p>
                     </td>
-                    <td>
+                    <td className="button-column">
                         <FavButton gameID={item.id}/>
                     </td>
                     </tr>

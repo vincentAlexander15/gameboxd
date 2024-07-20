@@ -5,6 +5,7 @@ import useFetch from '../components/useFetch';
 import '../styles/GamePage.css';
 import '../fonts/fonts.css';
 import noImg from '../images/noImg.jpg'
+import FavButton from '../components/favButton';
 
 const GamePage = () => {
     //Retrieve data from DataPage
@@ -16,7 +17,7 @@ const GamePage = () => {
     const method = 'POST';
     const scs = useFetch('/igdb/screenshots', method, `fields *; where game = ${gameData.id}; limit 10;`);
     const releaseDates = useFetch(url, method, `fields game, date, human; where game = ${gameData.id}; sort date asc; limit 1;`);
-    const cover = useFetch('/igdb/games', 'POST', `fields cover.*; where id = ${gameData.id};`);
+    const cover = useFetch('/igdb/games', method, `fields cover.*; where id = ${gameData.id};`);
 
     // //Cycles game screenshots for each page
     const ScreenshotCarousel = ({scs}) => {
@@ -61,26 +62,29 @@ const GamePage = () => {
         <div>
             <Navbar/>
             {scs ? <ScreenshotCarousel scs={scs} /> : <div>Loading screenshots...</div>}
-            <div class="container">
-                <div class="content">
+            <div className="content">
+                <div className="visual">
                     {cover && cover[0] && cover[0].cover && cover[0].cover.url ? (
                         <img className="cover" src={cover[0].cover.url.replace('t_thumb', 't_1080p')} alt="cover"/>
                         ) : (
                         <img className="cover" src={noImg} alt="cover"/>
                     )}
-                    <div class="info">
-                        <h1 className='title'>{gameData ? gameData.name : "Loading..."}</h1>
-                        <h2 className='release'>
-                            {releaseDates && releaseDates[0] && releaseDates[0].date ? (
-                                <span>{releaseDates[0].human}</span>
-                            ) : (
-                                <span>Not Available</span>
-                            )}
-                        </h2>
-                        <p className='summary'>
-                            {gameData ? gameData.summary : "Loading..."}
-                        </p>
+                    <div style={{display:"flex", justifyContent:"center", marginTop:"10px", marginBottom:"10px"}}>
+                        <FavButton gameID={gameData.id}/>
                     </div>
+                </div>
+                <div className="info">
+                    <h1 className='gametitle'>{gameData ? gameData.name : "Loading..."}</h1>
+                    <h2 className='release'>
+                        {releaseDates && releaseDates[0] && releaseDates[0].date ? (
+                            <span>{releaseDates[0].human}</span>
+                        ) : (
+                            <span>Not Available</span>
+                        )}
+                    </h2>
+                    <p className='summary'>
+                        {gameData ? gameData.summary : "Loading..."}
+                    </p>
                 </div>
             </div>
         </div>

@@ -59,7 +59,7 @@ client.connect().then(() => {
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Add new user
-      await users.insertOne({ username, password: hashedPassword });
+      const user = users.insertOne({ username, password: hashedPassword });
       await favorites.insertOne({ username: username, games: [] });
       await friends.insertOne({ username: username, userFriends: [] });
       res.status(201).json({ message: 'User created successfully' });
@@ -101,7 +101,6 @@ client.connect().then(() => {
         res.status(400).json({ message: 'User does not exist' });
       }
     } catch (error) {
-      console.error(error);
       res.status(500).json({ message: 'Server error' });
     }
   });

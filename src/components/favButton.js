@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { useState, useContext, useEffect } from 'react';
+import "../styles/FavButton.css";
+import PlusSign from '../images/PlusSVG';
+import CheckMark from '../images/CheckSVG';
 
 const FavButton = ({gameID}) => {
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
@@ -20,7 +23,7 @@ const FavButton = ({gameID}) => {
             });
             if (response.ok) {
                 const data = await response.json();
-                if (data.isFavorite) {
+                if (data.isFavorite && isLoggedIn) {
                     setButtonText("REMOVE");
                 } 
             } else {
@@ -57,7 +60,9 @@ const FavButton = ({gameID}) => {
     };
 
     return (
-        <button onClick={() => handleClick()}>{buttonText}</button>
+        <button className={`button-${buttonText}`} onClick={() => handleClick()}>
+            {buttonText === "ADD" ? <PlusSign /> : <CheckMark />}
+        </button>
     );
 };
 
