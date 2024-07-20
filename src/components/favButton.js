@@ -1,9 +1,11 @@
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from './AuthContext';
 import { useState, useContext, useEffect } from 'react';
 
 const FavButton = ({gameID}) => {
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
     const [buttonText, setButtonText] = useState("ADD");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchFavorites = async () => {
@@ -50,7 +52,7 @@ const FavButton = ({gameID}) => {
                 setButtonText("ADD");
             }
         } else {
-            alert('Please log in to add games to your favorites');
+            navigate('/SignUp');
         }
     };
 
