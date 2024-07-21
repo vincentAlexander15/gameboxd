@@ -126,21 +126,6 @@ client.connect().then(() => {
     }
   });
 
-  // Get current user
-  app.post('/getCurrentUser', (req, res) => {
-    const token = req.cookies['cookie-gameboxd'];
-    if (!token) {
-        return res.status(401).json({ message: 'Not authenticated' });
-    }
-    jwt.verify(token, jwtscrt, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: 'Failed to authenticate token' });
-        }
-        const username = decoded.username;
-        res.json({ username });
-    });
-  });
-
   // Add game to user's favorites
   app.post('/addFavorite', async (req, res) => {
     try {

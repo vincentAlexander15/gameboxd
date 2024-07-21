@@ -9,6 +9,7 @@ import SearchSuggestions from '../components/SearchSuggestions';
 const Navbar = () => {
   const [inputValue, setInputValue] = useState(''); 
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [profileOpen, setProfileOpen] = useState(false);
   const [signInOpen, setSignInOpen] = useState(false);
   const [username, setUsername] = useState('');
@@ -34,6 +35,8 @@ const Navbar = () => {
       });
       if (response.ok) {
         setIsLoggedIn(true);
+        setCurrentUser(username);
+        console.log("Current user", currentUser, "logged in?", isLoggedIn);
         setError(false);
         navigate('/');
       } else {
@@ -106,6 +109,7 @@ const Navbar = () => {
     if (response.ok) {
       // Set isLoggedIn state to false
       setIsLoggedIn(false);
+      setCurrentUser('');
       navigate('/');
     } else {
       console.error('Sign out failed');

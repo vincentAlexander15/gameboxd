@@ -39,7 +39,7 @@ const GameTable = ({currentPage, data}) => {
                         <p className='game-desc'>{item.summary}</p>
                     </td>
                     <td className="button-column">
-                        <FavButton gameID={item.id}/>
+                        <FavButton key={item.id} gameID={item.id}/>
                     </td>
                     </tr>
                 ))}

@@ -54,8 +54,6 @@ const GamePage = () => {
                 />
             </div>
         );
-        
-        
     };
 
     return (
@@ -70,7 +68,7 @@ const GamePage = () => {
                         <img className="cover" src={noImg} alt="cover"/>
                     )}
                     <div style={{display:"flex", justifyContent:"center", marginTop:"10px", marginBottom:"10px"}}>
-                        <FavButton gameID={gameData.id}/>
+                        <FavButton key={gameData.id} gameID={gameData.id}/>
                     </div>
                 </div>
                 <div className="info">
