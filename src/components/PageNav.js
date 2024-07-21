@@ -14,25 +14,30 @@ const PageNav = ({ data }) => {
     const goLeft = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
     const goRight = () => {
         if (currentPage < totalPages) {
             setCurrentPage(currentPage + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
     const goLeftMost = () => {
         setCurrentPage(1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     const goRightMost = () => {
         setCurrentPage(totalPages);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     const goToPage = (pageNumber) => {
         setCurrentPage(pageNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     // Calculate the page numbers based on the current page

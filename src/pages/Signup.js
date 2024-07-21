@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from "../components/Navbar";
 import '../styles/Signup.css';
+import Footer from '../components/Footer';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -71,6 +72,7 @@ const Signup = () => {
         </form>
         {error ? notif && <div className="error">{notif}</div> : notif && <div className="notif">{notif}</div>}
       </div>
+      <Footer />
     </div>
   );
 };

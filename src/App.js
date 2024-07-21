@@ -8,6 +8,8 @@ import Profile from "./pages/ProfilePage";
 import Library from "./pages/LibraryPage";
 import Settings from "./pages/SettingsPage";
 import { AuthProvider } from './components/AuthContext';
+import './styles/global.css';
+import Footer from './components/Footer';
 
 function App() {
   return (

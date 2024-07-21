@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import SecondNavbar from "../components/SecondNavbar";
+import Footer from "../components/Footer";
 
 const SettingsPage = () => {
 
@@ -7,6 +8,7 @@ const SettingsPage = () => {
         <div>
             <Navbar/>
             <SecondNavbar/>
+            <Footer/>
         </div>
     );
     

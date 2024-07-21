@@ -6,6 +6,8 @@ import '../styles/GamePage.css';
 import '../fonts/fonts.css';
 import noImg from '../images/noImg.jpg'
 import FavButton from '../components/favButton';
+import ScreenshotCarousel from '../components/ScreenShotCarousel';
+import Footer from '../components/Footer';
 
 const GamePage = () => {
     //Retrieve data from DataPage
@@ -19,41 +21,23 @@ const GamePage = () => {
     const releaseDates = useFetch(url, method, `fields game, date, human; where game = ${gameData.id}; sort date asc; limit 1;`);
     const cover = useFetch('/igdb/games', method, `fields cover.*; where id = ${gameData.id};`);
 
-    // //Cycles game screenshots for each page
-    const ScreenshotCarousel = ({scs}) => {
-        const [currentIdx, setCurrentIdx] = useState(0);
-        const [fade, setFade] = useState(false);
-    
-        useEffect(() => {
-            const updateIndex = () => {
-                setFade(true);
-                setTimeout(() => {
-                    setCurrentIdx(prevIndex => (prevIndex + 1) % scs.length);
-                    setFade(false);
-                }, 500);
-            };
-            const validIdx = setInterval(updateIndex, 4000);
-            return () => clearInterval(validIdx);
-        }, [scs]);
-    
-        if (scs.length === 0) {
-            return (
-                <div className="noImages"></div>
-            )
+    const [isSummaryExpanded, setIsSummaryExpanded] = useState(false);
+
+    const toggleSummary = () => {
+        setIsSummaryExpanded(!isSummaryExpanded);
+    };
+
+    const getSummary = (summary) => {
+        const maxLength = 300; // Change this to the length you want
+        if (summary.length > maxLength) {
+            if (isSummaryExpanded) {
+                return summary;
+            } else {
+                return `${summary.substring(0, maxLength)}...`; // Change 100 to the length you want
+            }
+        } else {
+            return summary;
         }
-    
-        return (
-            <div className="game_scs">
-                <div 
-                    className="background-image"
-                    style={{
-                        backgroundImage: `url(${scs[currentIdx].url.replace('t_thumb', 't_1080p')})`,
-                        opacity: fade ? 0 : 1, 
-                        transition: 'opacity 0.5s'
-                    }}
-                />
-            </div>
-        );
     };
 
     return (
@@ -71,23 +55,37 @@ const GamePage = () => {
                         <FavButton key={gameData.id} gameID={gameData.id}/>
                     </div>
                 </div>
+
                 <div className="info">
                     <h1 className='gametitle'>{gameData ? gameData.name : "Loading..."}</h1>
-                    <h2 className='release'>
+                    <h2 className='release-date'>
                         {releaseDates && releaseDates[0] && releaseDates[0].date ? (
                             <span>{releaseDates[0].human}</span>
                         ) : (
-                            <span>Not Available</span>
+                            <span>Release date not available</span>
                         )}
                     </h2>
                     <p className='summary'>
-                        {gameData ? gameData.summary : "Loading..."}
+                        {gameData ? getSummary(gameData.summary) : "Loading..."}
                     </p>
+                    {gameData && gameData.summary && gameData.summary.length > 50 && (
+                        <button className="read-more" onClick={toggleSummary}>
+                            {isSummaryExpanded ? "Read Less" : "Read More"}
+                        </button>
+                    )}
+                    <div className='reviews'>
+                        <h2>Reviews</h2>
+                        <p>Coming soon...</p>
+                    </div>
+                </div>
+
+                <div className="details">
+                    <h2>Details</h2>
                 </div>
             </div>
+            <Footer/>
         </div>
     );
-    
 }
 
 export default GamePage;

@@ -6,6 +6,7 @@ import useFetch from '../components/useFetch';
 import tv from '../images/tv.png';
 import PageNav from '../components/PageNav';
 import SearchSuggestions from '../components/SearchSuggestions';
+import Footer from '../components/Footer';
 
 const DataPage = () => {
     const location = useLocation();
@@ -40,7 +41,7 @@ const DataPage = () => {
     }, [data]);
 
     return (
-      <div>
+      <div style={{position: 'relative', minHeight: '100vh'}}>
         <Navbar/>
         <div className="main-search">
           <form onSubmit={handleSubmit} className="main-search-form">
@@ -63,6 +64,7 @@ const DataPage = () => {
             <h1 className='no-res'>No Results Found</h1>
           )
         )}
+        <Footer/>
       </div>
     );
   }

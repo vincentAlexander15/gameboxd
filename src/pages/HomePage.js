@@ -5,6 +5,7 @@ import GameCarousel from '../components/GameCarousel';
 import '../styles/HomePage.css';
 import '../fonts/fonts.css';
 import { AuthContext } from '../components/AuthContext';
+import Footer from '../components/Footer';
 
 const HomePage = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -22,6 +23,7 @@ const HomePage = () => {
           <><h2 id="intro-text">Explore the world of gaming with GameBoxd. Connect, discover, and enjoy. Sign up to start your journey.</h2><Link to="/Signup" className='explore-link'>GET STARTED</Link></>
         )}
       </div>
+      <Footer/>
     </div>
   );
 }

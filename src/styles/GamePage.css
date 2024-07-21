@@ -61,19 +61,55 @@
 
 .info {
     margin-left: 20px;
-    h1, h2 {
-        color: white;
-    }
-    .gametitle {
-        text-decoration: underline;
-        text-decoration-color: #541A8C;
-        text-decoration-thickness: 4px;
-        font-size: 46px;
-    }
+    width: 600px;
+    height: 200px;
+    background: transparent;
+}
+
+.gametitle {
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: #541A8C;
+    text-decoration-thickness: 4px;
+    font-size: 30px;
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
+.release-text {
+    color: rgb(223, 223, 223);
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.release-date {
+    color: rgb(226, 226, 226);
+    font-size: 20px;
 }
 
 .summary {
     color: white;
+}
+
+.reviews {
+    color: white;
+}
+
+.details {
+    h2 {
+        color: white;
+        text-decoration: underline;
+        text-decoration-color: #541A8C;
+        text-decoration-thickness: 4px;
+        font-size: 30px;
+        margin-bottom: -10px;
+        margin-top: -10px;
+    }
+    width: 200px;
+    height: 200px;
+    background: transparent;
+    color: white;
+    font-size: 20px;
 }
 
 .noImages {
