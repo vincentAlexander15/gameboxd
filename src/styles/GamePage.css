@@ -7,7 +7,8 @@
 }
 
 .game_scs .background-image {
-    width: 60%;
+    width: 854px;
+    height: 480px;
     aspect-ratio: 16 / 9;
     background-size: cover;
     background-position: center;
@@ -38,7 +39,7 @@
     margin-top: -140px;
     margin-left: auto;
     margin-right: auto; 
-    width: 50%;
+    width: 1200px;
 }
 
 .visual {
@@ -51,7 +52,7 @@
 }
 
 .cover {
-    width: 100%;
+    width: 253px;
     object-fit: contain;
     object-position: center;
     border-radius: 25px;
@@ -88,5 +89,5 @@
 
 .button-column {
     text-align: center;
-  vertical-align: middle;
+    vertical-align: middle;
 }
