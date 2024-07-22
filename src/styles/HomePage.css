@@ -16,19 +16,9 @@ body {
     100% {opacity: 1;}
 }
 
-
 .parent {
     margin-top: 13px;
 }
-/* 
-.explore {
-    position: absolute;
-    top: 585px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
-    font-size: larger;
-} */
 
 @keyframes blink {
     0%, 50%, 100% {opacity: 0;}

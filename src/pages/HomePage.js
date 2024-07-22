@@ -11,7 +11,7 @@ const HomePage = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
   return (
-    <div>
+    <div className='main'>
       <Navbar/>
       <div className='carousel-container'>
         <GameCarousel/>

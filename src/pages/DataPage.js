@@ -41,7 +41,7 @@ const DataPage = () => {
     }, [data]);
 
     return (
-      <div style={{position: 'relative', minHeight: '100vh'}}>
+      <div className="main">
         <Navbar/>
         <div className="main-search">
           <form onSubmit={handleSubmit} className="main-search-form">

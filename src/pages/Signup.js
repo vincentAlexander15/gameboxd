@@ -43,7 +43,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className='main'>
       <Navbar />
       <div className="sign-up-container">
         <div className="prompt">Create Account</div>

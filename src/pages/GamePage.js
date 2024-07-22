@@ -41,7 +41,7 @@ const GamePage = () => {
     };
 
     return (
-        <div>
+        <div className='main'>
             <Navbar/>
             {scs ? <ScreenshotCarousel scs={scs} /> : <div>Loading screenshots...</div>}
             <div className="content">

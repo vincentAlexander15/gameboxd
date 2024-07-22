@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 const SettingsPage = () => {
 
     return (
-        <div>
+        <div className="main">
             <Navbar/>
             <SecondNavbar/>
             <Footer/>
