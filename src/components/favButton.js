@@ -13,7 +13,7 @@ const FavButton = ({gameID}) => {
     useEffect(() => {
         const fetchFavorites = async () => {
             const send = { currentUser, gameID };
-            const response = await fetch('http://localhost:5000/getUserFavorites', {
+            const response = await fetch('http://localhost:5000/inUserFavorites', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

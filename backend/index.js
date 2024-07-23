@@ -115,7 +115,6 @@ client.connect().then(() => {
   });
 
   // Check if user is logged in
-
   app.get('/checkLoggedIn', (req, res) => {
     try {
       const token = req.cookies['cookie-gameboxd'];
@@ -168,7 +167,7 @@ client.connect().then(() => {
   });
 
   // Get user's favorites
-  app.post('/getUserFavorites', async (req, res) => {
+  app.post('/inUserFavorites', async (req, res) => {
     const { currentUser, gameID } = req.body;
     const db = client.db(dbName);
     const favorites = db.collection('favorites');
@@ -179,6 +178,15 @@ client.connect().then(() => {
     } else {
       res.json({ isFavorite: false });
     }
+  });
+
+  app.post('/getUserFavorites', async (req, res) => {
+    const { currentUser } = req.body;
+    const db = client.db(dbName);
+    const favorites = db.collection('favorites');
+    const userDocument = await favorites.findOne({ username: currentUser });
+
+    res.json(userDocument.games);
   });
 
   app.listen(port, () => {
