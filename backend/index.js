@@ -54,7 +54,23 @@ client.connect().then(() => {
       if (userExists) {
         return res.status(400).json({ message: 'User already exists' });
       }
-  
+
+      //Check that username and password contain only valid characters
+      const usernameRegex = /^[a-zA-Z][a-zA-Z0-9_-]{2,15}$/;
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+      if (!usernameRegex.test(username)) {
+        return res.status(400).json({ 
+          message: 'Username should only contain alphanumeric characters, underscores, and hyphens. It should start with a letter and be 3 to 16 characters long.' 
+        });
+      }
+
+      if (!passwordRegex.test(password)) {
+        return res.status(400).json({ 
+          message: 'Password should contain at least one lowercase letter, one uppercase letter, one digit, one special character (@, $, !, %, *, ?, &), and be at least 8 characters long.' 
+        });
+      }
+
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
   
@@ -187,6 +203,21 @@ client.connect().then(() => {
     const userDocument = await favorites.findOne({ username: currentUser });
 
     res.json(userDocument.games);
+  });
+
+  // Get current user
+  app.post('/getCurrentUser', (req, res) => {
+    const token = req.cookies['cookie-gameboxd'];
+    if (!token) {
+        return res.status(401).json({ message: 'Not authenticated' });
+    }
+    jwt.verify(token, jwtscrt, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: 'Failed to authenticate token' });
+        }
+        const username = decoded.username;
+        res.json({ username });
+    });
   });
 
   app.listen(port, () => {

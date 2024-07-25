@@ -1,5 +1,5 @@
-import React from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { HashRouter as Router, Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import Home from "./pages/HomePage";
 import Data from "./pages/DataPage";
 import Game from "./pages/GamePage";
@@ -7,11 +7,18 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/ProfilePage";
 import Library from "./pages/LibraryPage";
 import Settings from "./pages/SettingsPage";
-import { AuthProvider } from './components/AuthContext';
+import { AuthContext, AuthProvider } from './components/AuthContext';
 import './styles/global.css';
-import Footer from './components/Footer';
 
 function App() {
+
+  const PrivateRoutes = () => {
+      const { currentUser } = useContext(AuthContext);
+    return (
+        currentUser ? <Outlet/> : <Navigate to='/signup'/>
+      )
+  }
+  
   return (
     <AuthProvider>
       <Router>
@@ -20,9 +27,11 @@ function App() {
           <Route path="/DataPage" element={<Data/>}/>
           <Route path="/GamePage" element={<Game/>}/>
           <Route path="/signup" element={<Signup/>}/>
-          <Route path="/Profile" element={<Profile/>}/>
-          <Route path="/Library" element={<Library/>}/>
-          <Route path="/Settings" element={<Settings/>}/>
+          <Route element={<PrivateRoutes/>}>
+            <Route path="/Profile" element={<Profile/>}/>
+            <Route path="/Library" element={<Library/>}/>
+            <Route path="/Settings" element={<Settings/>}/>
+          </Route>
         </Routes>
       </Router>
     </AuthProvider>
@@ -30,3 +39,4 @@ function App() {
 }
 
 export default App;
+
