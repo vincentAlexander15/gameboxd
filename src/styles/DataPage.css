@@ -63,6 +63,7 @@ table {
   border: 3px solid white; 
   box-sizing: border-box;
   margin: auto;
+  cursor: pointer;
 }
 
 .game-title {

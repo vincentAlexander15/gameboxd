@@ -13,7 +13,7 @@ import './styles/global.css';
 function App() {
 
   const PrivateRoutes = () => {
-      const { currentUser } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
     return (
         currentUser ? <Outlet/> : <Navigate to='/signup'/>
       )

@@ -1,13 +1,39 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .game-list {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
-  }
+    animation: fadeIn 0.2s ease-in-out;
+}
 
 .game-item {
     padding: 10px;
+    width: 270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .library-content {
     display: flex;
+}
+
+.library-game-title {
+    display: block;
+    margin-bottom: 10px;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 80%;
 }

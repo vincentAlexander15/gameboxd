@@ -27,7 +27,7 @@ const GameTable = ({currentPage, data}) => {
                     <tr key={index}>
                     <td className="cover-container">
                     {item["cover"] && item["cover"].url ? (
-                        <img className="game-cover" src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} />
+                        <img className="game-cover" src={item["cover"].url.replace('t_thumb', 't_1080p')} alt={item.name} onClick={() => handleClick(item)}/>
                     ) : (
                         <span style={{color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '256.66px', border: '3px solid white'}}>No image available</span>
                     )}

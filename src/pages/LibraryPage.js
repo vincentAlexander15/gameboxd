@@ -3,30 +3,38 @@ import SecondNavbar from "../components/SecondNavbar";
 import Footer from "../components/Footer";
 import { AuthContext } from '../components/AuthContext';
 import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useFetch from '../components/useFetch';
 import "../styles/LibraryPage.css";
 import FavButton from '../components/favButton';
 
 const LibraryPage = () => {
-
+    const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
     const [allUserGameIDS, setAllUserGameIDS] = useState('');
 
     const allUserGames = useFetch('/igdb/games', 'POST', `fields *, cover.*; where id = ${allUserGameIDS};`);
+
+    const handleClick = (item) => {
+        navigate('/GamePage', {state : { gameData : item}});
+    };
 
     const GameList = ({ allUserGames }) => {
         return (
             <div className="game-list">
                 {allUserGames && allUserGames.map((item, index) => (
                     <div key={index} className="game-item">
+                        <span className="library-game-title" title={item.name}>{item.name}</span>
                         <div>
                             {item && item.cover && item.cover.url ? (
-                                <img className="cover" src={item.cover.url.replace('t_thumb', 't_1080p')} alt="cover" />
+                                <img className="cover" src={item.cover.url.replace('t_thumb', 't_1080p')} alt="cover" onClick={() => handleClick(item)} />
                             ) : (
                                 <span style={{borderRadius: '25px', height: '337.33px', width: '253px', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>No image available</span>
                             )}
                         </div>
-                        <FavButton key={item.id} gameID={item.id} />
+                        <div style={{marginTop: '10px'}}>
+                            <FavButton key={item.id} gameID={item.id} />
+                        </div>
                     </div>
                 ))}
             </div>
@@ -72,7 +80,7 @@ const LibraryPage = () => {
                         <GameList allUserGames={allUserGames} />
                     </div>
                 :
-                <p>Sign in to add Games</p>
+                    <p color="white">Sign in to add games</p>
                 }
 
             </div>

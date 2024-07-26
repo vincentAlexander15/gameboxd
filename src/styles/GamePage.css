@@ -58,6 +58,7 @@
     object-position: center;
     border-radius: 25px;
     display: block;
+    cursor: pointer;
 }
 
 .info {
