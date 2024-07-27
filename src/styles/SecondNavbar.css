@@ -1,7 +1,6 @@
 .dashboard {
-  height: 80vh;
-  width: 30vh;
-  /* margin-left: 20px; */
+  height: 700px;
+  width: 200px;
   border: 2px solid rgb(255, 255, 255);
   margin-top: 20px;
   margin-left: 20px;

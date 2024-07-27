@@ -1,0 +1,23 @@
+.pencil {
+    display: flex;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 7%;
+    text-align: center;
+}
+
+.user-field {
+    display: flex;
+    width: 500px;
+}
+
+.user-field-label {
+    font: 1.5rem 'silkscreen1', sans-serif;
+    background: transparent;
+    border: none;
+    color: white;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}

@@ -25,6 +25,9 @@ app.use(cors({
 // Connection URL
 const url = `mongodb+srv://${uname}:${pwd}@gameboxd.rpwjyu7.mongodb.net/?retryWrites=true&w=majority&appName=gameboxd`;
 
+// Database documents
+const documents = ["users", "favorites", "friends"];
+
 // Database Name
 const dbName = 'gameboxd';
 
@@ -219,6 +222,37 @@ client.connect().then(() => {
         res.json({ username });
     });
   });
+
+  app.post('/changeUsername', async (req, res) => {
+    const { currentUser, newUsername } = req.body;
+    const db = client.db(dbName);
+    const users = db.collection('users');
+    
+    const userExists = await users.findOne({ username: newUsername });
+    if (userExists) {
+      return res.status(400).json({ message: 'Username is taken' });
+    }
+  
+    const updateUser = async (collection) => {
+      const result = await collection.updateMany(
+        { username: currentUser }, 
+        { $set: { username: newUsername } }
+      );
+      return result.modifiedCount > 0;
+    };
+  
+    for (const doc of documents) {
+      console.log("made it here:", doc);
+      const collection = db.collection(doc);
+      const updateSuccessful = await updateUser(collection);
+      if (!updateSuccessful) {
+        return res.status(500).json({ message: `Unable to update username in ${doc}` });
+      }
+    }
+  
+    res.json({ message: 'Username updated successfully' });
+  });
+  
 
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

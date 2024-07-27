@@ -7,7 +7,10 @@ const SettingsPage = () => {
     return (
         <div className="main">
             <Navbar/>
-            <SecondNavbar/>
+            <div className="content-area">
+                <SecondNavbar/>
+                <p>THIS IS A TEST</p>
+            </div>
             <Footer/>
         </div>
     );

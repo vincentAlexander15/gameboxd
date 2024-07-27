@@ -73,16 +73,11 @@ const LibraryPage = () => {
     return (
         <div className="main">
             <Navbar/>
-            <div className="library-content">
+            <div className="content-area">
                 <SecondNavbar/>
-                {isLoggedIn ? 
-                    <div className="allGames">
-                        <GameList allUserGames={allUserGames} />
-                    </div>
-                :
-                    <p color="white">Sign in to add games</p>
-                }
-
+                <div className="allGames">
+                    <GameList allUserGames={allUserGames} />
+                </div>
             </div>
             <Footer/>
         </div>
