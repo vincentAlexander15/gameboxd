@@ -9,32 +9,37 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const loggedInResponse = await fetch('http://localhost:5000/checkLoggedIn', {
-        credentials: 'include',
-      });
-      setIsLoggedIn(loggedInResponse.ok);
-
-      if (loggedInResponse.ok) {
-        const userResponse = await fetch('http://localhost:5000/getCurrentUser', {
-          method: 'POST',
+      try {
+        const loggedInResponse = await fetch('http://localhost:5000/checkLoggedIn', {
           credentials: 'include',
         });
-        if (userResponse.ok) {
-          const data = await userResponse.json();
-          setCurrentUser(data.username);
-        } else {
-          console.error('Failed to retrieve username');
+        const loggedInData = await loggedInResponse.json();
+        setIsLoggedIn(loggedInData.authenticated);
+  
+        if (loggedInData.authenticated) {
+          const userResponse = await fetch('http://localhost:5000/getCurrentUser', {
+            method: 'POST',
+            credentials: 'include',
+          });
+          if (userResponse.ok) {
+            const data = await userResponse.json();
+            setCurrentUser(data.username);
+          } else {
+            console.error('Failed to retrieve username');
+          }
         }
+      } catch (error) {
+        console.error('An error occurred while checking authentication status:', error);
+      } finally {
+        setLoading(false); // Auth check is complete
       }
-
-      setLoading(false); // Auth check is complete
     };
-
     checkAuthStatus();
   }, []);
+  
 
   if (loading) {
-    return <div>Loading...</div>; // Or your preferred loading UI
+    return <div>Loading...</div>;
   }
 
   return (

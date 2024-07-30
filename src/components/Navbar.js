@@ -165,7 +165,7 @@ const Navbar = () => {
             {signInOpen ? (
               <div className="sign-in-form">
                 <form onSubmit={handleSignIn}>
-                  <button id='close-sign-in' onClick={handleSignInClick}>X</button>
+                  <button type='button' id='close-sign-in' onClick={handleSignInClick}>X</button>
                   <input
                     className={error ? 'sign-in-error' : 'sign-in-input'} 
                     type="text"

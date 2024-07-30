@@ -138,11 +138,12 @@ client.connect().then(() => {
     try {
       const token = req.cookies['cookie-gameboxd'];
       jwt.verify(token, jwtscrt);
-      res.sendStatus(200);
+      res.status(200).json({ authenticated: true });
     } catch (err) {
-      res.sendStatus(401);
+      res.status(200).json({ authenticated: false });
     }
   });
+
 
   // Add game to user's favorites
   app.post('/addFavorite', async (req, res) => {
