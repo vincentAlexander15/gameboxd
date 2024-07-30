@@ -12,8 +12,9 @@ const LibraryPage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
     const [allUserGameIDS, setAllUserGameIDS] = useState('');
+    const [ librarySize, setLibrarySize] = useState(0);
 
-    const allUserGames = useFetch('/igdb/games', 'POST', `fields *, cover.*; where id = ${allUserGameIDS};`);
+    const allUserGames = useFetch('/igdb/games', 'POST', `fields *, cover.*; where id = ${allUserGameIDS}; limit ${librarySize.toString()};`);
 
     const handleClick = (item) => {
         navigate('/GamePage', {state : { gameData : item}});
@@ -27,7 +28,7 @@ const LibraryPage = () => {
                         <span className="library-game-title" title={item.name}>{item.name}</span>
                         <div>
                             {item && item.cover && item.cover.url ? (
-                                <img className="cover" src={item.cover.url.replace('t_thumb', 't_1080p')} alt="cover" onClick={() => handleClick(item)} />
+                                <img className="library-cover" src={item.cover.url.replace('t_thumb', 't_1080p')} alt="cover" onClick={() => handleClick(item)} />
                             ) : (
                                 <span style={{borderRadius: '25px', height: '337.33px', width: '253px', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>No image available</span>
                             )}
@@ -56,7 +57,9 @@ const LibraryPage = () => {
                 if (response.ok) {
                     const data = await response.json();
                     if (data) {
+                        setLibrarySize(data.length);
                         const ids = data.map(item => item.toString());
+                        console.log(data.length)
                         setAllUserGameIDS("(" + ids.join(', ') + ")");
                     } else {
                         console.log("data might be empty", data);
