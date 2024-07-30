@@ -27,11 +27,19 @@ const DataPage = () => {
       setInputValue(event.target.value);
     };
 
+    const url = '/igdb/games';
+    const method = 'POST';
+    const body = searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null;
     // Fetch data for the main search
-    const data = useFetch('/igdb/games', 'POST', searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null);
+    const data = useFetch(url, method, body)
+    const [processedData, setProcessedData] = useState([]);
+
     useEffect(() => {
       if (data) {
-        if (data.length === 0) {
+        const filteredData = data.filter(game => game.rating_count > 1);
+        const sortedData = filteredData.sort((a, b) => b.rating - a.rating);
+        setProcessedData(sortedData);
+        if (sortedData.length === 0) {
           setIsFound(false)
         } else {
           setIsFound(true)
@@ -59,7 +67,7 @@ const DataPage = () => {
           <img className='before-search' src={tv} alt="Loading..." />
         ) : (
           isFound ? (
-            <PageNav data={data}/>
+            <PageNav data={processedData}/>
           ) : (
             <h1 className='no-res'>No Results Found</h1>
           )
