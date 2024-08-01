@@ -37,6 +37,13 @@ const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology:
 client.connect().then(() => {
   console.log("Connected correctly to server");
 
+  const db = client.db(dbName);
+  const users = db.collection('users');
+  const favorites = db.collection('favorites');
+  const friends = db.collection('friends')
+  const reviews = db.collection('reviews');
+  // games.createIndex({ name: "text" });
+
   // Sign up route
   app.post('/signup', async (req, res) => {
   
@@ -47,11 +54,7 @@ client.connect().then(() => {
     }
   
     try {
-      const db = client.db(dbName);
-      const users = db.collection('users');
-      const favorites = db.collection('favorites');
-      const friends = db.collection('friends')
-  
+
       // Check if user already exists
       const userExists = await users.findOne({ username });
       if (userExists) {
@@ -78,7 +81,7 @@ client.connect().then(() => {
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Add new user
-      const user = users.insertOne({ username, password: hashedPassword });
+      await users.insertOne({ username, password: hashedPassword });
       await favorites.insertOne({ username: username, games: [] });
       await friends.insertOne({ username: username, userFriends: [] });
       res.status(201).json({ message: 'User created successfully' });
@@ -252,6 +255,30 @@ client.connect().then(() => {
     }
   
     res.json({ message: 'Username updated successfully' });
+  });
+
+  // Get all reviews of a game based on its id
+  app.post('/getReviews', async (req, res) => {
+    const { gameID } = req.body;
+    const db = client.db(dbName);
+    const reviews = db.collection('reviews');
+    const reviewDocument = await reviews.find({ gameID: gameID }).toArray();
+    res.json(reviewDocument);
+  });
+
+  // Insert a review of a game based on game_id, the user who reviewed it, and the review itself, the user's rating, the date of the review, 
+  app.post('/insertReview', async (req, res) => {
+    // check if a user has already reviewed a game, if they have, overwrite the review
+    const { gameID, currentUser, review, rating, currentDate } = req.body;
+    const db = client.db(dbName);
+    const reviews = db.collection('reviews');
+    const reviewDocument = await reviews.findOne({ gameID: gameID, username: currentUser });
+    if (reviewDocument) {
+      await reviews.updateOne({ gameID: gameID, username: currentUser }, { $set: { review: review, rating: rating, date: currentDate } });
+    } else {
+      await reviews.insertOne({ gameID: gameID, username: currentUser, review: review, rating: rating, date: currentDate });
+    }
+    res.json({ message: 'Review inserted successfully' });
   });
   
 

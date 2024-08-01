@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from "../components/Navbar";
 import useFetch from '../components/useFetch';
@@ -8,10 +8,15 @@ import noImg from '../images/noImg.jpg'
 import FavButton from '../components/favButton';
 import ScreenshotCarousel from '../components/ScreenShotCarousel';
 import Footer from '../components/Footer';
+import ReviewPopup from '../components/ReviewPopup';
+import { AuthContext } from '../components/AuthContext';
+import ReviewList from '../components/ReviewList';
 
 const GamePage = () => {
+    const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
     //Retrieve data from DataPage
     const location = useLocation();
+    const navigate = useNavigate();
     const { gameData } = location.state || {};
     
     //Make API calls using useFetch
@@ -22,9 +27,14 @@ const GamePage = () => {
     const cover = useFetch('/igdb/games', method, `fields cover.*; where id = ${gameData.id};`);
 
     const [isSummaryExpanded, setIsSummaryExpanded] = useState(false);
+    const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
 
     const toggleSummary = () => {
         setIsSummaryExpanded(!isSummaryExpanded);
+    };
+
+    const toggleReviewPopup = () => {
+        setIsReviewPopupOpen(!isReviewPopupOpen);
     };
 
     const getSummary = (summary) => {
@@ -51,9 +61,9 @@ const GamePage = () => {
                         ) : (
                         <img className="cover" src={noImg} alt="cover"/>
                     )}
-                    <div style={{display:"flex", justifyContent:"center", marginTop:"10px", marginBottom:"10px"}}>
-                        <FavButton key={gameData.id} gameID={gameData.id}/>
-                    </div>
+                    {/* <div className="user-rating">
+                        Rating goes here
+                    </div> */}
                 </div>
 
                 <div className="info">
@@ -73,16 +83,25 @@ const GamePage = () => {
                             {isSummaryExpanded ? "Read Less" : "Read More"}
                         </button>
                     )}
-                    <div className='reviews'>
-                        <h2>Reviews</h2>
-                        <p>Coming soon...</p>
-                    </div>
+                    <ReviewList gameID={gameData.id} />
                 </div>
 
                 <div className="details">
-                    <h2>Details</h2>
+                    <div className='details-menu'>
+                        <p>SCORE</p>
+                        {isLoggedIn ? 
+                        <>    
+                            <button className="review-button" onClick={toggleReviewPopup}>Write a Review</button>
+                            <p>STARS GO HERE</p>
+                        </>
+                        :
+                        <p><button onClick={() => navigate('/Signup')}>Sign in</button> to write a review</p>
+                        }
+                        <FavButton key={gameData.id} gameID={gameData.id} />
+                    </div>
                 </div>
             </div>
+            {isReviewPopupOpen && <ReviewPopup gameID={gameData.id} onClose={toggleReviewPopup} />}
             <Footer/>
         </div>
     );

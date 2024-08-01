@@ -10,9 +10,9 @@
 .game-list {
     display: flex;
     flex-wrap: wrap;
+    height: 700px;
     margin-top: 10px;
     animation: fadeIn 0.2s ease-in-out;
-    height: 700px; /* Adjust this value as needed */
     overflow-y: auto; /* Enable vertical scrolling */
 }
 

@@ -3,7 +3,7 @@ import SecondNavbar from "../components/SecondNavbar";
 import Footer from "../components/Footer";
 import { AuthContext } from '../components/AuthContext';
 import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import useFetch from '../components/useFetch';
 import "../styles/LibraryPage.css";
 import FavButton from '../components/favButton';
@@ -14,6 +14,7 @@ const LibraryPage = () => {
     const [allUserGameIDS, setAllUserGameIDS] = useState('');
     const [ librarySize, setLibrarySize] = useState(0);
 
+    // wrap in a try catch block:
     const allUserGames = useFetch('/igdb/games', 'POST', `fields *, cover.*; where id = ${allUserGameIDS}; limit ${librarySize.toString()};`);
 
     const handleClick = (item) => {
@@ -21,25 +22,34 @@ const LibraryPage = () => {
     };
 
     const GameList = ({ allUserGames }) => {
-        return (
-            <div className="game-list">
-                {allUserGames && allUserGames.map((item, index) => (
-                    <div key={index} className="game-item">
-                        <span className="library-game-title" title={item.name}>{item.name}</span>
-                        <div>
-                            {item && item.cover && item.cover.url ? (
-                                <img className="library-cover" src={item.cover.url.replace('t_thumb', 't_1080p')} alt="cover" onClick={() => handleClick(item)} />
-                            ) : (
-                                <span style={{borderRadius: '25px', height: '337.33px', width: '253px', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>No image available</span>
-                            )}
+        if (allUserGameIDS !== '()'){
+            return (
+                <div className="game-list">
+                    {allUserGames && allUserGames.map((item, index) => (
+                        <div key={index} className="game-item">
+                            <span className="library-game-title" title={item.name}>{item.name}</span>
+                            <div>
+                                {item && item.cover && item.cover.url ? (
+                                    <img className="library-cover" src={item.cover.url.replace('t_thumb', 't_1080p')} alt="cover" onClick={() => handleClick(item)} />
+                                ) : (
+                                    <span style={{borderRadius: '25px', height: '337.33px', width: '253px', color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>No image available</span>
+                                )}
+                            </div>
+                            <div style={{marginTop: '10px'}}>
+                                <FavButton key={item.id} gameID={item.id} />
+                            </div>
                         </div>
-                        <div style={{marginTop: '10px'}}>
-                            <FavButton key={item.id} gameID={item.id} />
-                        </div>
-                    </div>
-                ))}
-            </div>
-        );
+                    ))}
+                </div>
+            );
+        } else {
+            return (
+                <>
+                    <div style={{ marginTop: '30px',color: 'white' }}>Add some Games</div>
+                    <Link to="/DataPage" className='explore-link'>EXPLORE</Link>
+                </>
+            );
+        }
     };
 
     useEffect(() => {

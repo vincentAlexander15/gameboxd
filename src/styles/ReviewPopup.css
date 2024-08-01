@@ -1,0 +1,51 @@
+.review-popup {
+    background-color: #494949;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1000;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    height: 500px;
+    width: 500px;
+    display: flex;
+}
+
+.review-popup form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.review-popup label {
+    margin-bottom: 10px;
+}
+
+.review-popup textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    height: 100px;
+}
+
+.review-popup input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 40px;
+}
+
+.review-popup button {
+    margin-top: 10px;
+    width: 100px;
+    align-self: center;
+}
+
+.dimmed {
+    opacity: 0.5;
+}
