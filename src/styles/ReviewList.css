@@ -1,0 +1,30 @@
+.display-reviews {
+    width: 600px;
+}
+
+.user-review {
+    color: white;
+}
+
+.review-header {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.review-rating{
+    margin-left: 20px;
+}
+
+.game-reviews {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 30px;
+}
+
+.no-reviews {
+    margin-bottom: 20px;
+    color: white;
+}

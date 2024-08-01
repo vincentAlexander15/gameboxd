@@ -83,7 +83,6 @@ const GamePage = () => {
                             {isSummaryExpanded ? "Read Less" : "Read More"}
                         </button>
                     )}
-                    <ReviewList gameID={gameData.id} />
                 </div>
 
                 <div className="details">
@@ -102,6 +101,10 @@ const GamePage = () => {
                 </div>
             </div>
             {isReviewPopupOpen && <ReviewPopup gameID={gameData.id} onClose={toggleReviewPopup} />}
+            <div className='game-reviews'>
+                <h2 className="review-title">Reviews</h2>
+                <ReviewList gameID={gameData.id} />
+            </div>   
             <Footer/>
         </div>
     );

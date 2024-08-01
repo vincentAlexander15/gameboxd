@@ -92,7 +92,7 @@
     font-weight: 200;
 }
 
-.release-date {
+.release-date, .review-title {
     color: rgb(226, 226, 226);
     font-size: 20px;
 }

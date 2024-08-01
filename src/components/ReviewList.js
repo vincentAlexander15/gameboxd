@@ -23,21 +23,24 @@ const ReviewList = ({ gameID }) => {
     }, [gameID]);
 
     const AllReviews = () => {
-        if (data !== null){
+        if (data.length !== 0){
             return (
                 <div className="display-reviews">
                     {data && data.map((review, index) => (
                         <div key={index} className="user-review">
-                            <h3>{review.username}</h3>
-                            <p>{review.review}</p>
-                            <p>Rating: {review.rating}</p>
+                            <div className="review-header">
+                                <div className="review-username">{review.username}</div>
+                                <div className="review-rating">{review.rating}/5</div>
+                            </div>
+                            <div className="review-text">{review.review}</div>
+                            <hr className="review-divider"></hr>
                         </div>
                     ))}
                 </div>
             );
         } else {
             return (
-                <p>No Reviews Yet</p>
+                <div className="no-reviews">No reviews yet</div>
             );
         }
     };
