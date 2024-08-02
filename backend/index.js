@@ -26,7 +26,7 @@ app.use(cors({
 const url = `mongodb+srv://${uname}:${pwd}@gameboxd.rpwjyu7.mongodb.net/?retryWrites=true&w=majority&appName=gameboxd`;
 
 // Database documents
-const documents = ["users", "favorites", "friends"];
+const documents = ["users", "favorites", "friends", "reviews"];
 
 // Database Name
 const dbName = 'gameboxd';
