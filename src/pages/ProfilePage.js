@@ -41,6 +41,7 @@ const ProfilePage = () => {
         const data = await response.json();
         if (data.message === 'Username updated successfully') {
           setCurrentUser(newUsername);
+          localStorage.setItem('currentUser', newUsername);
           setError(false);
         } else {
           setError(true);

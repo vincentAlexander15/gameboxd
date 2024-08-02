@@ -5,7 +5,7 @@ export const AuthContext = React.createContext();
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('currentUser') || '');
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -23,7 +23,10 @@ export const AuthProvider = ({ children }) => {
           });
           if (userResponse.ok) {
             const data = await userResponse.json();
-            setCurrentUser(data.username);
+            if (!currentUser){
+              setCurrentUser(data.username);
+              localStorage.setItem('currentUser', data.username);
+            }
           } else {
             console.error('Failed to retrieve username');
           }
@@ -35,8 +38,11 @@ export const AuthProvider = ({ children }) => {
       }
     };
     checkAuthStatus();
-  }, []);
+  }, [currentUser]);
   
+  useEffect(() => {
+    localStorage.setItem('currentUser', currentUser);
+  }, [currentUser]);
 
   if (loading) {
     return <div>Loading...</div>;

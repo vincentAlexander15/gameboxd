@@ -36,7 +36,7 @@ const Navbar = () => {
       if (response.ok) {
         setIsLoggedIn(true);
         setCurrentUser(username);
-        console.log("Current user", currentUser, "logged in?", isLoggedIn);
+        localStorage.setItem('currentUser', username);
         setError(false);
         navigate('/');
       } else {
@@ -109,6 +109,7 @@ const Navbar = () => {
     if (response.ok) {
       // Set isLoggedIn state to false
       setIsLoggedIn(false);
+      localStorage.removeItem('currentUser', username);
       setCurrentUser('');
       navigate('/');
     } else {
