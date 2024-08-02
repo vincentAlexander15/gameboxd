@@ -238,6 +238,9 @@ client.connect().then(() => {
     }
   
     const updateUser = async (collection) => {
+      if (collection.collectionName === "reviews" && !await collection.findOne({username: currentUser})){
+        return true;
+      }
       const result = await collection.updateMany(
         { username: currentUser }, 
         { $set: { username: newUsername } }
