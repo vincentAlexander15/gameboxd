@@ -48,7 +48,7 @@ body {
     50% { color: rgb(123, 252, 209); }
     75% { color: rgb(167, 247, 220); }
     100% { color: white; }
-  }
+}
 
 .explore-link {
     text-decoration: none;

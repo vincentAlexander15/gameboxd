@@ -11,7 +11,7 @@
     margin-bottom: 10px;
 }
 
-.review-rating{
+.review-rating {
     margin-left: 20px;
 }
 
@@ -21,7 +21,7 @@
     width: 600px;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 30px;
+    padding-left: 40px;
 }
 
 .no-reviews {
@@ -31,4 +31,8 @@
 
 .review-divider {
     margin-bottom: 20px;
+}
+
+.review-date {
+    margin-left: 20px;
 }

@@ -27,10 +27,12 @@ const ReviewList = ({ gameID }) => {
             return (
                 <div className="display-reviews">
                     {data && data.map((review, index) => (
+                        review.review === "" ? null :
                         <div key={index} className="user-review">
                             <div className="review-header">
                                 <div className="review-username">{review.username}</div>
                                 <div className="review-rating">{review.rating}/5</div>
+                                <div className="review-date">{review.date}</div>
                             </div>
                             <div className="review-text">{review.review}</div>
                             <hr className="review-divider"></hr>

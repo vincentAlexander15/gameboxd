@@ -9,7 +9,7 @@ const ReviewPopup = ({ onClose, gameID }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const currentDate = new Date();
+        const currentDate = new Date().toLocaleDateString();
         const response = await fetch('http://localhost:5000/insertReview', {
             method: 'POST',
             headers: {
@@ -34,7 +34,7 @@ const ReviewPopup = ({ onClose, gameID }) => {
                     <input
                         type="number"
                         value={rating}
-                        onChange={(e) => setRating(e.target.value)}
+                        onChange={(e) => setRating(Number(e.target.value))}
                         min="0"
                         max="5"
                         step="0.5"

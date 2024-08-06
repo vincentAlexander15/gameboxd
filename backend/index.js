@@ -283,6 +283,65 @@ client.connect().then(() => {
     }
     res.json({ message: 'Review inserted successfully' });
   });
+
+  // TODO:
+  // Delete a review of a game based on game_id and the user who reviewed it
+  // app.post('/deleteReview', async (req, res) => {
+  //   const { gameID, currentUser } = req.body;
+  //   const db = client.db(dbName);
+  //   const reviews = db.collection('reviews');
+  //   await reviews.deleteOne({ gameID: gameID, username: currentUser });
+  //   res.json({ message: 'Review deleted successfully' });
+  // });
+
+  // Get the user score of a game based on its id and the user who is getting the score from the reviews collection. If the user has not reviewed the game, return a score of 0
+
+  app.post('/getUserScore', async (req, res) => {
+    const { gameID, userID } = req.body;
+    const db = client.db(dbName);
+    const reviews = db.collection('reviews');
+    const reviewDocument = await reviews.findOne({ gameID: gameID, username: userID });
+    if (reviewDocument) {
+      res.json(reviewDocument.rating);
+    } else {
+      res.json(0);
+    }
+  });
+
+  // Get the average score of a game based on its id from the reviews collection. If the game has no reviews, return a score of 0. Also, cast the score of each review to a float before calculating the average:
+  app.post('/getScore', async (req, res) => {
+    const { gameID } = req.body;
+    const db = client.db(dbName);
+    const reviews = db.collection('reviews');
+    const reviewDocument = await reviews.find({ gameID: gameID }).toArray();
+    if (reviewDocument.length === 0) {
+      res.json(0);
+    } else {
+      let totalScore = 0;
+      for (const review of reviewDocument) {
+        totalScore += review.rating;
+      }
+      res.json(totalScore / reviewDocument.length);
+    }
+  });
+
+  // Update the score of a game based on its id, the user who is updating the score, and the new score
+  // Update the score of a game based on its id and user id
+  app.post('/updateUserScore', async (req, res) => {
+    const { gameID, userID, newScore } = req.body;
+    const db = client.db(dbName);
+    const reviews = db.collection('reviews');
+    const reviewDocument = await reviews.findOne({ gameID: gameID, username: userID });
+    if (reviewDocument) {
+      await reviews.updateOne({ gameID: gameID, username: userID }, { $set: { rating: newScore } });
+      res.json({ success: true });
+    } else {
+      // if the user doesnt have a review, insert a new one, with empty review and the new score
+      await reviews.insertOne({ gameID: gameID, username: userID, review: "", rating: newScore, date: "" });
+      res.json({ success: true });
+    }
+  });
+
   
 
   app.listen(port, () => {

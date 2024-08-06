@@ -1,0 +1,31 @@
+.star-rating {
+    display: flex;
+    align-items: center;
+}
+
+.star {
+    font-size: 24px;
+    color: #ffd700; /* Gold color for stars */
+    cursor: pointer;
+    padding: 2px;
+}
+
+.star:hover {
+    color: #e0be00b7; /* Darker gold color for stars on hover */
+}
+
+.star.empty {
+    color: #e0e0e0; /* Light gray color for empty stars */
+}
+
+.star.empty:hover {
+    color: #e0be00b7; /* Gold color for empty stars on hover */
+}
+
+.star.half::before {
+    content: '★';
+    position: absolute;
+    color: #ffd700;
+    width: 50%;
+    overflow: hidden;
+}

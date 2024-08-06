@@ -4,22 +4,21 @@ import Navbar from "../components/Navbar";
 import useFetch from '../components/useFetch';
 import '../styles/GamePage.css';
 import '../fonts/fonts.css';
-import noImg from '../images/noImg.jpg'
+import noImg from '../images/noImg.jpg';
 import FavButton from '../components/favButton';
 import ScreenshotCarousel from '../components/ScreenShotCarousel';
 import Footer from '../components/Footer';
 import ReviewPopup from '../components/ReviewPopup';
 import { AuthContext } from '../components/AuthContext';
 import ReviewList from '../components/ReviewList';
+import StarRating from '../components/StarRating';
 
 const GamePage = () => {
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
-    //Retrieve data from DataPage
     const location = useLocation();
     const navigate = useNavigate();
     const { gameData } = location.state || {};
-    
-    //Make API calls using useFetch
+
     const url = '/igdb/release_dates';
     const method = 'POST';
     const scs = useFetch('/igdb/screenshots', method, `fields *; where game = ${gameData.id}; limit 10;`);
@@ -28,6 +27,8 @@ const GamePage = () => {
 
     const [isSummaryExpanded, setIsSummaryExpanded] = useState(false);
     const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
+    const [score, setScore] = useState(null);
+    const [userScore, setUserScore] = useState(null);
 
     const toggleSummary = () => {
         setIsSummaryExpanded(!isSummaryExpanded);
@@ -37,33 +38,69 @@ const GamePage = () => {
         setIsReviewPopupOpen(!isReviewPopupOpen);
     };
 
+    const toggleSharePopup = () => {
+        // alert that game page is copied to clipboard
+        navigator.clipboard.writeText(window.location.href);
+        alert('Game page URL copied to clipboard!');
+    };
+
     const getSummary = (summary) => {
-        const maxLength = 300; // Change this to the length you want
+        const maxLength = 300;
         if (summary.length > maxLength) {
-            if (isSummaryExpanded) {
-                return summary;
-            } else {
-                return `${summary.substring(0, maxLength)}...`; // Change 100 to the length you want
-            }
+            return isSummaryExpanded ? summary : `${summary.substring(0, maxLength)}...`;
         } else {
             return summary;
         }
     };
 
+    const getUserScore = async () => {
+        const response = await fetch('http://localhost:5000/getUserScore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ gameID: gameData.id, userID: currentUser }),
+        });
+        const data = await response.json();
+        setUserScore(data);
+    }
+
+    const getScore = async () => {
+        const response = await fetch('http://localhost:5000/getScore', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ gameID: gameData.id }),
+        });
+        const data = await response.json();
+        setScore(data);
+    };
+
+    useEffect(() => {
+        if (gameData) {
+            getScore();
+            if (isLoggedIn) {
+                getUserScore();
+            }
+        }
+    }, [gameData]);
+
+    const handleUserScoreUpdate = (newUserScore) => {
+        setUserScore(newUserScore);
+    };
+
     return (
         <div className='main'>
-            <Navbar/>
+            <Navbar />
             {scs ? <ScreenshotCarousel scs={scs} /> : <div>Loading screenshots...</div>}
             <div className="content">
                 <div className="visual">
                     {cover && cover[0] && cover[0].cover && cover[0].cover.url ? (
-                        <img className="cover" src={cover[0].cover.url.replace('t_thumb', 't_1080p')} alt="cover"/>
-                        ) : (
-                        <img className="cover" src={noImg} alt="cover"/>
+                        <img className="cover" src={cover[0].cover.url.replace('t_thumb', 't_1080p')} alt="cover" />
+                    ) : (
+                        <img className="cover" src={noImg} alt="cover" />
                     )}
-                    {/* <div className="user-rating">
-                        Rating goes here
-                    </div> */}
                 </div>
 
                 <div className="info">
@@ -87,11 +124,13 @@ const GamePage = () => {
 
                 <div className="details">
                     <div className='details-menu'>
-                        <p>SCORE</p>
+                        {/* round score to 2 decimals */}
+                        <h2 className='average-score'>{score ? score.toFixed(1) : 0} / 5</h2>
                         {isLoggedIn ? 
-                        <>    
-                            <button className="review-button" onClick={toggleReviewPopup}>Write a Review</button>
-                            <p>STARS GO HERE</p>
+                        <>
+                            {userScore !== null ? <StarRating score={userScore} gameID={gameData.id} userID={currentUser} onScoreUpdate={handleUserScoreUpdate} /> : "Loading..."}
+                            <button className="review-button" onClick={toggleReviewPopup}>Review</button>
+                            <button className="share-button" onClick={toggleSharePopup}>Share</button>
                         </>
                         :
                         <p><button onClick={() => navigate('/Signup')}>Sign in</button> to write a review</p>
@@ -104,8 +143,8 @@ const GamePage = () => {
             <div className='game-reviews'>
                 <h2 className="review-title">Reviews</h2>
                 <ReviewList gameID={gameData.id} />
-            </div>   
-            <Footer/>
+            </div>
+            <Footer />
         </div>
     );
 }
