@@ -68,7 +68,7 @@ const ReviewList = ({ gameID }) => {
                             <hr className="review-divider"></hr>
                         </div>
                     ))}
-                    {isReviewPopupOpen && <ReviewPopup gameID={gameID} onClose={toggleReviewPopup} />}
+                    {isReviewPopupOpen && <ReviewPopup gameID={gameID} review_rating={data[0].rating} review_text={data[0].review} onClose={toggleReviewPopup} />}
                 </div>
             );
         } else {

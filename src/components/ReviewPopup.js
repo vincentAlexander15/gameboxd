@@ -2,9 +2,9 @@ import { useState, useContext, useEffect } from 'react';
 import '../styles/ReviewPopup.css';
 import { AuthContext } from '../components/AuthContext';
 
-const ReviewPopup = ({ onClose, gameID }) => {
-    const [rating, setRating] = useState(0);
-    const [review, setReview] = useState('');
+const ReviewPopup = ({ onClose, gameID, review_rating, review_text }) => {
+    const [rating, setRating] = useState(review_rating);
+    const [review, setReview] = useState(review_text);
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {

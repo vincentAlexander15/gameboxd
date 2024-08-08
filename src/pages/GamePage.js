@@ -139,7 +139,7 @@ const GamePage = () => {
                     </div>
                 </div>
             </div>
-            {isReviewPopupOpen && <ReviewPopup gameID={gameData.id} onClose={toggleReviewPopup} />}
+            {isReviewPopupOpen && <ReviewPopup gameID={gameData.id} review_rating={0} review_text={''} onClose={toggleReviewPopup} />}
             <div className='game-reviews'>
                 <h2 className="review-title">Reviews</h2>
                 <ReviewList gameID={gameData.id} />
