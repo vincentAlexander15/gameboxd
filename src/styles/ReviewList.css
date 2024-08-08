@@ -4,11 +4,38 @@
 
 .user-review {
     color: white;
+    width: 100%;
+    max-width: 600px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.user-review:hover {
+    .review-hover {
+        visibility: visible;
+    }
+}
+
+.review-pencil, .review-trashcan {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 30px;
 }
 
 .review-header {
     display: flex;
     margin-bottom: 10px;
+    position: relative;
+}
+
+.review-hover {
+    position: absolute;
+    right: 0px;
+    visibility: hidden;
+    display: flex;
+    margin-left: auto;
 }
 
 .review-rating {

@@ -260,13 +260,29 @@ client.connect().then(() => {
     res.json({ message: 'Username updated successfully' });
   });
 
-  // Get all reviews of a game based on its id
+  // Get all reviews of a game based on its id. Sort the reviews by date in descending order and if a user has reviewed the game, their review should be the first one in the list:
   app.post('/getReviews', async (req, res) => {
-    const { gameID } = req.body;
+    const { gameID, currentUser } = req.body;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     const reviewDocument = await reviews.find({ gameID: gameID }).toArray();
-    res.json(reviewDocument);
+    reviewDocument.sort((a, b) => new Date(b.date) - new Date(a.date));
+    if (reviewDocument.length === 0) {
+      res.json([]);
+    } else {
+      let userReview = null;
+      for (let i = 0; i < reviewDocument.length; i++) {
+        if (reviewDocument[i].username === currentUser) {
+          userReview = reviewDocument[i];
+          reviewDocument.splice(i, 1);
+          break;
+        }
+      }
+      if (userReview) {
+        reviewDocument.unshift(userReview);
+      }
+      res.json(reviewDocument);
+    }
   });
 
   // Insert a review of a game based on game_id, the user who reviewed it, and the review itself, the user's rating, the date of the review, 
@@ -284,18 +300,16 @@ client.connect().then(() => {
     res.json({ message: 'Review inserted successfully' });
   });
 
-  // TODO:
   // Delete a review of a game based on game_id and the user who reviewed it
-  // app.post('/deleteReview', async (req, res) => {
-  //   const { gameID, currentUser } = req.body;
-  //   const db = client.db(dbName);
-  //   const reviews = db.collection('reviews');
-  //   await reviews.deleteOne({ gameID: gameID, username: currentUser });
-  //   res.json({ message: 'Review deleted successfully' });
-  // });
+  app.post('/deleteReview', async (req, res) => {
+    const { gameID, currentUser } = req.body;
+    const db = client.db(dbName);
+    const reviews = db.collection('reviews');
+    await reviews.deleteOne({ gameID: gameID, username: currentUser });
+    res.json({ message: 'Review deleted successfully' });
+  });
 
   // Get the user score of a game based on its id and the user who is getting the score from the reviews collection. If the user has not reviewed the game, return a score of 0
-
   app.post('/getUserScore', async (req, res) => {
     const { gameID, userID } = req.body;
     const db = client.db(dbName);

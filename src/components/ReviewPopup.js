@@ -24,6 +24,7 @@ const ReviewPopup = ({ onClose, gameID }) => {
         } else {
             alert('Failed to submit review.');
         }
+        window.location.reload();
     };
 
     return (
