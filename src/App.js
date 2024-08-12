@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Profile from "./pages/ProfilePage";
 import Library from "./pages/LibraryPage";
 import Settings from "./pages/SettingsPage";
+import User from "./pages/UserPage";
 import { AuthContext, AuthProvider } from './components/AuthContext';
 import './styles/global.css';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/DataPage" element={<Data/>}/>
           <Route path="/GamePage" element={<Game/>}/>
           <Route path="/signup" element={<Signup/>}/>
+          <Route path="/UserPage" element={<User/>}/>
           <Route element={<PrivateRoutes/>}>
             <Route path="/Profile" element={<Profile/>}/>
             <Route path="/Library" element={<Library/>}/>

@@ -1,76 +1,10 @@
-/* .star.filled, .star.empty {
-    background: none;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    width: 39px;
-    margin: -10px;
-}
-
-.star-rating {
-    display: flex;
-    align-items: center;
-    margin-left: 24px;
-}
-
-.leftHalf path, .rightHalf path {
-    fill: white; 
-    transition: fill 0.3s ease; 
-}
-
-.star:hover path,
-.star:hover ~ .star path,
-.star:hover ~ .star.filled path,
-.star:hover ~ .star.empty path {
-    fill: white;
-}
-
-.star:hover,
-.star:hover ~ .star,
-.star:hover ~ .star.empty path {
-    fill: #e0be00b7;
-}
-
-
-.star.filled path {
-    fill: #e0be00;
-} */
-
-/* .star {
-    font-size: 24px;
-    color: #ffd700; 
-    cursor: pointer;
-    padding: 2px;
-    position: relative;
-}
-
-.star:hover {
-    color: #e0be00b7; 
-}
-
-.star.empty {
-    color: #e0e0e0; 
-}
-
-.star.empty:hover {
-    color: #e0be00b7; 
-}
-
-.star.half::before {
-    content: '★';
-    position: absolute;
-    color: #ffd700;
-    width: 50%;
-    overflow: hidden;
-} */
-
 .rating_stars {
-    margin-top: 15px;
     display: inline-block;
     font-size: 20px;
     font-weight: 200;
     color: #918f8f;
     position: relative;
+    z-index: 1;
 }
 
 .rating_stars span .fa, .rating_stars span.active-low .starEmpty, .rating_stars span.active-high .starEmpty, .rating_stars span.inactive .starEmpty {
