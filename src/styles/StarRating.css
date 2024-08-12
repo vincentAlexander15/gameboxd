@@ -1,25 +1,59 @@
+/* .star.filled, .star.empty {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 39px;
+    margin: -10px;
+}
+
 .star-rating {
     display: flex;
     align-items: center;
+    margin-left: 24px;
 }
 
-.star {
+.leftHalf path, .rightHalf path {
+    fill: white; 
+    transition: fill 0.3s ease; 
+}
+
+.star:hover path,
+.star:hover ~ .star path,
+.star:hover ~ .star.filled path,
+.star:hover ~ .star.empty path {
+    fill: white;
+}
+
+.star:hover,
+.star:hover ~ .star,
+.star:hover ~ .star.empty path {
+    fill: #e0be00b7;
+}
+
+
+.star.filled path {
+    fill: #e0be00;
+} */
+
+/* .star {
     font-size: 24px;
-    color: #ffd700; /* Gold color for stars */
+    color: #ffd700; 
     cursor: pointer;
     padding: 2px;
+    position: relative;
 }
 
 .star:hover {
-    color: #e0be00b7; /* Darker gold color for stars on hover */
+    color: #e0be00b7; 
 }
 
 .star.empty {
-    color: #e0e0e0; /* Light gray color for empty stars */
+    color: #e0e0e0; 
 }
 
 .star.empty:hover {
-    color: #e0be00b7; /* Gold color for empty stars on hover */
+    color: #e0be00b7; 
 }
 
 .star.half::before {
@@ -28,4 +62,55 @@
     color: #ffd700;
     width: 50%;
     overflow: hidden;
+} */
+
+.rating_stars {
+    margin-top: 15px;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 200;
+    color: #918f8f;
+    position: relative;
 }
+
+.rating_stars span .fa, .rating_stars span.active-low .starEmpty, .rating_stars span.active-high .starEmpty, .rating_stars span.inactive .starEmpty {
+    display: none;
+}
+
+.rating_stars span .starEmpty {
+    display: inline-block;
+    color: white; 
+}
+
+.rating_stars span.s.active-high .starFilled {
+    display: inline-block; 
+    color: #feb645;
+}
+
+.rating_stars span.s.active-low .halfStar {
+    display: inline-block; 
+    color: #feb645;
+}
+
+.rating_stars span.s.inactive .starEmpty {
+    display: inline-block;
+}
+
+.rating_stars span.r {
+    position: absolute;
+    top: 0;
+    height: 20px;
+    width: 10px;
+    left: 0;
+}
+
+.rating_stars span.r.r0_5 {left: 0px;}
+.rating_stars span.r.r1 {left: 10px; width: 11px;}
+.rating_stars span.r.r1_5 {left: 21px; width: 13px;}
+.rating_stars span.r.r2 {left: 34px; width: 12px;}
+.rating_stars span.r.r2_5 {left: 46px; width: 12px;}
+.rating_stars span.r.r3 {left: 58px; width: 11px;}
+.rating_stars span.r.r3_5 {left: 69px; width: 12px;}
+.rating_stars span.r.r4 {left: 81px; width: 12px;}
+.rating_stars span.r.r4_5 {left: 93px; width: 12px;}
+.rating_stars span.r.r5 {left: 105px; width: 12px;}

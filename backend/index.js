@@ -356,6 +356,15 @@ client.connect().then(() => {
     }
   });
 
+  //Return all users that have similar name to what was looked for
+  app.post('/returnUsers', async (req, res) => {
+    const { userName } = req.body;
+    const db = client.db(dbName);
+    const users = db.collection('users');
+    const allSearchedUsers = await users.find({ username: { $regex: userName, $options: 'i' } });
+    res.json(allSearchedUsers)
+  });
+
   
 
   app.listen(port, () => {

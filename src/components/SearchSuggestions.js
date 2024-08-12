@@ -50,6 +50,7 @@ const SearchSuggestions = ({ className, inputValue, setInputValue }) => {
         navigate('/GamePage', {state : { gameData : item}});
     };
 
+    //TODO: fix suggestions bug when name is too big, keep 'in games' and 'in people' no matter what user puts in
     return (
         <div className={`suggestion-${className}`} ref={suggestionsRef}>
             {suggestions && suggestions.map((suggestion, index) => (
