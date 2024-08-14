@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GameTable from "./GameTable";
 import '../styles/PageNav.css';
 
-const PageNav = ({ data }) => {
+const PageNav = ({ data, gameSearch }) => {
     const totalResults = data.length;
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = Math.ceil(totalResults / 10);
@@ -50,7 +50,7 @@ const PageNav = ({ data }) => {
 
     return (
         <div>
-            <GameTable data={data} currentPage={currentPage} />
+            { gameSearch ?  <GameTable data={data} currentPage={currentPage} /> : <p>TEST</p> }
             <div className="pageNav">
                 <button className="pageFirst" onClick={goLeftMost}>{"<<"}</button>
                 <button className="pageLeft" onClick={goLeft}>{"<"}</button>

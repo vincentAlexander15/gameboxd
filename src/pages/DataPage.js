@@ -12,14 +12,17 @@ const DataPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { searchQuery } = location.state || {};
+    const { gameSearch } = location.state || true;
     const [inputValue, setInputValue] = useState('');
     const [isFound, setIsFound] = useState(false); 
     const [firstSearch, setFirstSearch] = useState(true);
+    const [processedData, setProcessedData] = useState([]);
+    const [userData, setUserData] = useState([]);
 
     const handleSubmit = (event) => {
       if (inputValue !== null && inputValue !== '') {
         event.preventDefault();
-        navigate('/DataPage', {state : { searchQuery: inputValue}});
+        navigate('/DataPage', {state : { searchQuery: inputValue, gameSearch: true}});
       }
     };
 
@@ -29,13 +32,32 @@ const DataPage = () => {
 
     const url = '/igdb/games';
     const method = 'POST';
-    const body = searchQuery ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null;
-    // Fetch data for the main search
-    const data = useFetch(url, method, body)
-    const [processedData, setProcessedData] = useState([]);
+    const body = (searchQuery && gameSearch) ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null;
+    const data = useFetch(url, method, body);
+
 
     useEffect(() => {
-      if (data) {
+      const getUsers = async () => {
+        const response = await fetch('http://localhost:5000/getUsers',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userName: searchQuery }),
+            credentials: 'include'
+        });
+        const data = await response.json();
+        
+        setUserData(data);
+      };
+      if (!gameSearch) {
+        getUsers();
+      }
+    }, [searchQuery, gameSearch]);
+
+    useEffect(() => {
+      if (data && gameSearch) {
         const filteredData = data.filter(game => game.rating_count > 1);
         const sortedData = filteredData.sort((a, b) => b.rating - a.rating);
         setProcessedData(sortedData);
@@ -67,7 +89,7 @@ const DataPage = () => {
           <img className='before-search' src={tv} alt="Loading..." />
         ) : (
           isFound ? (
-            <PageNav data={processedData}/>
+            <PageNav gameSearch={gameSearch} data={gameSearch ? processedData : userData}/>
           ) : (
             <h1 className='no-res'>No Results Found</h1>
           )

@@ -86,7 +86,7 @@ const Navbar = () => {
     if (inputValue.trim() !== '') {
       navigate('/DataPage', {state : { searchQuery: inputValue}});
     }
-  };  
+  };
 
   const handleSignInClick = () => {
     setSignInOpen(!signInOpen);

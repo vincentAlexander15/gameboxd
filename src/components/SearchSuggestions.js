@@ -56,16 +56,18 @@ const SearchSuggestions = ({ className, inputValue, setInputValue }) => {
 
     const handleGameSearch = () => {
         if (inputValue.trim() !== '') {
-          navigate('/DataPage', {state : { searchQuery: inputValue}});
+          navigate('/DataPage', {state : { searchQuery: inputValue, gameSearch: true}});
         }
         setSuggestions([]);
         setOpenInput(false);
       };  
 
     const handleUserSearch = () => {
+        if (inputValue.trim() !== '') {
+            navigate('/DataPage', {state : { searchQuery: inputValue, gameSearch: false }});
+          }
         setSuggestions([]);
         setOpenInput(false);
-        navigate('/UserPage', {state : { searchQuery: inputValue}});
     }
 
     //TODO: fix suggestions bug when name is too big, keep 'in games' and 'in people' no matter what user puts in

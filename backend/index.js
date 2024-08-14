@@ -356,16 +356,14 @@ client.connect().then(() => {
     }
   });
 
-  //Return all users that have similar name to what was looked for
-  app.post('/returnUsers', async (req, res) => {
+  // Return all users that have similar name to username in body of request
+  app.post('/getUsers', async (req, res) => {
     const { userName } = req.body;
     const db = client.db(dbName);
     const users = db.collection('users');
-    const allSearchedUsers = await users.find({ username: { $regex: userName, $options: 'i' } });
-    res.json(allSearchedUsers)
+    const userDocument = await users.find({ username: { $regex: userName, $options: 'i' } }).toArray();
+    res.json(userDocument);
   });
-
-  
 
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
