@@ -64,7 +64,7 @@ const SearchSuggestions = ({ className, inputValue, setInputValue }) => {
 
     const handleUserSearch = () => {
         if (inputValue.trim() !== '') {
-            navigate('/DataPage', {state : { searchQuery: inputValue, gameSearch: false }});
+            navigate('/DataPage', {state : { searchQuery: inputValue.trim(), gameSearch: false }});
           }
         setSuggestions([]);
         setOpenInput(false);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GameTable from "./GameTable";
+import UserTable from "./UserTable";
 import '../styles/PageNav.css';
 
 const PageNav = ({ data, gameSearch }) => {
@@ -50,7 +51,7 @@ const PageNav = ({ data, gameSearch }) => {
 
     return (
         <div>
-            { gameSearch ?  <GameTable data={data} currentPage={currentPage} /> : <p>TEST</p> }
+            { gameSearch ?  <GameTable data={data} currentPage={currentPage}/> : <UserTable data={data} currentPage={currentPage}/>}
             <div className="pageNav">
                 <button className="pageFirst" onClick={goLeftMost}>{"<<"}</button>
                 <button className="pageLeft" onClick={goLeft}>{"<"}</button>

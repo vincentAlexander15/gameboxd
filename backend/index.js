@@ -26,7 +26,7 @@ app.use(cors({
 const url = `mongodb+srv://${uname}:${pwd}@gameboxd.rpwjyu7.mongodb.net/?retryWrites=true&w=majority&appName=gameboxd`;
 
 // Database documents
-const documents = ["users", "favorites", "friends", "reviews"];
+const documents = ["users", "favorites", "followers", "reviews"];
 
 // Database Name
 const dbName = 'gameboxd';
@@ -40,7 +40,7 @@ client.connect().then(() => {
   const db = client.db(dbName);
   const users = db.collection('users');
   const favorites = db.collection('favorites');
-  const friends = db.collection('friends')
+  const followers = db.collection('followers')
   const reviews = db.collection('reviews');
   // games.createIndex({ name: "text" });
 
@@ -83,7 +83,7 @@ client.connect().then(() => {
       // Add new user
       await users.insertOne({ username, password: hashedPassword });
       await favorites.insertOne({ username: username, games: [] });
-      await friends.insertOne({ username: username, userFriends: [] });
+      await followers.insertOne({ username: username, userFollowers: [], userFollowing: [] });
       res.status(201).json({ message: 'User created successfully' });
   
     } catch (err) {
@@ -364,6 +364,66 @@ client.connect().then(() => {
     const userDocument = await users.find({ username: { $regex: userName, $options: 'i' } }).toArray();
     res.json(userDocument);
   });
+
+ // Add game to user's favorites
+ app.post('/followUser', async (req, res) => {
+  try {
+    const { currentUser, followedUser } = req.body;
+    const db = client.db(dbName);
+    const followers = db.collection('followers');
+
+    const followerDocument = await followers.findOne({ username: followedUser });
+    const userDocument = await followers.findOne({ username: currentUser });
+
+    if (followerDocument && !(followerDocument.userFollowers.includes(currentUser))) {
+      await followers.updateOne({ username: followedUser }, { $push: { userFollowers: currentUser } });
+    }
+    if (userDocument && !(userDocument.userFollowing.includes(followedUser))) {
+      await followers.updateOne({ username: currentUser }, { $push: { userFollowing: followedUser } });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// From document called followers, which has users and 2 arrays, userFollowers and userFollowing, remove the current user from the followed user's follower array and remove the followed user from the current user's following array
+app.post('/unfollowUser', async (req, res) => {
+  // removing the current user from the followed user's follower array:
+  try {
+    const { currentUser, unfollowedUser } = req.body;
+    const db = client.db(dbName);
+    const followers = db.collection('followers');
+
+    const followerDocument = await followers.findOne({ username: unfollowedUser });
+    const userDocument = await followers.findOne({ username: currentUser });
+
+    if (followerDocument && followerDocument.userFollowers.includes(currentUser)) {
+      await followers.updateOne({ username: unfollowedUser }, { $pull: { userFollowers: currentUser } });
+    }
+    if (userDocument && userDocument.userFollowing.includes(unfollowedUser)) {
+      await followers.updateOne({ username: currentUser }, { $pull: { userFollowing: unfollowedUser } });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Get user's favorites
+app.post('/inUserFollowers', async (req, res) => {
+  const { currentUser, followedUser } = req.body;
+  const db = client.db(dbName);
+  const followers = db.collection('followers');
+  const userDocument = await followers.findOne({ username: currentUser });
+
+  if (userDocument && userDocument.userFollowing.includes(followedUser)) {
+    res.json({ isFollowing: true });
+  } else {
+    res.json({ isFollowing: false });
+  }
+});
+
 
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

@@ -84,7 +84,7 @@ const Navbar = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (inputValue.trim() !== '') {
-      navigate('/DataPage', {state : { searchQuery: inputValue}});
+      navigate('/DataPage', {state : { searchQuery: inputValue, gameSearch: true}});
     }
   };
 

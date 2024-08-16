@@ -48,8 +48,13 @@ const DataPage = () => {
             credentials: 'include'
         });
         const data = await response.json();
-        
+        if (data.length === 0) {
+          setIsFound(false);
+        } else {
+          setIsFound(true);
+        }
         setUserData(data);
+        setFirstSearch(false);
       };
       if (!gameSearch) {
         getUsers();
