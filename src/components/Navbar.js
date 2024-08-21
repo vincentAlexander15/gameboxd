@@ -156,6 +156,7 @@ const Navbar = () => {
               <div className="profile-menu" ref={profileRef}>
                 <button className="profile-link" onClick={() => handleClick("Profile")}>Profile</button>
                 <button className="profile-link" onClick={() => handleClick("Library")}>Library</button>
+                <button className="profile-link" onClick={() => handleClick("Friends")}>Friends</button>
                 <button className="profile-link" onClick={() => handleClick("Settings")}>Settings</button>
                 <button className="profile-link" onClick={handleSignOutClick}>Sign Out</button>
               </div>

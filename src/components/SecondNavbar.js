@@ -35,6 +35,8 @@ const SecondNavbar = () => {
             {currentButton === 'Profile' && "> "}Profile</button>
             <button className="dash-link" onClick={() => handleClick("Library")}>
             {currentButton === 'Library' && "> "}Library</button>
+            <button className="dash-link" onClick={() => handleClick("Friends")}>
+            {currentButton === 'Friends' && "> "}Friends</button>
             <button className="dash-link" onClick={() => handleClick("Settings")}>
             {currentButton === 'Settings' && "> "}Settings</button>
             <button className="dash-link" onClick={handleSignOutClick}>

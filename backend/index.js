@@ -424,6 +424,17 @@ app.post('/inUserFollowers', async (req, res) => {
   }
 });
 
+//TODO: return something something falsy or return list of friends
+// Return all people a user is following
+app.post('/getUserFollowing', async (req, res) => {
+  const {currentUser} = req.body;
+  const db = client.db(dbName);
+  const users = db.collection('users')
+  const userFollowing = await users.findOne({ username: currentUser});
+
+  if (userFollowing.f)
+});
+
 
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

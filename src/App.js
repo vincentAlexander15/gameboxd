@@ -8,6 +8,7 @@ import Profile from "./pages/ProfilePage";
 import Library from "./pages/LibraryPage";
 import Settings from "./pages/SettingsPage";
 import User from "./pages/UserPage";
+import Friends from "./pages/FriendsPage";
 import { AuthContext, AuthProvider } from './components/AuthContext';
 import './styles/global.css';
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/Profile" element={<Profile/>}/>
             <Route path="/Library" element={<Library/>}/>
             <Route path="/Settings" element={<Settings/>}/>
+            <Route path="/Friends" element={<Friends/>}/>
           </Route>
         </Routes>
       </Router>
