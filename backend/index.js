@@ -203,12 +203,12 @@ client.connect().then(() => {
     }
   });
 
+  // Get a user's favorite games
   app.post('/getUserFavorites', async (req, res) => {
     const { currentUser } = req.body;
     const db = client.db(dbName);
     const favorites = db.collection('favorites');
     const userDocument = await favorites.findOne({ username: currentUser });
-
     res.json(userDocument.games);
   });
 
@@ -424,15 +424,13 @@ app.post('/inUserFollowers', async (req, res) => {
   }
 });
 
-//TODO: return something something falsy or return list of friends
-// Return all people a user is following
+// Find all people a user is following, return an array of usernames
 app.post('/getUserFollowing', async (req, res) => {
-  const {currentUser} = req.body;
+  const { currentUser } = req.body;
   const db = client.db(dbName);
-  const users = db.collection('users')
-  const userFollowing = await users.findOne({ username: currentUser});
-
-  if (userFollowing.f)
+  const followers = db.collection('followers');
+  const userDocument = await followers.findOne({ username: currentUser });
+  res.json(userDocument.userFollowing);
 });
 
 
