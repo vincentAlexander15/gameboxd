@@ -11,8 +11,8 @@ import FavButton from '../components/favButton';
 const LibraryPage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
-    const [allUserGameIDS, setAllUserGameIDS] = useState('');
-    const [ librarySize, setLibrarySize] = useState(0);
+    const [allUserGameIDS, setAllUserGameIDS] = useState('0');
+    const [librarySize, setLibrarySize] = useState(0);
 
     // wrap in a try catch block:
     const allUserGames = useFetch('/igdb/games', 'POST', `fields *, cover.*; where id = ${allUserGameIDS}; limit ${librarySize.toString()};`);
@@ -22,7 +22,7 @@ const LibraryPage = () => {
     };
 
     const GameList = ({ allUserGames }) => {
-        if (allUserGameIDS !== '()'){
+        if (allUserGameIDS !== '0'){
             return (
                 <div className="game-list">
                     {allUserGames && allUserGames.map((item, index) => (
@@ -53,31 +53,24 @@ const LibraryPage = () => {
     };
 
     useEffect(() => {
-        if(isLoggedIn) {
+        if (isLoggedIn) {
             const FetchFavorites = async () => {
-                const send = { currentUser };
                 const response = await fetch('http://localhost:5000/getUserFavorites', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     credentials: 'include',
-                    body: JSON.stringify(send)
+                    body: JSON.stringify({ currentUser })
                 });
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data) {
-                        setLibrarySize(data.length);
-                        const ids = data.map(item => item.toString());
-                        console.log(data.length)
-                        setAllUserGameIDS("(" + ids.join(', ') + ")");
-                    } else {
-                        console.log("data might be empty", data);
-                    }
+                const data = await response.json();
+                if (data.length === 0) {
+                    setAllUserGameIDS('0');
                 } else {
-                    console.error('Failed to retrieve games');
+                    setAllUserGameIDS('(' + data.join(', ') + ')');
                 }
-            };
+                setLibrarySize(data.length);
+            }
             FetchFavorites();
         };
     }, [currentUser]);

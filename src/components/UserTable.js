@@ -23,7 +23,6 @@ const UserTable = ({currentPage, data}) => {
 
     // Get the games for the current page
     const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
-    console.log(currentUsers);
 
     return (
         <div>
