@@ -1,0 +1,27 @@
+.profile-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 1200px;
+    height: 150px;
+}
+
+.profile-pfp{
+    height: 70px;
+    width: 70px;
+    margin-right: 10px;
+    background-color: white;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+}
