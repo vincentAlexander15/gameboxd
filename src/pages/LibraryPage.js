@@ -14,7 +14,6 @@ const LibraryPage = () => {
     const [allUserGameIDS, setAllUserGameIDS] = useState('0');
     const [librarySize, setLibrarySize] = useState(0);
 
-    // wrap in a try catch block:
     const allUserGames = useFetch('/igdb/games', 'POST', `fields *, cover.*; where id = ${allUserGameIDS}; limit ${librarySize.toString()};`);
 
     const handleClick = (item) => {
