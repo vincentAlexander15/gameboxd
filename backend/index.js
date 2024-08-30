@@ -433,6 +433,21 @@ app.post('/getUserFollowing', async (req, res) => {
   res.json(userDocument.userFollowing);
 });
 
+//Return current users profile stats
+app.post('/getProfileStats', async (req, res) => {
+  const { currentUser } = req.body;
+  const db = client.db(dbName);
+  const followers = db.collection('followers');
+  const favorites = db.collection('favorites');
+  const userFriends= await followers.findOne({ username: currentUser });
+  const userFavorites = await favorites.findOne({ username: currentUser });
+  const totFollowing = userFriends.userFollowing;
+  const totFollowers = userFriends.userFollowers;
+  const totFav = userFavorites.games;
+  res.json({totFollowing, totFollowers, totFav});
+});
+
+
 
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

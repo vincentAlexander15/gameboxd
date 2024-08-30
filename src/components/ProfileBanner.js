@@ -1,10 +1,29 @@
+import { useState, useContext, useEffect } from 'react';
 import "../styles/ProfileBanner.css";
 
 
 // User is a string that represents the user's name. It will also be used to fetch the user's profile picture in the backend.
 const ProfileBanner = ({user}) => {
+    const [favoritesLen, setFavoritesLen] = useState('0');
+    const [followingLen, setFollowingLen] = useState('0');
+    const [followersLen, setFollowersLen] = useState('0');
     // Fetch the user's profile picture from the backend
-
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch('http://localhost:5000/getProfileStats', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ currentUser: user }),
+            });
+            const data = await response.json();
+            setFavoritesLen(data.totFav.length);
+            setFollowersLen(data.totFollowers.length);
+            setFollowingLen(data.totFollowing.length);
+        };
+        fetchData();
+    }, [user]);
 
     return (
         <div className="profile-card">
@@ -18,6 +37,20 @@ const ProfileBanner = ({user}) => {
             <div className="profile-info">
                 <div>{user}</div>
             </div>
+            <span className="profile-links">
+                <div className="profile-stat">
+                    <div className="profPage-link">/Total Games</div>
+                    <div className="len">{favoritesLen}</div>
+                </div>
+                <div className="profile-stat">
+                    <button className="profPage-link">/Following</button>
+                    <div className="len">{followingLen}</div>
+                </div>
+                <div className="profile-stat">
+                    <button className="profPage-link">/Followers</button>
+                    <div className="len">{followersLen}</div>
+                </div>      
+            </span>
         </div>
     );
 };

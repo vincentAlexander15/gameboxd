@@ -11,8 +11,6 @@ import ProfileBanner from "../components/ProfileBanner";
 const ProfilePage = () => {
     const navigate = useNavigate();
     const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useContext(AuthContext);
-  
-    
     
     return (
       <div className="main">

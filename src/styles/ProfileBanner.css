@@ -1,9 +1,9 @@
 .profile-card {
     display: flex;
-    justify-content: center;
     flex-direction: row;
     width: 1200px;
-    height: 150px;
+    height: 70px;
+    margin-top: 30px;
 }
 
 .profile-pfp{
@@ -24,4 +24,35 @@
     color: white;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.profile-links {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+}
+
+.profPage-link {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    font: 1.5rem 'silkscreen1', sans-serif;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.profile-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    margin-left: 50px;
+    color: white;
+}
+
+.len {
+    text-align: center;
 }
