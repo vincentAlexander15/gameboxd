@@ -1,9 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "../styles/ProfileBanner.css";
 
 
 // User is a string that represents the user's name. It will also be used to fetch the user's profile picture in the backend.
 const ProfileBanner = ({user}) => {
+    const navigate = useNavigate();
     const [favoritesLen, setFavoritesLen] = useState('0');
     const [followingLen, setFollowingLen] = useState('0');
     const [followersLen, setFollowersLen] = useState('0');
@@ -39,11 +41,11 @@ const ProfileBanner = ({user}) => {
             </div>
             <span className="profile-links">
                 <div className="profile-stat">
-                    <div className="profPage-link">/Total Games</div>
+                    <button className="profPage-link" onClick={() => navigate('/Library')}>/Total Games</button>
                     <div className="len">{favoritesLen}</div>
                 </div>
                 <div className="profile-stat">
-                    <button className="profPage-link">/Following</button>
+                    <button className="profPage-link" onClick={() => navigate('/Friends')}>/Following</button>
                     <div className="len">{followingLen}</div>
                 </div>
                 <div className="profile-stat">

@@ -7,10 +7,10 @@ const SecondNavbar = () => {
     const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const { currentButton } = location.state || {};
+    const currentButton = location.pathname || {};
 
     const handleClick = (buttonName) => {
-        navigate(`/${buttonName}`, {state : { currentButton: buttonName}});
+        navigate(buttonName);
     };
 
     const handleSignOutClick = async () => {
@@ -31,14 +31,14 @@ const SecondNavbar = () => {
 
     return (
         <div className="dashboard">
-            <button className="dash-link" onClick={() => handleClick("Profile")}>
-            {currentButton === 'Profile' && "> "}Profile</button>
-            <button className="dash-link" onClick={() => handleClick("Library")}>
-            {currentButton === 'Library' && "> "}Library</button>
-            <button className="dash-link" onClick={() => handleClick("Friends")}>
-            {currentButton === 'Friends' && "> "}Friends</button>
-            <button className="dash-link" onClick={() => handleClick("Settings")}>
-            {currentButton === 'Settings' && "> "}Settings</button>
+            <button className="dash-link" onClick={() => handleClick("/Profile")}>
+            {currentButton === '/Profile' && "> "}Profile</button>
+            <button className="dash-link" onClick={() => handleClick("/Library")}>
+            {currentButton === '/Library' && "> "}Library</button>
+            <button className="dash-link" onClick={() => handleClick("/Friends")}>
+            {currentButton === '/Friends' && "> "}Friends</button>
+            <button className="dash-link" onClick={() => handleClick("/Settings")}>
+            {currentButton === '/Settings' && "> "}Settings</button>
             <button className="dash-link" onClick={handleSignOutClick}>
             {currentButton === 'SignOut' && "> "}Sign Out</button>
         </div>
