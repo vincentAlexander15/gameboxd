@@ -6,6 +6,8 @@ import Footer from '../components/Footer';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import FavButton from '../components/favButton';
 import useFetch from '../components/useFetch';
+import ProfileBanner from "../components/ProfileBanner";
+import '../styles/UserPage.css';
 
 const UserPage = () => {
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
@@ -75,10 +77,11 @@ const UserPage = () => {
   return (
     <div className='main'>
       <Navbar/>
-        <div className="content-area">
-          <div>{user}</div>
-          <div className="allGames">
-              <GameList allUserGames={allUserGames} />
+        <div className="user-content-area">
+            <ProfileBanner user={user}/>
+          <div className="user-allGames">
+                <h2 style={{color:"white"}}>User Games</h2>
+              <GameList allUserGames={allUserGames}/>
           </div>
         </div>
       <Footer/>
