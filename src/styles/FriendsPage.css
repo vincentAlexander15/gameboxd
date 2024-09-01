@@ -22,3 +22,22 @@
     text-align: center;
     padding-bottom: 30px;
 }
+
+.yes {
+    color: white;
+    font: 1.5rem 'silkscreen1', sans-serif;
+    width: 600px;
+    height: 80px;
+    text-align: center;
+    margin: auto auto;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

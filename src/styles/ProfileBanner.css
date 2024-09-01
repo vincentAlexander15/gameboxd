@@ -1,19 +1,35 @@
 .profile-card {
     display: flex;
     flex-direction: row;
-    width: 1200px;
+    width: 943px;
     height: 70px;
-    margin-top: 30px;
+    margin-top: 40px;
+    margin-left: 30px;
+    background-color: #282828;
+    padding: 10px;
+    border-radius: 10px;
+    animation: fadeIn 0.2s ease-in-out;
 }
 
-.profile-pfp{
-    height: 70px;
-    width: 70px;
-    margin-right: 10px;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.profile-pfp {
+    height: 60px;
+    width: 60px;
     background-color: white;
     border-radius: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
 }
 
@@ -24,24 +40,31 @@
     color: white;
     margin-top: auto;
     margin-bottom: auto;
+    margin-left: 20px;
+    margin-right: 336px;
+    font: 1.5rem 'silkscreen1', sans-serif;
 }
 
 .profile-links {
     display: flex;
     position: relative;
     flex-direction: row;
+    gap: 20px;
 }
 
 .profPage-link {
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    font: 1.5rem 'silkscreen1', sans-serif;
+    font: 1.3rem 'silkscreen1', sans-serif;
     background: transparent;
     border: none;
     color: white;
     cursor: pointer;
+    padding: 0;
+}
+
+/* last profile page link, add margin right of 10px */
+.profile-links:last-child {
+    margin-right: 10px;
 }
 
 .profile-stat {
@@ -49,10 +72,10 @@
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-    margin-left: 50px;
     color: white;
 }
 
 .len {
     text-align: center;
+    font: 1.2rem 'silkscreen1', sans-serif;
 }

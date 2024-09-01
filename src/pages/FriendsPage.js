@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import { AuthContext } from '../components/AuthContext';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import useFetch from '../components/useFetch';
 import FollowButton from '../components/followButton';
 import "../styles/FriendsPage.css";
 
@@ -39,7 +38,7 @@ const FriendsPage = () => {
             <Navbar/>
             <div className="content-area">
                 <SecondNavbar/>
-                {friendsSize === 0 ? <h1 style={{color:"white"}}>Looks like you don't have any friends yet! Add some friends to see their favorite games!</h1> 
+                {friendsSize === 0 ? <div className="yes">Looks like you don't have any friends added yet! Add some friends to see their favorite games!</div>
                 : 
                 <div className="friend-list">
                     {allUserGameIDS && allUserGameIDS.map((user) => (

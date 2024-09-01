@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import { AuthContext } from '../components/AuthContext';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useFetch from '../components/useFetch';
 import "../styles/ProfilePage.css";
 import ProfileBanner from "../components/ProfileBanner";
 

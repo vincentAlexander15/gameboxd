@@ -2,16 +2,12 @@ import Navbar from "../components/Navbar";
 import SecondNavbar from "../components/SecondNavbar";
 import Footer from "../components/Footer";
 import { AuthContext } from '../components/AuthContext';
-import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useFetch from '../components/useFetch';
-import FavButton from '../components/favButton';
+import { useState, useContext } from 'react';
 import Pencil from "../images/PencilSVG";
-import "../styles/ProfilePage.css";
+import "../styles/SettingsPage.css";
 
 const SettingsPage = () => {
 
-    const navigate = useNavigate();
     const [newUsername, setNewUsername] = useState('');
     const { isLoggedIn, setIsLoggedIn, currentUser, setCurrentUser } = useContext(AuthContext);
     const [isEditable, setIsEditable] = useState(false);
@@ -56,7 +52,7 @@ const SettingsPage = () => {
         <Navbar/>
         <div className="content-area">
           <SecondNavbar/>
-          <div>
+          <div className="settings">
             <h3 className="user-field-label">USERNAME</h3>
             {isEditable ? (
               <div className="user-field">

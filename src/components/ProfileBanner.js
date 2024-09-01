@@ -41,15 +41,15 @@ const ProfileBanner = ({user}) => {
             </div>
             <span className="profile-links">
                 <div className="profile-stat">
-                    <button className="profPage-link" onClick={() => navigate('/Library')}>/Total Games</button>
+                    <button className="profPage-link" onClick={() => navigate('/Library')}>Total Games</button>
                     <div className="len">{favoritesLen}</div>
                 </div>
                 <div className="profile-stat">
-                    <button className="profPage-link" onClick={() => navigate('/Friends')}>/Following</button>
+                    <button className="profPage-link" onClick={() => navigate('/Friends')}>Following</button>
                     <div className="len">{followingLen}</div>
                 </div>
                 <div className="profile-stat">
-                    <button className="profPage-link">/Followers</button>
+                    <button className="profPage-link">Followers</button>
                     <div className="len">{followersLen}</div>
                 </div>      
             </span>

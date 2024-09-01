@@ -21,7 +21,7 @@ const LibraryPage = () => {
     };
 
     const GameList = ({ allUserGames }) => {
-        if (allUserGameIDS !== '0'){
+        if (allUserGameIDS !== '0') {
             return (
                 <div className="game-list">
                     {allUserGames && allUserGames.map((item, index) => (
@@ -43,10 +43,10 @@ const LibraryPage = () => {
             );
         } else {
             return (
-                <>
-                    <div style={{ marginTop: '30px',color: 'white' }}>Add some Games</div>
+                <div className="add-more-games">
+                    There are no games in your library!<br/>
                     <Link to="/DataPage" className='explore-link'>EXPLORE</Link>
-                </>
+                </div>
             );
         }
     };
@@ -80,9 +80,7 @@ const LibraryPage = () => {
             <Navbar/>
             <div className="content-area">
                 <SecondNavbar/>
-                <div className="allGames">
-                    <GameList allUserGames={allUserGames} />
-                </div>
+                <GameList allUserGames={allUserGames} />
             </div>
             <Footer/>
         </div>

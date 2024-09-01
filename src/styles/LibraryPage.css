@@ -12,8 +12,8 @@
     flex-wrap: wrap;
     height: 700px;
     margin-top: 10px;
-    animation: fadeIn 0.2s ease-in-out;
-    overflow-y: auto; /* Enable vertical scrolling */
+    animation: fadeIn 0.6s ease-in-out;
+    overflow-y: auto;
 }
 
 .game-item {
@@ -28,10 +28,6 @@
 
 .content-area {
     display: flex;
-}
-
-.allGames {
-    margin-left: 20px;
 }
 
 .library-game-title {
@@ -52,4 +48,14 @@
     border-radius: 25px;
     display: block;
     cursor: pointer;
+}
+
+.add-more-games {
+    color: white;
+    font: 1.5rem 'silkscreen1', sans-serif;
+    width: 600px;
+    height: 80px;
+    text-align: center;
+    animation: fadeIn 0.2s ease-in-out;
+    margin: auto auto;
 }
