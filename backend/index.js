@@ -344,7 +344,7 @@ client.connect().then(() => {
   // Update the score of a game based on its id and user id
   app.put('/updateUserScore', async (req, res) => {
     const { gameID, userID } = req.query;
-    const { newScore } = req.body;
+    const { newScore, currentDate } = req.body;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     const reviewDocument = await reviews.findOne({ gameID: gameID, username: userID });
@@ -353,7 +353,7 @@ client.connect().then(() => {
       res.json({ success: true });
     } else {
       // if the user doesnt have a review, insert a new one, with empty review and the new score
-      await reviews.insertOne({ gameID: gameID, username: userID, review: "", rating: newScore, date: "" });
+      await reviews.insertOne({ gameID: gameID, username: userID, review: "", rating: newScore, date: currentDate });
       res.json({ success: true });
     }
   });

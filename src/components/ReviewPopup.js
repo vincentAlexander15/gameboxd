@@ -15,9 +15,9 @@ const ReviewPopup = ({ onClose, gameID, review_rating, review_text }) => {
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({gameID, currentUser, review, rating, currentDate}),
+            body: JSON.stringify({gameID: gameID.toString(), currentUser, review, rating, currentDate}),
             credentials: 'include' // Include cookies in the request
-          });
+        });
         onClose();
         if (response.ok) {
             alert('Review submitted successfully!');

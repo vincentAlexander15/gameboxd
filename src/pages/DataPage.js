@@ -11,14 +11,13 @@ import Footer from '../components/Footer';
 const DataPage = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { searchQuery } = location.state || {};
-    const { gameSearch } = location.state || true;
+    const { searchQuery = '', gameSearch = true } = location.state || {};
     const [inputValue, setInputValue] = useState('');
     const [isFound, setIsFound] = useState(false); 
     const [firstSearch, setFirstSearch] = useState(true);
     const [processedData, setProcessedData] = useState([]);
     const [userData, setUserData] = useState([]);
-
+    
     const handleSubmit = (event) => {
       if (inputValue !== null && inputValue !== '') {
         event.preventDefault();
@@ -34,7 +33,6 @@ const DataPage = () => {
     const method = 'POST';
     const body = (searchQuery && gameSearch) ? `fields *, cover.*; search "${searchQuery}"; limit 500;` : null;
     const data = useFetch(url, method, body);
-
 
     useEffect(() => {
       const getUsers = async () => {

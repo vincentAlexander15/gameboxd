@@ -59,13 +59,14 @@ const StarRating = ({ score, gameID, userID, onScoreUpdate }) => {
     };
 
     const handleClick = async (newScore) => {
+        const currentDate = new Date().toLocaleDateString();
         const response = await fetch('http://localhost:5000/updateUserScore?gameID=' + gameID + '&userID=' + userID, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: 'include',
-            body: JSON.stringify({ score: newScore }),
+            body: JSON.stringify({ newScore, currentDate }),
         });
         const data = await response.json();
         if (data.success) {

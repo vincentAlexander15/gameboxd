@@ -45,7 +45,10 @@ const LibraryPage = () => {
             return (
                 <div className="add-more-games">
                     There are no games in your library!<br/>
-                    <Link to="/DataPage" className='explore-link'>EXPLORE</Link>
+                    <Link to={{
+                        pathname: "/DataPage",
+                        state: { searchQuery: "defaultQuery", gameSearch: true }
+                    }}  className='explore-link'>EXPLORE</Link>
                 </div>
             );
         }
