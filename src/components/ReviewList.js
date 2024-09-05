@@ -8,18 +8,17 @@ import ReviewPopup from '../components/ReviewPopup';
 
 const ReviewList = ({ gameID }) => {
     const [data, setData] = useState([]);
-    const { isLoggedIn, setIsLoggedIn, currentUser } = useContext(AuthContext);
+    const { currentUser } = useContext(AuthContext);
     const [isReviewPopupOpen, setIsReviewPopupOpen] = useState(false);
 
     useEffect(() => {
         const getReviews = async () => {
-            const response = await fetch('http://localhost:5000/getReviews', {
-                method: 'POST',
+            const response = await fetch('http://localhost:5000/getReviews?gameID=' + gameID + '&currentUser=' + currentUser, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ gameID, currentUser }),
-                credentials: 'include' // Include cookies in the request
+                credentials: 'include'
             });
             const data = await response.json();
             setData(data);
@@ -33,13 +32,12 @@ const ReviewList = ({ gameID }) => {
     };
 
     const handleDelete = () => {
-        fetch('http://localhost:5000/deleteReview', {
-            method: 'POST',
+        fetch('http://localhost:5000/deleteReview?gameID=' + gameID + '&currentUser=' + currentUser, {
+            method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ gameID, currentUser }),
-            credentials: 'include' // Include cookies in the request
+            credentials: 'include'
         }).then(() => {
             window.location.reload();
         });

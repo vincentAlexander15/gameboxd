@@ -17,9 +17,9 @@ const pwd = process.env.ATLAS_PASSWORD;
 const jwtscrt = process.env.JWT_SECRET_KEY;
 
 app.use(bodyParser.json());
-app.use(cors({ 
-  origin: 'http://localhost:3000', 
-  credentials: true 
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
 }));
 
 // Connection URL
@@ -46,13 +46,13 @@ client.connect().then(() => {
 
   // Sign up route
   app.post('/signup', async (req, res) => {
-  
+
     const { username, password } = req.body;
-  
+
     if (!username || !password) {
       return res.status(400).json({ message: 'Username and password are required' });
     }
-  
+
     try {
 
       // Check if user already exists
@@ -66,26 +66,26 @@ client.connect().then(() => {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
       if (!usernameRegex.test(username)) {
-        return res.status(400).json({ 
-          message: 'Username should only contain alphanumeric characters, underscores, and hyphens. It should start with a letter and be 3 to 16 characters long.' 
+        return res.status(400).json({
+          message: 'Username should only contain alphanumeric characters, underscores, and hyphens. It should start with a letter and be 3 to 16 characters long.'
         });
       }
 
       if (!passwordRegex.test(password)) {
-        return res.status(400).json({ 
-          message: 'Password should contain at least one lowercase letter, one uppercase letter, one digit, one special character (@, $, !, %, *, ?, &), and be at least 8 characters long.' 
+        return res.status(400).json({
+          message: 'Password should contain at least one lowercase letter, one uppercase letter, one digit, one special character (@, $, !, %, *, ?, &), and be at least 8 characters long.'
         });
       }
 
       // Hash password
       const hashedPassword = await bcrypt.hash(password, 10);
-  
+
       // Add new user
       await users.insertOne({ username, password: hashedPassword });
       await favorites.insertOne({ username: username, games: [] });
       await followers.insertOne({ username: username, userFollowers: [], userFollowing: [] });
       res.status(201).json({ message: 'User created successfully' });
-  
+
     } catch (err) {
       res.status(500).json({ message: 'An error occurred' });
     }
@@ -99,7 +99,7 @@ client.connect().then(() => {
     // Basic validation
     if (!username || !password) {
       return res.status(400).json({ message: 'Username and password are required' });
-    }
+    } 
 
     try {
       const db = client.db(dbName);
@@ -131,7 +131,7 @@ client.connect().then(() => {
   app.post('/signout', (req, res) => {
     // Clear the cookie
     res.clearCookie('cookie-gameboxd');
-    
+
     // Send a response
     res.json({ message: 'User signed out successfully' });
   });
@@ -155,7 +155,7 @@ client.connect().then(() => {
       const db = client.db(dbName);
       const favorites = db.collection('favorites');
       const userDocument = await favorites.findOne({ username: currentUser });
-  
+
       if (userDocument && userDocument.games.includes(gameID)) {
         res.json({ message: 'Game already in favorites' });
       } else {
@@ -169,14 +169,14 @@ client.connect().then(() => {
   });
 
   // Remove game from user's favorites
-  app.post('/removeFavorite', async (req, res) => {
+  app.delete('/removeFavorite', async (req, res) => {
     try {
-      const { currentUser, gameID } = req.body;
+      const { currentUser, gameID } = req.query;
       const db = client.db(dbName);
       const favorites = db.collection('favorites');
-  
+
       const userDocument = await favorites.findOne({ username: currentUser });
-  
+
       if (userDocument && userDocument.games.includes(gameID)) {
         await favorites.updateOne({ username: currentUser }, { $pull: { games: gameID } });
         res.json({ message: 'Game removed from favorites' });
@@ -190,12 +190,12 @@ client.connect().then(() => {
   });
 
   // Get user's favorites
-  app.post('/inUserFavorites', async (req, res) => {
-    const { currentUser, gameID } = req.body;
+  app.get('/inUserFavorites', async (req, res) => {
+    const { currentUser, gameID } = req.query;
     const db = client.db(dbName);
     const favorites = db.collection('favorites');
     const userDocument = await favorites.findOne({ username: currentUser });
-  
+
     if (userDocument && userDocument.games.includes(gameID)) {
       res.json({ isFavorite: true });
     } else {
@@ -204,8 +204,8 @@ client.connect().then(() => {
   });
 
   // Get a user's favorite games
-  app.post('/getUserFavorites', async (req, res) => {
-    const { currentUser } = req.body;
+  app.get('/getUserFavorites', async (req, res) => {
+    const { currentUser } = req.query;
     const db = client.db(dbName);
     const favorites = db.collection('favorites');
     const userDocument = await favorites.findOne({ username: currentUser });
@@ -213,41 +213,42 @@ client.connect().then(() => {
   });
 
   // Get current user
-  app.post('/getCurrentUser', (req, res) => {
+  app.get('/getCurrentUser', (req, res) => {
     const token = req.cookies['cookie-gameboxd'];
     if (!token) {
-        return res.status(401).json({ message: 'Not authenticated' });
+      return res.status(401).json({ message: 'Not authenticated' });
     }
     jwt.verify(token, jwtscrt, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: 'Failed to authenticate token' });
-        }
-        const username = decoded.username;
-        res.json({ username });
+      if (err) {
+        return res.status(401).json({ message: 'Failed to authenticate token' });
+      }
+      const username = decoded.username;
+      res.json({ username });
     });
   });
 
-  app.post('/changeUsername', async (req, res) => {
-    const { currentUser, newUsername } = req.body;
+  // Change username
+  app.put('/changeUsername', async (req, res) => {
+    const { currentUser, newUsername } = req.query;
     const db = client.db(dbName);
     const users = db.collection('users');
-    
+
     const userExists = await users.findOne({ username: newUsername });
     if (userExists) {
       return res.status(400).json({ message: 'Username is taken' });
     }
-  
+
     const updateUser = async (collection) => {
-      if (collection.collectionName === "reviews" && !await collection.findOne({username: currentUser})){
+      if (collection.collectionName === "reviews" && !await collection.findOne({ username: currentUser })) {
         return true;
       }
       const result = await collection.updateMany(
-        { username: currentUser }, 
+        { username: currentUser },
         { $set: { username: newUsername } }
       );
       return result.modifiedCount > 0;
     };
-  
+
     for (const doc of documents) {
       console.log("made it here:", doc);
       const collection = db.collection(doc);
@@ -256,13 +257,13 @@ client.connect().then(() => {
         return res.status(500).json({ message: `Unable to update username in ${doc}` });
       }
     }
-  
+
     res.json({ message: 'Username updated successfully' });
   });
 
   // Get all reviews of a game based on its id. Sort the reviews by date in descending order and if a user has reviewed the game, their review should be the first one in the list:
-  app.post('/getReviews', async (req, res) => {
-    const { gameID, currentUser } = req.body;
+  app.get('/getReviews', async (req, res) => {
+    const { gameID, currentUser } = req.query;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     const reviewDocument = await reviews.find({ gameID: gameID }).toArray();
@@ -301,8 +302,8 @@ client.connect().then(() => {
   });
 
   // Delete a review of a game based on game_id and the user who reviewed it
-  app.post('/deleteReview', async (req, res) => {
-    const { gameID, currentUser } = req.body;
+  app.delete('/deleteReview', async (req, res) => {
+    const { gameID, currentUser } = req.query;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     await reviews.deleteOne({ gameID: gameID, username: currentUser });
@@ -310,8 +311,8 @@ client.connect().then(() => {
   });
 
   // Get the user score of a game based on its id and the user who is getting the score from the reviews collection. If the user has not reviewed the game, return a score of 0
-  app.post('/getUserScore', async (req, res) => {
-    const { gameID, userID } = req.body;
+  app.get('/getUserScore', async (req, res) => {
+    const { gameID, userID } = req.query;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     const reviewDocument = await reviews.findOne({ gameID: gameID, username: userID });
@@ -323,8 +324,8 @@ client.connect().then(() => {
   });
 
   // Get the average score of a game based on its id from the reviews collection. If the game has no reviews, return a score of 0. Also, cast the score of each review to a float before calculating the average:
-  app.post('/getScore', async (req, res) => {
-    const { gameID } = req.body;
+  app.get('/getScore', async (req, res) => {
+    const { gameID } = req.query;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     const reviewDocument = await reviews.find({ gameID: gameID }).toArray();
@@ -341,8 +342,9 @@ client.connect().then(() => {
 
   // Update the score of a game based on its id, the user who is updating the score, and the new score
   // Update the score of a game based on its id and user id
-  app.post('/updateUserScore', async (req, res) => {
-    const { gameID, userID, newScore } = req.body;
+  app.put('/updateUserScore', async (req, res) => {
+    const { gameID, userID } = req.query;
+    const { newScore } = req.body;
     const db = client.db(dbName);
     const reviews = db.collection('reviews');
     const reviewDocument = await reviews.findOne({ gameID: gameID, username: userID });
@@ -357,97 +359,94 @@ client.connect().then(() => {
   });
 
   // Return all users that have similar name to username in body of request
-  app.post('/getUsers', async (req, res) => {
-    const { userName } = req.body;
+  app.get('/getUsers', async (req, res) => {
+    const { userName } = req.query;
     const db = client.db(dbName);
     const users = db.collection('users');
     const userDocument = await users.find({ username: { $regex: userName, $options: 'i' } }).toArray();
     res.json(userDocument);
   });
 
- // Add game to user's favorites
- app.post('/followUser', async (req, res) => {
-  try {
-    const { currentUser, followedUser } = req.body;
+  app.post('/followUser', async (req, res) => {
+    try {
+      const { currentUser, followedUser } = req.body;
+      const db = client.db(dbName);
+      const followers = db.collection('followers');
+
+      const followerDocument = await followers.findOne({ username: followedUser });
+      const userDocument = await followers.findOne({ username: currentUser });
+
+      if (followerDocument && !(followerDocument.userFollowers.includes(currentUser))) {
+        await followers.updateOne({ username: followedUser }, { $push: { userFollowers: currentUser } });
+      }
+      if (userDocument && !(userDocument.userFollowing.includes(followedUser))) {
+        await followers.updateOne({ username: currentUser }, { $push: { userFollowing: followedUser } });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  // From document called followers, which has users and 2 arrays, userFollowers and userFollowing, remove the current user from the followed user's follower array and remove the followed user from the current user's following array
+  app.delete('/unfollowUser', async (req, res) => {
+    // removing the current user from the followed user's follower array:
+    try {
+      const { currentUser, unfollowedUser } = req.query;
+      const db = client.db(dbName);
+      const followers = db.collection('followers');
+
+      const followerDocument = await followers.findOne({ username: unfollowedUser });
+      const userDocument = await followers.findOne({ username: currentUser });
+
+      if (followerDocument && followerDocument.userFollowers.includes(currentUser)) {
+        await followers.updateOne({ username: unfollowedUser }, { $pull: { userFollowers: currentUser } });
+      }
+      if (userDocument && userDocument.userFollowing.includes(unfollowedUser)) {
+        await followers.updateOne({ username: currentUser }, { $pull: { userFollowing: unfollowedUser } });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
+  // Get user's favorites
+  app.get('/inUserFollowers', async (req, res) => {
+    const { currentUser, followedUser } = req.query;
     const db = client.db(dbName);
     const followers = db.collection('followers');
-
-    const followerDocument = await followers.findOne({ username: followedUser });
     const userDocument = await followers.findOne({ username: currentUser });
 
-    if (followerDocument && !(followerDocument.userFollowers.includes(currentUser))) {
-      await followers.updateOne({ username: followedUser }, { $push: { userFollowers: currentUser } });
+    if (userDocument && userDocument.userFollowing.includes(followedUser)) {
+      res.json({ isFollowing: true });
+    } else {
+      res.json({ isFollowing: false });
     }
-    if (userDocument && !(userDocument.userFollowing.includes(followedUser))) {
-      await followers.updateOne({ username: currentUser }, { $push: { userFollowing: followedUser } });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
+  });
 
-// From document called followers, which has users and 2 arrays, userFollowers and userFollowing, remove the current user from the followed user's follower array and remove the followed user from the current user's following array
-app.post('/unfollowUser', async (req, res) => {
-  // removing the current user from the followed user's follower array:
-  try {
-    const { currentUser, unfollowedUser } = req.body;
+  // Find all people a user is following, return an array of usernames
+  app.get('/getUserFollowing', async (req, res) => {
+    const { currentUser } = req.query;
     const db = client.db(dbName);
     const followers = db.collection('followers');
-
-    const followerDocument = await followers.findOne({ username: unfollowedUser });
     const userDocument = await followers.findOne({ username: currentUser });
+    res.json(userDocument.userFollowing);
+  });
 
-    if (followerDocument && followerDocument.userFollowers.includes(currentUser)) {
-      await followers.updateOne({ username: unfollowedUser }, { $pull: { userFollowers: currentUser } });
-    }
-    if (userDocument && userDocument.userFollowing.includes(unfollowedUser)) {
-      await followers.updateOne({ username: currentUser }, { $pull: { userFollowing: unfollowedUser } });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
-// Get user's favorites
-app.post('/inUserFollowers', async (req, res) => {
-  const { currentUser, followedUser } = req.body;
-  const db = client.db(dbName);
-  const followers = db.collection('followers');
-  const userDocument = await followers.findOne({ username: currentUser });
-
-  if (userDocument && userDocument.userFollowing.includes(followedUser)) {
-    res.json({ isFollowing: true });
-  } else {
-    res.json({ isFollowing: false });
-  }
-});
-
-// Find all people a user is following, return an array of usernames
-app.post('/getUserFollowing', async (req, res) => {
-  const { currentUser } = req.body;
-  const db = client.db(dbName);
-  const followers = db.collection('followers');
-  const userDocument = await followers.findOne({ username: currentUser });
-  res.json(userDocument.userFollowing);
-});
-
-//Return current users profile stats
-app.post('/getProfileStats', async (req, res) => {
-  const { currentUser } = req.body;
-  const db = client.db(dbName);
-  const followers = db.collection('followers');
-  const favorites = db.collection('favorites');
-  const userFriends= await followers.findOne({ username: currentUser });
-  const userFavorites = await favorites.findOne({ username: currentUser });
-  const totFollowing = userFriends.userFollowing;
-  const totFollowers = userFriends.userFollowers;
-  const totFav = userFavorites.games;
-  res.json({totFollowing, totFollowers, totFav});
-});
-
-
+  //Return current users profile stats
+  app.get('/getProfileStats', async (req, res) => {
+    const { currentUser } = req.query;
+    const db = client.db(dbName);
+    const followers = db.collection('followers');
+    const favorites = db.collection('favorites');
+    const userFriends = await followers.findOne({ username: currentUser });
+    const userFavorites = await favorites.findOne({ username: currentUser });
+    const totFollowing = userFriends.userFollowing;
+    const totFollowers = userFriends.userFollowers;
+    const totFav = userFavorites.games;
+    res.json({ totFollowing, totFollowers, totFav });
+  });
 
   app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);

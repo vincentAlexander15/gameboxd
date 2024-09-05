@@ -15,12 +15,12 @@ const FriendsPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://localhost:5000/getUserFollowing', {
-                method: 'POST',
+            const response = await fetch('http://localhost:5000/getUserFollowing?currentUser=' + currentUser, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ currentUser }),
+                    credentials: 'include'
+                }
             });
             const data = await response.json();
             setFriendsSize(data.length);

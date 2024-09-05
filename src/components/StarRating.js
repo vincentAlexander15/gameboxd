@@ -59,12 +59,13 @@ const StarRating = ({ score, gameID, userID, onScoreUpdate }) => {
     };
 
     const handleClick = async (newScore) => {
-        const response = await fetch('http://localhost:5000/updateUserScore', {
-            method: 'POST',
+        const response = await fetch('http://localhost:5000/updateUserScore?gameID=' + gameID + '&userID=' + userID, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ gameID, userID, newScore }),
+            credentials: 'include',
+            body: JSON.stringify({ score: newScore }),
         });
         const data = await response.json();
         if (data.success) {

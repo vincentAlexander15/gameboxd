@@ -54,24 +54,24 @@ const GamePage = () => {
     };
 
     const getUserScore = async () => {
-        const response = await fetch('http://localhost:5000/getUserScore', {
-            method: 'POST',
+        const response = await fetch('http://localhost:5000/getUserScore?gameID=' + gameData.id + '&userID=' + currentUser, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ gameID: gameData.id, userID: currentUser }),
+            credentials: 'include',
         });
         const data = await response.json();
         setUserScore(data);
     }
 
     const getScore = async () => {
-        const response = await fetch('http://localhost:5000/getScore', {
-            method: 'POST',
+        const response = await fetch('http://localhost:5000/getScore?gameID=' + gameData.id, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ gameID: gameData.id }),
+            credentials: 'include',
         });
         const data = await response.json();
         setScore(data);

@@ -38,15 +38,14 @@ const DataPage = () => {
 
     useEffect(() => {
       const getUsers = async () => {
-        const response = await fetch('http://localhost:5000/getUsers',
-        {
-            method: 'POST',
+          const response = await fetch(`http://localhost:5000/getUsers?userName=${encodeURIComponent(searchQuery)}`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userName: searchQuery }),
             credentials: 'include'
         });
+        
         const data = await response.json();
         if (data.length === 0) {
           setIsFound(false);

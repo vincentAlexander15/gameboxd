@@ -12,13 +12,12 @@ const FollowButton = ({username}) => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            const response = await fetch('http://localhost:5000/inUserFollowers', {
-                method: 'POST',
+            const response = await fetch('http://localhost:5000/inUserFollowers?currentUser=' + currentUser + '&followedUser=' + username, {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                credentials: 'include',
-                body: JSON.stringify({ currentUser, followedUser: username}),
+                    'Content-Type': 'application/json',
+                    credentials: 'include'
+                }
             });
             if (response.ok) {
                 const data = await response.json();
@@ -44,12 +43,12 @@ const FollowButton = ({username}) => {
                 });
                 setButtonText("UNFOLLOW");
             } else {
-                fetch('http://localhost:5000/unfollowUser', {
-                    method: 'POST',
+                fetch('http://localhost:5000/unfollowUser?currentUser=' + currentUser + '&unfollowedUser=' + username, {
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ currentUser, unfollowedUser: username}),
+                    credentials: 'include'
                 });
                 setButtonText("FOLLOW");
             }

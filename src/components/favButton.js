@@ -12,14 +12,12 @@ const FavButton = ({gameID}) => {
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            const send = { currentUser, gameID };
-            const response = await fetch('http://localhost:5000/inUserFavorites', {
-                method: 'POST',
+            const response = await fetch('http://localhost:5000/inUserFavorites?gameID=' + gameID + '&currentUser=' + currentUser, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 credentials: 'include',
-                body: JSON.stringify(send)
             });
             if (response.ok) {
                 const data = await response.json();
@@ -45,12 +43,12 @@ const FavButton = ({gameID}) => {
                 });
                 setButtonText("REMOVE");
             } else {
-                fetch('http://localhost:5000/removeFavorite', {
-                    method: 'POST',
+                fetch('http://localhost:5000/removeFavorite?gameID=' + gameID + '&currentUser=' + currentUser, {
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ currentUser, gameID}),
+                    credentials: 'include',
                 });
                 setButtonText("ADD");
             }

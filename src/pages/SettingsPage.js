@@ -21,15 +21,12 @@ const SettingsPage = () => {
       e.preventDefault();
       setIsEditable(false);
       try {
-        const response = await fetch('http://localhost:5000/changeUsername', {
-          method: 'POST',
+        const response = await fetch('http://localhost:5000/changeUsername?newUsername=' + newUsername + '&currentUser=' + currentUser, {
+          method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            currentUser: currentUser,
-            newUsername: newUsername,
-          }),
+          credentials: 'include',
         });
   
         const data = await response.json();

@@ -54,13 +54,12 @@ const LibraryPage = () => {
     useEffect(() => {
         if (isLoggedIn) {
             const FetchFavorites = async () => {
-                const response = await fetch('http://localhost:5000/getUserFavorites', {
-                    method: 'POST',
+                const response = await fetch('http://localhost:5000/getUserFavorites?currentUser=' + currentUser, {
+                    method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     credentials: 'include',
-                    body: JSON.stringify({ currentUser })
                 });
                 const data = await response.json();
                 if (data.length === 0) {

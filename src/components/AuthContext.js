@@ -11,6 +11,10 @@ export const AuthProvider = ({ children }) => {
     const checkAuthStatus = async () => {
       try {
         const loggedInResponse = await fetch('http://localhost:5000/checkLoggedIn', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           credentials: 'include',
         });
         const loggedInData = await loggedInResponse.json();
@@ -18,7 +22,10 @@ export const AuthProvider = ({ children }) => {
   
         if (loggedInData.authenticated) {
           const userResponse = await fetch('http://localhost:5000/getCurrentUser', {
-            method: 'POST',
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
             credentials: 'include',
           });
           if (userResponse.ok) {

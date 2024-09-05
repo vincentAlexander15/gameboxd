@@ -12,12 +12,12 @@ const ProfileBanner = ({user}) => {
     // Fetch the user's profile picture from the backend
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('http://localhost:5000/getProfileStats', {
-                method: 'POST',
+            const response = await fetch('http://localhost:5000/getProfileStats?currentUser=' + user, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ currentUser: user }),
+                    credentials: 'include'
+                }
             });
             const data = await response.json();
             setFavoritesLen(data.totFav.length);
